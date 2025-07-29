@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* True Connect Design System - All colors MUST be HSL */
+
+@layer base {
+  :root {
+    /* True Connect Brand Colors */
+    --background: 220 13% 9%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 13% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 13% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary - True Connect Blue */
+    --primary: 210 100% 60%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 210 100% 70%;
+
+    /* Secondary - True Connect Orange */
+    --secondary: 38 100% 60%;
+    --secondary-foreground: 220 13% 9%;
+    --secondary-glow: 38 100% 70%;
+
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 65%;
+
+    --accent: 38 100% 60%;
+    --accent-foreground: 220 13% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 210 100% 60%;
+
+    --radius: 0.75rem;
+
+    /* True Connect Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 60%), hsl(210 100% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(38 100% 60%), hsl(38 100% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 13% 9%), hsl(220 13% 12%));
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(210 100% 60% / 0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsl(38 100% 60% / 0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 80%, hsl(210 100% 60% / 0.1) 0%, transparent 50%);
+
+    /* Shadows */
+    --shadow-primary: 0 10px 40px hsl(210 100% 60% / 0.3);
+    --shadow-secondary: 0 10px 40px hsl(38 100% 60% / 0.3);
+    --shadow-elegant: 0 20px 60px hsl(220 13% 9% / 0.5);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-space-grotesk;
+  }
+}
+
+@layer components {
+  /* Hero Button Variants */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-primary)] border-0;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-secondary to-secondary-glow text-secondary-foreground px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-secondary)] border-0;
+  }
+
+  .btn-whatsapp {
+    @apply bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-2;
+  }
+
+  /* Glass Effect */
+  .glass-card {
+    @apply bg-card/10 backdrop-blur-lg border border-border/20 rounded-2xl;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  /* Speed Indicator Animation */
+  .speed-indicator {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Floating Animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Network Animation */
+  .network-line {
+    animation: networkPulse 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes networkPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
