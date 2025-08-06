@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { Wifi, Zap, Globe, MessageCircle } from 'lucide-react';
 import networkBg from '@/assets/network-bg.jpg';
-import floatingTech from '@/assets/floating-tech.jpg';
+import floatingTech from '@/assets/hero-icon.png';
 
 const Hero = () => {
   useEffect(() => {

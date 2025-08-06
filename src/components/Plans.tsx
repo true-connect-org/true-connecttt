@@ -42,32 +42,82 @@ const Plans = () => {
     document.getElementById('contact-us')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // const plans = [
+  //   {
+  //     name: '2501 plan',
+  //     speed: '500 Mbps',
+  //     icon: Zap,
+  //     features: [
+  //       'Up to 100 Mbps speed',
+  //       'Unlimited data',
+  //       'Basic support',
+  //       'Standard installation',
+  //       'Wi-Fi router included'
+  //     ],
+  //     popular: false,
+  //     color: 'primary'
+  //   },
+  //   {
+  //     name: 'Premium',
+  //     speed: '500 Mbps',
+  //     icon: Star,
+  //     features: [
+  //       'Up to 500 Mbps speed',
+  //       'Unlimited data',
+  //       'Priority support',
+  //       'Free installation',
+  //       'Advanced Wi-Fi router',
+  //       'Free OTT subscriptions'
+  //     ],
+  //     popular: true,
+  //     color: 'secondary'
+  //   },
+  //   {
+  //     name: 'Ultra',
+  //     speed: '1 Gbps',
+  //     icon: Crown,
+  //     features: [
+  //       'Up to 1 Gbps speed',
+  //       'Unlimited data',
+  //       '24/7 premium support',
+  //       'Free installation & setup',
+  //       'Mesh Wi-Fi system',
+  //       'All OTT platforms included',
+  //       'Static IP option'
+  //     ],
+  //     popular: false,
+  //     color: 'primary'
+  //   }
+  // ];
+  
+
   const plans = [
     {
-      name: 'Starter',
-      speed: '100 Mbps',
+      name: 'Basic',
+      speed: '500 Mbps',
       icon: Zap,
       features: [
-        'Up to 100 Mbps speed',
-        'Unlimited data',
-        'Basic support',
-        'Standard installation',
-        'Wi-Fi router included'
+        'Up to 500 Mbps speed',
+        '39,600 GB high-speed data annually',
+        'Post-FUP speed: 2 Mbps',
+        '1 voice line – unlimited calling across India',
+        'JioAttendance – 15 employee licenses',
+        'JioMeet – 2 video conferencing licenses'
       ],
       popular: false,
       color: 'primary'
     },
     {
       name: 'Premium',
-      speed: '500 Mbps',
+      speed: '1 Gbps',
       icon: Star,
       features: [
-        'Up to 500 Mbps speed',
-        'Unlimited data',
-        'Priority support',
-        'Free installation',
-        'Advanced Wi-Fi router',
-        'Free OTT subscriptions'
+        'Up to 1 Gbps speed',
+        '54,000 GB high-speed data annually',
+        'Post-FUP speed: 2 Mbps',
+        '1 voice line – unlimited calling across India',
+        'JioAttendance – 20 employee licenses',
+        'JioMeet – 2 video conferencing licenses'
       ],
       popular: true,
       color: 'secondary'
@@ -78,17 +128,18 @@ const Plans = () => {
       icon: Crown,
       features: [
         'Up to 1 Gbps speed',
-        'Unlimited data',
-        '24/7 premium support',
-        'Free installation & setup',
-        'Mesh Wi-Fi system',
-        'All OTT platforms included',
-        'Static IP option'
+        '78,000 GB high-speed data annually',
+        'Post-FUP speed: 5 Mbps',
+        '8 voice lines – unlimited calling across India',
+        'JioAttendance – 30 employee licenses',
+        'JioMeet – 3 video conferencing licenses'
       ],
       popular: false,
       color: 'primary'
     }
   ];
+  
+  
 
   return (
     <section id="plans" className="py-20 bg-gradient-to-b from-muted/20 to-background">

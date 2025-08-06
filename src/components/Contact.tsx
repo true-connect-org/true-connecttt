@@ -17,7 +17,7 @@ const Contact = () => {
 
   useEffect(() => {
     // Initialize EmailJS
-    emailjs.init("YOUR_PUBLIC_KEY"); // You'll need to add your public key
+    emailjs.init("XR7hy2NvuKPVARIUd"); // You'll need to add your public key
 
     gsap.fromTo('.contact-title', 
       { y: 50, opacity: 0 },
@@ -63,8 +63,8 @@ const Contact = () => {
     try {
       // EmailJS configuration
       await emailjs.send(
-        'service_yem6p87', // Your service ID
-        'YOUR_TEMPLATE_ID', // You'll need to create a template
+        'service_ojf96cm', // Your service ID
+        'template_wa9gvmt', // You'll need to create a template
         {
           from_name: formData.name,
           from_email: formData.email,
