@@ -11,7 +11,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    mobile: ''
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -68,13 +68,12 @@ const Contact = () => {
         {
           from_name: formData.name,
           from_email: formData.email,
-          mobile: formData.mobile,
-          message: `New contact form submission from ${formData.name}. Mobile: ${formData.mobile}`
+          message: formData.message
         }
       );
 
       toast.success('Message sent successfully! We\'ll contact you soon.');
-      setFormData({ name: '', email: '', mobile: '' });
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       toast.error('Failed to send message. Please try again.');
       console.error('EmailJS error:', error);
@@ -140,7 +139,7 @@ const Contact = () => {
               </div>
 
               {/* Email */}
-              <div className="flex items-center space-x-4 p-4 glass-card">
+              <div className="flex items-center space-x-4 p-4 glass-card cursor-pointer hover:scale-105 transition-transform duration-300 mb-4">
                 <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
                   <Mail className="w-6 h-6 text-secondary-foreground" />
                 </div>
@@ -214,17 +213,17 @@ const Contact = () => {
 
                 <div>
                   <label htmlFor="mobile" className="block text-sm font-medium mb-2">
-                    Mobile Number *
+                    Your Message *
                   </label>
                   <input
-                    type="tel"
-                    id="mobile"
-                    name="mobile"
-                    value={formData.mobile}
+                    type="text"
+                    id="message"
+                    name="message"
+                    value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
-                    placeholder="Enter your mobile number"
+                    className="w-full h-20 px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
+                    placeholder="Enter your message"
                   />
                 </div>
 

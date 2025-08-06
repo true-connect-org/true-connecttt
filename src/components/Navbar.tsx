@@ -45,7 +45,7 @@ const Navbar = () => {
             {/* Logo */}
             <div className="nav-item flex items-center space-x-3 cursor-pointer" 
                  onClick={() => scrollToSection('home')}>
-              <img src="/lovable-uploads/8fccdabb-a2fc-4157-b8a8-3e46ded07d7f.png" alt="True Connect" className="w-10 h-10 object-contain" />
+              <img src="/lovable-uploads/logo.png" alt="True Connect" className="w-10 h-10 object-contain" />
               <h1 className="text-xl font-bold font-space-grotesk gradient-text tracking-tight">TRUE CONNECT</h1>
             </div>
 

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Linkedin, Instagram, MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
-import logo from '@/assets/true-connect-logo.png';
+import logo from '@/assets/logo.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +44,7 @@ const Footer = () => {
             {/* Company Info */}
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <img src={logo} alt="True Connect" className="w-10 h-10" />
+                <img src={logo} alt="True Connect" className="w-10 h-10 object-contain" />
                 <div>
                   <h1 className="text-xl font-bold gradient-text">True Connect</h1>
                   <p className="text-xs text-muted-foreground">Boost Your Speed</p>
