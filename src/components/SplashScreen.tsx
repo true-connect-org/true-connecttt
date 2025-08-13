@@ -69,12 +69,12 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
           />
         </div>
         
-        <h1 className="splash-text text-6xl font-bold gradient-text mb-4">
-          True Connect
+        <h1 className="splash-text text-6xl  font-bold['Franklin_Gothic_Demi'] gradient-text tracking-tight mb-4"> 
+         TRUE CONNECT
         </h1>
         
         <p className="splash-tagline text-xl text-muted-foreground font-medium">
-          Boost Your Speed
+          BOOST YOUR SPEED
         </p>
         
         {/* Loading indicator */}

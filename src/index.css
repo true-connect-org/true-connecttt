@@ -79,7 +79,7 @@
 @layer components {
   /* Hero Button Variants */
   .btn-hero {
-    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-primary)] border-0;
+    @apply bg-[#0052D4] hover:bg-transparent hover:border-2 hover:border-[#0052D4] hover:text-[#0052D4] text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto;
   }
   
   .btn-secondary {
@@ -87,7 +87,7 @@
   }
 
   .btn-whatsapp {
-    @apply bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-2;
+    @apply bg-[#1EA952] hover:bg-transparent hover:border-2 hover:border-[#1EA952] hover:text-[#1EA952] text-white px-6 py-3 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto;
   }
 
   /* Glass Effect */
@@ -113,6 +113,20 @@
   /* Network Animation */
   .network-line {
     animation: networkPulse 3s ease-in-out infinite;
+  }
+
+  /* Stats Hover Effect */
+  .stats-container:hover .float-icon:not(:hover) {
+    @apply scale-95 opacity-70;
+  }
+
+  /* Hero Title Letter Animation */
+  .hero-title .letter {
+    @apply inline-block;
+  }
+
+  .hero-title .letter:hover {
+    @apply text-primary transition-colors duration-300;
   }
 }
 

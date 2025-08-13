@@ -15,7 +15,7 @@ const Navbar = () => {
       duration: 0.8,
       stagger: 0.1,
       ease: 'power2.out',
-      delay: 2.5 // After splash screen
+      delay: 2.1 // After splash screen
     });
 
     // Scroll effect
@@ -46,7 +46,8 @@ const Navbar = () => {
             <div className="nav-item flex items-center space-x-3 cursor-pointer" 
                  onClick={() => scrollToSection('home')}>
               <img src="/lovable-uploads/logo.png" alt="True Connect" className="w-10 h-10 object-contain" />
-              <h1 className="text-xl font-bold font-space-grotesk gradient-text tracking-tight">TRUE CONNECT</h1>
+              {/* <h1 className="text-xl font-bold font-space-grotesk gradient-text tracking-tight">TRUE CONNECT</h1> */}
+              <h1 className="text-xl font-bold font- bold['Franklin_Gothic_Demi'] gradient-text tracking-tight">TRUE CONNECT</h1>
             </div>
 
             {/* Desktop Navigation */}
@@ -91,7 +92,7 @@ const Navbar = () => {
       </nav>
 
       {/* Divider */}
-      {/* <div className="fixed top-[88px] w-full z-30 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div> */}
+      <div className="fixed top-[88px] w-full z-30 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
     </>
   );
 };
