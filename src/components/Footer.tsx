@@ -32,51 +32,46 @@ const Footer = () => {
   };
 
   const openInstagram = () => {
-    window.open('https://instagram.com/trueconnectindia', '_blank');
+    window.open('https://www.instagram.com/trueeconnect/', '_blank');
   };
 
   return (
     <footer className="bg-gradient-to-t from-muted/30 to-background border-t border-border">
       <div className="container mx-auto px-6 py-16">
         <div className="footer-content">
-          {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {/* Company Info */}
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <img src={logo} alt="True Connect" className="w-10 h-10 object-contain" />
-                <div>
-                  <h1 className="text-xl font-bold gradient-text">True Connect</h1>
-                  <p className="text-xs text-muted-foreground">Boost Your Speed</p>
-                </div>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                India's fastest growing internet service provider, delivering high-speed 
-                connectivity to millions of homes and businesses across the nation.
+          {/* Stats Section */}
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 mb-12">
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold mb-2">
+                India's #1 <span className='gradient-text'>Internet Service Provider</span> 
+              </h3>
+              <p className="text-muted-foreground">
+                Trusted by millions across the nation
               </p>
-              
-              {/* Social Links */}
-              <div className="flex space-x-4 pt-4">
-                <button
-                  onClick={openLinkedIn}
-                  className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors duration-300"
-                >
-                  <Linkedin className="w-5 h-5 text-white" />
-                </button>
-                <button
-                  onClick={openInstagram}
-                  className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full flex items-center justify-center transition-all duration-300"
-                >
-                  <Instagram className="w-5 h-5 text-white" />
-                </button>
-                <button
-                  onClick={openWhatsApp}
-                  className="w-10 h-10 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-300"
-                >
-                  <MessageCircle className="w-5 h-5 text-white" />
-                </button>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">10M+</div>
+                <div className="text-sm text-muted-foreground">Active Users</div>
+              </div>
+              <div>
+                <div className="text-2xl md:text-3xl font-bold text-secondary mb-1">500+</div>
+                <div className="text-sm text-muted-foreground">Cities</div>
+              </div>
+              <div>
+                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">99.9%</div>
+                <div className="text-sm text-muted-foreground">Uptime</div>
+              </div>
+              <div>
+                <div className="text-2xl md:text-3xl font-bold text-secondary mb-1">24/7</div>
+                <div className="text-sm text-muted-foreground">Support</div>
               </div>
             </div>
+          </div>
+
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 
             {/* Quick Links */}
             <div>
@@ -113,73 +108,56 @@ const Footer = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Phone className="w-4 h-4 text-primary" />
-                  <span className="text-muted-foreground">+91 98765 43210</span>
+                  <span className="text-muted-foreground">+91 8848817833</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 text-primary" />
-                  <span className="text-muted-foreground">support@trueconnect.in</span>
+                  <span className="text-muted-foreground">trueeconnectt@gmail.com</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-4 h-4 text-primary mt-1" />
                   <span className="text-muted-foreground">
-                    True Connect Tower,<br />
-                    Mumbai, Maharashtra 400001
+                    True Connect,<br />
+                    Building No. 2/35/A, Vettor Service Co-operative Bank Building,
+                    Varkala, Trivandrum, Kerala   
                   </span>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Stats Section */}
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 mb-8">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold gradient-text mb-2">
-                India's #1 Internet Service Provider
-              </h3>
-              <p className="text-muted-foreground">
-                Trusted by millions across the nation
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">10M+</div>
-                <div className="text-sm text-muted-foreground">Active Users</div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-secondary mb-1">500+</div>
-                <div className="text-sm text-muted-foreground">Cities</div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">99.9%</div>
-                <div className="text-sm text-muted-foreground">Uptime</div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-secondary mb-1">24/7</div>
-                <div className="text-sm text-muted-foreground">Support</div>
-              </div>
+                    </div>
+          
+          {/* Social Media Links */}
+          <div className="text-center mb-8">
+            <div className="flex justify-center space-x-6">
+              <button
+                onClick={openInstagram}
+                className="flex items-center space-x-2 text-muted-foreground hover:text-white transition-all duration-300 group"
+              >
+                <div className="w-10 h-10 bg-transparent border border-muted-foreground rounded-full flex items-center justify-center group-hover:border-white group-hover:scale-110 transition-all duration-300">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <span className="text-sm font-medium">Instagram</span>
+              </button>
+              <button
+                onClick={openLinkedIn}
+                className="flex items-center space-x-2 text-muted-foreground hover:text-white transition-all duration-300 group"
+              >
+                <div className="w-10 h-10 bg-transparent border border-muted-foreground rounded-full flex items-center justify-center group-hover:border-white group-hover:scale-110 transition-all duration-300">
+                  <Linkedin className="w-5 h-5" />
+                </div>
+                <span className="text-sm font-medium">LinkedIn</span>
+              </button>
             </div>
           </div>
-
+          
           {/* Bottom Bar */}
           <div className="border-t border-border pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <p className="text-muted-foreground text-sm">
-                © 2024 True Connect. All rights reserved. Delivering India's fastest internet.
+            <div className="flex justify-center items-center">
+              <p className="text-muted-foreground text-sm text-center">
+                © 2025 True Connect. All rights reserved. Delivering India's fastest internet.
               </p>
-              <div className="flex space-x-6 text-sm text-muted-foreground">
-                <button className="hover:text-primary transition-colors duration-300">
-                  Privacy Policy
-                </button>
-                <button className="hover:text-primary transition-colors duration-300">
-                  Terms of Service
-                </button>
-                <button className="hover:text-primary transition-colors duration-300">
-                  Support
-                </button>
-              </div>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
     </footer>

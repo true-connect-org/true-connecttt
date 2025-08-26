@@ -95,12 +95,11 @@ const Contact = () => {
       <div className="container mx-auto px-6">
         {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="contact-title text-4xl md:text-5xl font-bold gradient-text mb-6">
-            Get Connected Today
+          <h2 className="contact-title text-4xl md:text-5xl font-bold mb-6">
+            Get Connected <span className='gradient-text'>Today</span>
           </h2>
-          <p className="contact-title text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to experience India's fastest internet? Contact us now and our team 
-            will help you choose the perfect plan for your needs.
+          <p className="contact-title text-l text-muted-foreground max-w-3xl mx-auto">
+            Ready to experience India's fastest leased line internet? Contact us now and our team will help you choose the perfect plan with high-speed connectivity and reliable internet for your needs.
           </p>
         </div>
 
@@ -134,7 +133,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-primary">Dial Now</h4>
-                  <p className="text-muted-foreground">+91 98765 43210</p>
+                  <p className="text-muted-foreground">+91 8848817833</p>
                 </div>
               </div>
 
@@ -145,30 +144,30 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-secondary">Email Us</h4>
-                  <p className="text-muted-foreground">support@trueconnect.in</p>
+                  <p className="text-muted-foreground">trueeconnectt@gmail.com</p>
                 </div>
               </div>
             </div>
 
             {/* Additional Info */}
             <div className="contact-item">
-              <h4 className="text-lg font-semibold mb-4">Why Choose True Connect?</h4>
+              <h4 className="text-lg font-semibold mb-4">What Makes True Connect Different?</h4>
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span>Fastest installation in India</span>
+                  <span>Easy installation — no wires, no damage</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  <span>24/7 customer support</span>
+                  <span>Quick setup without drilling or mess</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  <span>No hidden charges</span>
+                  <span>Clean and office-friendly installation</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  <span>Money-back guarantee</span>
+                  <span>Powered by Jio — trusted connectivity</span>
                 </li>
               </ul>
             </div>

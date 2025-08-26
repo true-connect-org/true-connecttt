@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Check, Zap, Star, Crown } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,49 +92,39 @@ const Plans = () => {
 
   const plans = [
     {
-      name: 'Basic',
-      speed: '500 Mbps',
-      icon: Zap,
-      features: [
-        'Up to 500 Mbps speed',
-        '39,600 GB high-speed data annually',
-        'Post-FUP speed: 2 Mbps',
-        '1 voice line – unlimited calling across India',
-        'JioAttendance – 15 employee licenses',
-        'JioMeet – 2 video conferencing licenses'
-      ],
-      popular: false,
-      color: 'primary'
+      name: 'CONNECT 50',
+      speed: '50',
+      unit: 'Mbps',
+      subtitle: '/50 Mbps',
+      featured: false
     },
     {
-      name: 'Premium',
-      speed: '1 Gbps',
-      icon: Star,
-      features: [
-        'Up to 1 Gbps speed',
-        '54,000 GB high-speed data annually',
-        'Post-FUP speed: 2 Mbps',
-        '1 voice line – unlimited calling across India',
-        'JioAttendance – 20 employee licenses',
-        'JioMeet – 2 video conferencing licenses'
-      ],
-      popular: true,
-      color: 'secondary'
+      name: 'CONNECT 100',
+      speed: '100',
+      unit: 'Mbps',
+      subtitle: '/100 Mbps',
+      featured: false
     },
     {
-      name: 'Ultra',
-      speed: '1 Gbps',
-      icon: Crown,
-      features: [
-        'Up to 1 Gbps speed',
-        '78,000 GB high-speed data annually',
-        'Post-FUP speed: 5 Mbps',
-        '8 voice lines – unlimited calling across India',
-        'JioAttendance – 30 employee licenses',
-        'JioMeet – 3 video conferencing licenses'
-      ],
-      popular: false,
-      color: 'primary'
+      name: 'CONNECT 200',
+      speed: '200',
+      unit: 'Mbps',
+      subtitle: '/200 Mbps',
+      featured: true
+    },
+    {
+      name: 'CONNECT 500',
+      speed: '500',
+      unit: 'Mbps',
+      subtitle: '/500 Mbps',
+      featured: false
+    },
+    {
+      name: 'CONNECT 1024',
+      speed: '1',
+      unit: 'Gbps',
+      subtitle: '/1 Gbps',
+      featured: false
     }
   ];
   
@@ -145,80 +134,56 @@ const Plans = () => {
     <section id="plans" className="py-20 pt-40 bg-gradient-to-b from-muted/20 to-background">
       <div className="container mx-auto px-6">
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="plans-title text-4xl md:text-5xl font-bold gradient-text mb-6">
-            Choose Your Perfect Plan
+        <div className="text-center mb-20">
+          <h2 className="plans-title text-4xl md:text-5xl font-bold mb-5">
+            <span className="text-white">Plans</span>{" "}
+            <span className="gradient-text">& Pricing</span>
           </h2>
-          <p className="plans-title text-xl text-muted-foreground max-w-3xl mx-auto">
-            Experience lightning-fast internet with our flexible plans designed for every need.
-            From basic browsing to enterprise solutions.
+          <p className="plans-title text-l text-muted-foreground max-w-[700px] mx-auto leading-relaxed mb-10 text-center">
+            Choose the right internet plan for your business.<strong>True Connect offers dedicated 1:1 leased line internet with guaranteed speed, reliability, and 24/7 support. </strong>  <br /> Whether you need 50 Mbps, 100 Mbps, 200 Mbps, 500 Mbps, or 1 Gbps.
           </p>
         </div>
 
         {/* Plans Grid */}
-        <div className="plans-grid grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
+        <div className="plans-grid grid grid-cols-1 md:grid-cols-5 gap-6 max-w-6xl mx-auto group/plans mt-15">
           {plans.map((plan, index) => (
             <div 
               key={index} 
-              className={`plan-card relative glass-card p-8 hover:scale-105 transition-all duration-300 ${
-                plan.popular ? 'ring-2 ring-secondary shadow-secondary' : 'hover:ring-2 ring-secondary '
-              }`}
+              className={`plan-card relative glass-card p-6 rounded-lg shadow-sm transition-all duration-300 cursor-pointer group ${
+                plan.featured ? 'ring-2 ring-orange-500 shadow-lg group-hover/plans:ring-0 group-hover/plans:group-hover:ring-2 group-hover/plans:group-hover:ring-orange-500' : ''
+              } hover:scale-110 hover:z-10 group-hover/plans:scale-95 group-hover/plans:hover:scale-110 hover:ring-2 hover:ring-primary`}
             >
-              {/* Popular Badge */}
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-gradient-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-semibold">
-                    Most Popular
-                  </span>
-                </div>
-              )}
+              {/* Plan Title */}
+              <div className="text-center mb-4">
+                <h3 className="text-lg font-bold text-foreground mb-2">{plan.name}</h3>
+                <div className="text-3xl font-bold gradient-text mb-1">{plan.speed}</div>
+                <div className="text-sm font-bold text-muted-foreground mb-2">{plan.unit}</div>
+                <div className="text-xs text-muted-foreground">{plan.subtitle}</div>
+              </div>
 
-              {/* Plan Icon */}
+              {/* Feature Line */}
               <div className="text-center mb-6">
-                <plan.icon className={`w-16 h-16 mx-auto mb-4 ${
-                  plan.color === 'primary' ? 'text-primary' : 'text-secondary'
-                }`} />
-                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                <div className="text-4xl font-bold gradient-text mb-2">{plan.speed}</div>
-                <p className="text-muted-foreground">Lightning Fast</p>
+                <p className="text-sm font-medium text-foreground">1:1 LEASED LINE</p>
               </div>
 
-              {/* Features */}
-              <div className="space-y-4 mb-8">
-                {plan.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center space-x-3">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                    <span className="text-foreground">{feature}</span>
-                  </div>
-                ))}
+              {/* Buy Now Button - Shows on hover for all cards, but Connect 200 hides when others are hovered */}
+              <div className={`transition-opacity duration-300 ${
+                plan.featured 
+                  ? 'opacity-100 group-hover/plans:opacity-0 group-hover/plans:group-hover:opacity-100' 
+                  : 'opacity-0 group-hover:opacity-100'
+              }`}>
+                <button 
+                  onClick={scrollToContact}
+                  className="w-full bg-[#F8BD29] hover:bg-[#E5A91A] text-gray-800 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300"
+                >
+                  BUY NOW →
+                </button>
               </div>
-
-              {/* Buy Now Button */}
-              <button 
-                onClick={scrollToContact}
-                className={`w-full py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105  ${
-                  plan.popular 
-                    ? 'btn-secondary' 
-                    : 'btn-hero'
-                }`}
-              >
-                Buy Now
-              </button>
             </div>
           ))}
         </div>
 
-        {/* Additional Info */}
-        <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-4">
-            All plans include free installation, 24/7 support, and no hidden charges.
-          </p>
-          <div className="flex justify-center items-center space-x-8 text-sm text-muted-foreground">
-            <span>✓ No data caps</span>
-            <span>✓ Free equipment</span>
-            <span>✓ Easy cancellation</span>
-          </div>
-        </div>
+
       </div>
     </section>
   );
