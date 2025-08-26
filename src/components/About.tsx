@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Shield, Clock, Users, Award, Globe, Star, Cloud, CheckCircle, ArrowRight } from 'lucide-react';
-import speedChart from '@/assets/speed-chart.jpg';
+import speedChart from '@/assets/test-ilustration.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -115,10 +115,10 @@ const Footer = () => {
                   <span className="text-muted-foreground">trueeconnectt@gmail.com</span>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-4 h-4 text-primary mt-1" />
+                  <MapPin className="w-4 h-4 text-primary " />
                   <span className="text-muted-foreground">
-                    True Connect,<br />
-                    Building No. 2/35/A, Vettor Service Co-operative Bank Building,
+                    True Connect,
+                    Building No. 2/35/A, <br /> Vettor Service  Co-operative Bank Building,<br />
                     Varkala, Trivandrum, Kerala   
                   </span>
                 </div>
