@@ -7,7 +7,7 @@ import floatingTech from "@/assets/hero-icon.png";
 const Hero = () => {
   useEffect(() => {
     // Hero animations
-    const tl = gsap.timeline({ delay: 3 });
+    const tl = gsap.timeline({ delay: 0.2 });
 
     tl.from(".hero-title", {
       y: 100,
@@ -90,7 +90,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto mt-20">
           <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 text-shadow">
             Internet That Never Says{" "}
-            <span className="gradient-text">"Try Again."</span>
+            <span className="gradient-tex">"Try Again."</span>
           </h1>
 
           <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">

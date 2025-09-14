@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import logo from '@/assets/true-logo.png';
+import logo from '@/assets/logo-text.png';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -69,13 +69,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
           />
         </div>
         
-        <h1 className="splash-text text-6xl  font-bold['Franklin_Gothic_Demi'] gradient-text tracking-tight mb-4"> 
+        {/* <h1 className="splash-text text-6xl  font-bold['Franklin_Gothic_Demi'] gradient-text tracking-tight mb-4"> 
          TRUE CONNECT
         </h1>
         
         <p className="splash-tagline text-xl text-muted-foreground font-medium">
           BOOST YOUR SPEED
-        </p>
+        </p> */}
         
         {/* Loading indicator */}
         <div className="mt-8 flex justify-center">

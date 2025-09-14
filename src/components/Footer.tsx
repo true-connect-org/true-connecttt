@@ -37,10 +37,10 @@ const Footer = () => {
 
   return (
     <footer className="bg-gradient-to-t from-muted/30 to-background border-t border-border">
-      <div className="container mx-auto px-6 py-16">
+      <div className="container mx-auto px-6 py-8">
         <div className="footer-content">
           {/* Stats Section */}
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 mb-12">
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 mb-6">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold mb-2">
                 India's #1 <span className='gradient-text'>Internet Service Provider</span> 
@@ -151,7 +151,7 @@ const Footer = () => {
           </div>
           
           {/* Bottom Bar */}
-          <div className="border-t border-border pt-8">
+          <div className="border-t border-border pt-10">
             <div className="flex justify-center items-center">
               <p className="text-muted-foreground text-sm text-center">
                 © 2025 True Connect. All rights reserved. Delivering India's fastest internet.
