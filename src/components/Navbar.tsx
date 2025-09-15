@@ -11,12 +11,12 @@ const Navbar = () => {
   useEffect(() => {
     // Navbar entrance animation
     gsap.from('.nav-item', {
-      y: -50,
+      x: -50,
       opacity: 0,
       duration: 0.8,
       stagger: 0.1,
       ease: 'power2.out',
-      delay: 2.1 // After splash screen
+      delay: 0.2 // After splash screen
     });
 
     // Scroll effect
@@ -46,8 +46,8 @@ const Navbar = () => {
             {/* Logo */}
             <div className="nav-item flex items-center space-x-3 cursor-pointer" 
                  onClick={() => scrollToSection('home')}>
-              <img src= {logo} alt="True Connect Logo" className="w-10 h-10 object-contain" />
-              <img src= {logoText} alt="True Connect Text" className="h-10 object-contain" />
+              <img src= {logo} alt="True Connect Logo" className="w-10 h-8 object-contain" />
+              <img src= {logoText} alt="True Connect Text" className="h-8 object-contain" />
             </div>
 
             {/* Desktop Navigation */}
