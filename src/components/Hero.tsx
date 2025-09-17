@@ -61,7 +61,7 @@ const Hero = () => {
 
   const openWhatsApp = () => {
     window.open(
-      "https://wa.me/919876543210?text=Hi%20True%20Connect!%20I%20want%20to%20know%20more%20about%20your%20internet%20plans.",
+      "https://wa.link/pn0hzn", //whatsapp link
       "_blank"
     );
   };
@@ -79,23 +79,23 @@ const Hero = () => {
 
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-4 h-4 bg-primary rounded-full network-line"></div>
-        <div className="absolute top-40 right-20 w-6 h-6 bg-secondary rounded-full network-line"></div>
-        <div className="absolute bottom-32 left-20 w-3 h-3 bg-primary rounded-full network-line"></div>
-        <div className="absolute bottom-20 right-10 w-5 h-5 bg-secondary rounded-full network-line"></div>
+        {/* <div className="absolute top-20 left-10 w-4 h-4 bg-primary rounded-full network-line"></div> */}
+        <div className="absolute top-40 right-20 w-4 h-4 bg-secondary rounded-full network-line"></div>
+        <div className="absolute bottom-32 left-12 w-3 h-3 bg-primary rounded-full network-line"></div>
+        {/* <div className="absolute bottom-20 right-10 w-5 h-5 bg-secondary rounded-full network-line"></div> */}
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
         {/* Main Content */}
         <div className="max-w-4xl mx-auto mt-20">
           <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 text-shadow">
-            Internet That Never Says{" "}
-            <span className="gradient-tex">"Try Again."</span>
+          India's Best <span className="gradient-text">"Leased Line"</span>{" "}
+            <span className="gradient-tex">Provider</span>
           </h1>
 
-          <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Enterprise leased lines for leaders — unbreakable, unstoppable, and
-            built to power your business 24×7.
+          <p className="hero-subtitle text-lg md:text-l text-muted-foreground mb-8 max-w-2xl mx-auto">
+          Premium leased line services with 24x7 support, 
+          hassle-free installation, and nationwide coverage across India.
           </p>
 
           {/* Buttons */}
@@ -117,7 +117,7 @@ const Hero = () => {
           </div>
 
           {/* Floating Tech Icons */}
-          <div className="relative mb-16">
+          {/* <div className="relative mb-16">
             <div className="floating-icon absolute -top-20 -left-10 md:-left-20">
               <Wifi className="w-12 h-12 text-primary" />
             </div>
@@ -127,16 +127,7 @@ const Hero = () => {
             <div className="floating-icon absolute -top-12 left-0 md:left-10">
               <Globe className="w-8 h-8 text-primary" />
             </div>
-
-            {/* Floating Tech Image */}
-            {/* <div className="floating-icon mx-auto w-64 h-58 overflow-hidden rounded-2xl bg-black/20">
-              <img 
-                src={floatingTech} 
-                alt="Internet Technology" 
-                className="w-full h-full object-cover float-animation"
-              />
-            </div> */}
-          </div>
+          </div> */}
         </div>
 
         {/* Speed Stats */}

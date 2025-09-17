@@ -83,11 +83,11 @@ const Contact = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/919876543210?text=Hi%20True%20Connect!%20I%20want%20to%20know%20more%20about%20your%20internet%20plans.', '_blank');
+    window.open('https://wa.link/pn0hzn', '_blank');
   };
 
   const dialNow = () => {
-    window.location.href = 'tel:+919876543210';
+    window.location.href = 'tel:+91 8848817833';
   };
 
   return (

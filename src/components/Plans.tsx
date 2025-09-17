@@ -92,35 +92,35 @@ const Plans = () => {
 
   const plans = [
     {
-      name: 'CONNECT 50',
+      name: 'TRU 50',
       speed: '50',
       unit: 'Mbps',
       subtitle: '/50 Mbps',
       featured: false
     },
     {
-      name: 'CONNECT 100',
+      name: 'TRU 100',
       speed: '100',
       unit: 'Mbps',
       subtitle: '/100 Mbps',
       featured: false
     },
     {
-      name: 'CONNECT 200',
+      name: 'TRU 200',
       speed: '200',
       unit: 'Mbps',
       subtitle: '/200 Mbps',
       featured: true
     },
     {
-      name: 'CONNECT 500',
+      name: 'TRU 500',
       speed: '500',
       unit: 'Mbps',
       subtitle: '/500 Mbps',
       featured: false
     },
     {
-      name: 'CONNECT 1024',
+      name: 'TRU 1024',
       speed: '1',
       unit: 'Gbps',
       subtitle: '/1 Gbps',
