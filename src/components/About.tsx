@@ -128,7 +128,7 @@ const About = () => {
     <section
       id="about-us"
       ref={sectionRef}
-      className="py-20 pt-40 bg-gradient-to-b from-background to-muted/20"
+      className="py-20 pt-40 bg-white"
     >
       <div className="container mx-auto px-6">
         {/* Section Title */}

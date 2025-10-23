@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Linkedin, Instagram, MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
-import logo from '@/assets/logo.png';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,11 +32,11 @@ const Footer = () => {
   };
 
   const openInstagram = () => {
-    window.open('https://www.instagram.com/trueeconnect/', '_blank');
+    window.open('https://www.instagram.com/true.connectt/', '_blank');
   };
 
   return (
-    <footer className="bg-gradient-to-t from-muted/30 to-background border-t border-border">
+    <footer className="bg-white border-t border-border">
       <div className="container mx-auto px-6 py-8">
         <div className="footer-content">
           {/* Stats Section */}
@@ -126,29 +126,39 @@ const Footer = () => {
             </div>
                     </div>
           
-          {/* Social Media Links */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center space-x-6">
-              <button
-                onClick={openInstagram}
-                className="flex items-center space-x-2 text-muted-foreground hover:text-white transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 bg-transparent border border-muted-foreground rounded-full flex items-center justify-center group-hover:border-white group-hover:scale-110 transition-all duration-300">
-                  <Instagram className="w-5 h-5" />
-                </div>
-                <span className="text-sm font-medium">Instagram</span>
-              </button>
-              <button
-                onClick={openLinkedIn}
-                className="flex items-center space-x-2 text-muted-foreground hover:text-white transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 bg-transparent border border-muted-foreground rounded-full flex items-center justify-center group-hover:border-white group-hover:scale-110 transition-all duration-300">
-                  <Linkedin className="w-5 h-5" />
-                </div>
-                <span className="text-sm font-medium">LinkedIn</span>
-              </button>
-            </div>
-          </div>
+{/* Social Media Links */}
+<div className="text-center mb-8">
+  <div className="flex justify-center space-x-6">
+    {/* Instagram */}
+    <button
+      onClick={openInstagram}
+      className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-all duration-300 group"
+    >
+      <div className="w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center 
+                      group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:scale-110 transition-all duration-300">
+        <Instagram className="w-5 h-5 group-hover:text-white transition-colors duration-300" />
+      </div>
+      <span className="text-sm font-medium group-hover:text-blue-600 transition-colors duration-300">
+        Instagram
+      </span>
+    </button>
+
+    {/* LinkedIn */}
+    <button
+      onClick={openLinkedIn}
+      className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-all duration-300 group"
+    >
+      <div className="w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center 
+                      group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:scale-110 transition-all duration-300">
+        <Linkedin className="w-5 h-5 group-hover:text-white transition-colors duration-300" />
+      </div>
+      <span className="text-sm font-medium group-hover:text-blue-600 transition-colors duration-300">
+        LinkedIn
+      </span>
+    </button>
+  </div>
+</div>
+
           
           {/* Bottom Bar */}
           <div className="border-t border-border pt-10">

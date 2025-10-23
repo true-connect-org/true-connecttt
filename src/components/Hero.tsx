@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { Wifi, Zap, Globe, MessageCircle } from "lucide-react";
-import networkBg from "@/assets/network-bg.jpg";
-import floatingTech from "@/assets/hero-icon.png";
+
 
 const Hero = () => {
   useEffect(() => {
@@ -88,20 +87,24 @@ const Hero = () => {
       <div className="container mx-auto px-6 text-center relative z-10">
         {/* Main Content */}
         <div className="max-w-4xl mx-auto mt-20">
-          <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 text-shadow">
-          India's Best <span className="gradient-text">"Leased Line"</span>{" "}
-            <span className="gradient-tex">Provider</span>
+          <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-shadow text-center">
+            India's Best{" "}
+            <span className="block sm:inline">
+              <span className="gradient-text">"Leased Line"</span>
+            </span>{" "}
+            <span className="block sm:inline">Provider</span>
           </h1>
 
-          <p className="hero-subtitle text-lg md:text-l text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Premium leased line services with 24x7 support, 
-          hassle-free installation, and nationwide coverage across India.
+          <p className="hero-subtitle text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4 text-center">
+            Premium leased line services with 24x7 support, hassle-free
+            installation, and nationwide coverage across India.
           </p>
+
 
           {/* Buttons */}
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-16 px-4 sm:px-0">
             <button
-              className="btn-hero"
+              className="btn-hero text-sm sm:text-base py-2 px-4 sm:py-3 sm:px-6"
               onClick={() =>
                 document
                   .getElementById("plans")
@@ -110,56 +113,52 @@ const Hero = () => {
             >
               <span>Level Up</span>
             </button>
-            <button className="btn-whatsapp" onClick={openWhatsApp}>
+            <button className="btn-whatsapp text-sm sm:text-base py-2 px-4 sm:py-3 sm:px-6 flex items-center justify-center gap-2" onClick={openWhatsApp}>
               <MessageCircle size={20} />
               Connect Now
             </button>
           </div>
-
-          {/* Floating Tech Icons */}
-          {/* <div className="relative mb-16">
-            <div className="floating-icon absolute -top-20 -left-10 md:-left-20">
-              <Wifi className="w-12 h-12 text-primary" />
-            </div>
-            <div className="floating-icon absolute -top-16 -right-10 md:-right-20">
-              <Zap className="w-10 h-10 text-secondary" />
-            </div>
-            <div className="floating-icon absolute -top-12 left-0 md:left-10">
-              <Globe className="w-8 h-8 text-primary" />
-            </div>
-          </div> */}
         </div>
 
         {/* Speed Stats */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-20 pt-8 group/stats">
           {[
-            { 
-              number: "10Gbps", 
-              label: "Up To Speed", 
-              tooltip: "Lightning-fast internet speeds up to 10 Gigabits per second for seamless business operations"
+            {
+              number: "10Gbps",
+              label: "Up To Speed",
+              tooltip:
+                "Lightning-fast internet speeds up to 10 Gigabits per second for seamless business operations",
             },
-            { 
-              number: "100%", 
-              label: "SLA-Backed Uptime", 
-              tooltip: "Guaranteed network availability with Service Level Agreement commitments and compensation for any downtime"
+            {
+              number: "100%",
+              label: "SLA-Backed Uptime",
+              tooltip:
+                "Guaranteed network availability with Service Level Agreement commitments and compensation for any downtime",
             },
-            { 
-              number: "500+", 
-              label: "Enterprises", 
-              tooltip: "Trusted by over 500 enterprise businesses across various industries for their critical connectivity needs"
+            {
+              number: "500+",
+              label: "Enterprises",
+              tooltip:
+                "Trusted by over 500 enterprise businesses across various industries for their critical connectivity needs",
             },
-            { 
-              number: "24×7", 
-              label: "Proactive Monitoring", 
-              tooltip: "Round-the-clock network monitoring and proactive issue resolution to prevent disruptions before they occur"
+            {
+              number: "24×7",
+              label: "Proactive Monitoring",
+              tooltip:
+                "Round-the-clock network monitoring and proactive issue resolution to prevent disruptions before they occur",
             },
           ].map((stat, index) => (
-            <div key={index} className="float-icon text-center group relative transition-all duration-300 ease-out hover:scale-110 hover:z-10 group-hover/stats:scale-95 group-hover/stats:hover:scale-110">
+            <div
+              key={index}
+              className="float-icon text-center group relative transition-all duration-300 ease-out hover:scale-110 hover:z-10 group-hover/stats:scale-95 group-hover/stats:hover:scale-110"
+            >
               <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
                 {stat.number}
               </div>
-              <div className="text-sm font-medium text-muted-foreground">{stat.label}</div>
-              
+              <div className="text-sm font-medium text-muted-foreground">
+                {stat.label}
+              </div>
+
               {/* Separator line between stats */}
               {index < 3 && (
                 <div className="hidden md:block absolute top-1/2 -right-4 w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent transform -translate-y-1/2"></div>

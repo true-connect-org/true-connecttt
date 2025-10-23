@@ -41,8 +41,8 @@ const Index = () => {
         <main>
           <Hero />
           <About />
-          <Plans />
           <Contact />
+          <Plans />
         </main>
         
         {/* Footer */}

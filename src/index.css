@@ -8,53 +8,53 @@
 
 @layer base {
   :root {
-    /* True Connect Brand Colors */
-    --background: 220 13% 9%;
-    --foreground: 0 0% 98%;
+    /* True Connect Brand Colors - Updated with Logo Colors */
+    --background: 0 0% 100%; /* White background */
+    --foreground: 0 0% 0%; /* Black text */
 
-    --card: 220 13% 12%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 0 0% 0%; /* Black text on cards */
 
-    --popover: 220 13% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%; /* White popover */
+    --popover-foreground: 0 0% 0%; /* Black text on popover */
 
-    /* Primary - True Connect Blue */
-    --primary: 210 100% 60%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 210 100% 70%;
+    /* Primary - Logo Blue (#6A9BB5) */
+    --primary: 201 30% 60%; /* #6A9BB5 */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+    --primary-glow: 201 30% 70%; /* Lighter blue for glow */
 
-    /* Secondary - True Connect Orange */
-    --secondary: 38 100% 60%;
-    --secondary-foreground: 220 13% 9%;
-    --secondary-glow: 38 100% 70%;
+    /* Secondary - Logo Dark Blue (#23587C) */
+    --secondary: 201 55% 30%; /* #23587C */
+    --secondary-foreground: 0 0% 100%; /* White text on secondary */
+    --secondary-glow: 201 55% 40%; /* Lighter dark blue for glow */
 
-    --muted: 220 13% 15%;
-    --muted-foreground: 220 9% 65%;
+    --muted: 0 0% 95%; /* Light gray */
+    --muted-foreground: 0 0% 40%; /* Dark gray text */
 
-    --accent: 38 100% 60%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 201 30% 60%; /* Same as primary */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 13% 18%;
-    --input: 220 13% 18%;
-    --ring: 210 100% 60%;
+    --border: 0 0% 90%; /* Light gray border */
+    --input: 0 0% 95%; /* Light gray input */
+    --ring: 201 30% 60%; /* Primary blue ring */
 
     --radius: 0.75rem;
 
-    /* True Connect Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210 100% 60%), hsl(210 100% 70%));
-    --gradient-secondary: linear-gradient(135deg, hsl(38 100% 60%), hsl(38 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 13% 9%), hsl(220 13% 12%));
-    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(210 100% 60% / 0.15) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, hsl(38 100% 60% / 0.15) 0%, transparent 50%),
-                      radial-gradient(circle at 40% 80%, hsl(210 100% 60% / 0.1) 0%, transparent 50%);
+    /* True Connect Gradients - Updated with Logo Colors */
+    --gradient-primary: linear-gradient(135deg, hsl(201 30% 60%), hsl(201 30% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(201 55% 30%), hsl(201 55% 40%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(201 30% 60% / 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsl(201 55% 30% / 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 80%, hsl(201 30% 60% / 0.05) 0%, transparent 50%);
 
     /* Shadows */
-    --shadow-primary: 0 10px 40px hsl(210 100% 60% / 0.3);
-    --shadow-secondary: 0 10px 40px hsl(38 100% 60% / 0.3);
-    --shadow-elegant: 0 20px 60px hsl(220 13% 9% / 0.5);
+    --shadow-primary: 0 10px 40px hsl(201 30% 60% / 0.2);
+    --shadow-secondary: 0 10px 40px hsl(201 55% 30% / 0.2);
+    --shadow-elegant: 0 20px 60px hsl(0 0% 0% / 0.1);
 
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,22 +77,22 @@
 }
 
 @layer components {
-  /* Hero Button Variants */
+  /* Hero Button Variants - Updated with Logo Colors */
   .btn-hero {
-    @apply bg-[#0052D4] hover:bg-transparent hover:border-2 hover:border-[#0052D4] hover:text-[#0052D4] text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto;
+    @apply bg-primary hover:bg-transparent hover:border-2 hover:border-primary hover:text-primary text-primary-foreground px-6 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto shadow-lg hover:shadow-primary;
   }
   
   .btn-secondary {
-    @apply bg-gradient-to-r from-secondary to-secondary-glow text-secondary-foreground px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-secondary)] border-0;
+    @apply bg-secondary hover:bg-transparent hover:border-2 hover:border-secondary hover:text-secondary text-secondary-foreground px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-secondary border-0 shadow-lg;
   }
 
   .btn-whatsapp {
-    @apply bg-[#1EA952] hover:bg-transparent hover:border-2 hover:border-[#1EA952] hover:text-[#1EA952] text-white px-6 py-3 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto;
+    @apply bg-[#1EA952] hover:bg-transparent hover:border-2 hover:border-[#1EA952] hover:text-[#1EA952] text-white px-6 py-3 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto shadow-lg;
   }
 
-  /* Glass Effect */
+  /* Glass Effect - Updated for White Background */
   .glass-card {
-    @apply bg-card/10 backdrop-blur-lg border border-border/20 rounded-2xl;
+    @apply bg-white/80 backdrop-blur-lg border border-border/30 rounded-2xl shadow-lg;
   }
 
   /* Gradient Text */

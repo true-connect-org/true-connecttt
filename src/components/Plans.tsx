@@ -131,12 +131,12 @@ const Plans = () => {
   
 
   return (
-    <section id="plans" className="py-20 pt-40 bg-gradient-to-b from-muted/20 to-background">
+    <section id="plans" className="py-20 pt-40 bg-white">
       <div className="container mx-auto px-6">
         {/* Section Title */}
         <div className="text-center mb-20">
           <h2 className="plans-title text-4xl md:text-5xl font-bold mb-5">
-            <span className="text-white">Plans</span>{" "}
+            <span className="text-black">Plans</span>{" "}
             <span className="gradient-text">& Pricing</span>
           </h2>
           <p className="plans-title text-l text-muted-foreground max-w-[700px] mx-auto leading-relaxed mb-10 text-center">
@@ -150,7 +150,7 @@ const Plans = () => {
             <div 
               key={index} 
               className={`plan-card relative glass-card p-6 rounded-lg shadow-sm transition-all duration-300 cursor-pointer group ${
-                plan.featured ? 'ring-2 ring-orange-500 shadow-lg group-hover/plans:ring-0 group-hover/plans:group-hover:ring-2 group-hover/plans:group-hover:ring-orange-500' : ''
+                plan.featured ? 'ring-2 ring-primary shadow-lg group-hover/plans:ring-0 group-hover/plans:group-hover:ring-2 group-hover/plans:group-hover:ring-primary' : ''
               } hover:scale-110 hover:z-10 group-hover/plans:scale-95 group-hover/plans:hover:scale-110 hover:ring-2 hover:ring-primary`}
             >
               {/* Plan Title */}
@@ -174,7 +174,7 @@ const Plans = () => {
               }`}>
                 <button 
                   onClick={scrollToContact}
-                  className="w-full bg-[#F8BD29] hover:bg-[#E5A91A] text-gray-800 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300"
+                  className="w-full bg-primary hover:bg-secondary text-primary-foreground py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-primary"
                 >
                   BUY NOW →
                 </button>
