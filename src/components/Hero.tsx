@@ -2,12 +2,10 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { Wifi, Zap, Globe, MessageCircle } from "lucide-react";
 
-
 const Hero = () => {
   useEffect(() => {
     // Hero animations
     const tl = gsap.timeline({ delay: 0.2 });
-
     tl.from(".hero-title", {
       y: 100,
       opacity: 0,
@@ -100,7 +98,6 @@ const Hero = () => {
             installation, and nationwide coverage across India.
           </p>
 
-
           {/* Buttons */}
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-16 px-4 sm:px-0">
             <button
@@ -113,7 +110,10 @@ const Hero = () => {
             >
               <span>Level Up</span>
             </button>
-            <button className="btn-whatsapp text-sm sm:text-base py-2 px-4 sm:py-3 sm:px-6 flex items-center justify-center gap-2" onClick={openWhatsApp}>
+            <button
+              className="btn-whatsapp text-sm sm:text-base py-2 px-4 sm:py-3 sm:px-6 flex items-center justify-center gap-2"
+              onClick={openWhatsApp}
+            >
               <MessageCircle size={20} />
               Connect Now
             </button>

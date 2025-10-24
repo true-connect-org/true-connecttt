@@ -37,8 +37,7 @@ const About = () => {
     {
       icon: Cloud,
       title: "Scalable",
-      description:
-        "Upgrade up to 100 Gbps bandwidth as per business needs",
+      description: "Upgrade up to 100 Gbps bandwidth as per business needs",
     },
     {
       icon: Shield,
@@ -128,18 +127,21 @@ const About = () => {
     <section
       id="about-us"
       ref={sectionRef}
-      className="py-20 pt-40 bg-white"
+      className="py-20 pt-40 bg-gradient-to-b from-background to-muted/20"
     >
       <div className="container mx-auto px-6">
         {/* Section Title */}
         <div className="text-center mb-12">
           <h1 className="about-title text-4xl md:text-5xl font-bold mb-6">
-          Why Choose <span className="gradient-text">True Connect</span> Services?
+            Why Choose <span className="gradient-text">True Connect</span>{" "}
+            Services?
           </h1>
           <p className="about-title text-l text-muted-foreground max-w-3xl mx-auto">
-          We deliver dedicated 1:1 leased line internet services with guaranteed speed, reliability, and 24/7 support. 
-          True Connect ensures secure, scalable connectivity
-          across India with no-drilling installation, damage-free setup, and quick deployment for businesses nationwide.
+            We deliver dedicated 1:1 leased line internet services with
+            guaranteed speed, reliability, and 24/7 support. True Connect
+            ensures secure, scalable connectivity across India with no-drilling
+            installation, damage-free setup, and quick deployment for businesses
+            nationwide.
           </p>
         </div>
 
@@ -153,7 +155,9 @@ const About = () => {
               >
                 <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground text-s">{feature.description}</p>
+                <p className="text-muted-foreground text-s">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -197,8 +201,12 @@ const About = () => {
                         className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300"
                       >
                         <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                        <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                        <p className="text-muted-foreground text-s">{feature.description}</p>
+                        <h3 className="text-xl font-bold mb-3">
+                          {feature.title}
+                        </h3>
+                        <p className="text-muted-foreground text-s">
+                          {feature.description}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -246,18 +254,10 @@ const About = () => {
                   Network Points
                 </div>
               </div>
-            
             </div>
-            
           </div>
         </div>
-      </div> 
-
-
-     
-      
-
-
+      </div>
     </section>
   );
 };
