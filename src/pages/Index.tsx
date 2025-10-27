@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Plans from "@/components/Plans";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Faq from "@/components/Faq";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(false);
@@ -29,9 +29,6 @@ const Index = () => {
 
   return (
     <>
-      {/* Splash Screen */}
-      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
-
       {/* Main Website */}
       <div
         className={`${
@@ -47,6 +44,7 @@ const Index = () => {
           <About />
           <Contact />
           <Plans />
+          <Faq />
         </main>
 
         {/* Footer */}

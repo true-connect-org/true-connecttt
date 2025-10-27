@@ -11,6 +11,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    mobile: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -70,12 +71,13 @@ const Contact = () => {
         {
           from_name: formData.name,
           from_email: formData.email,
+          mobile: formData.mobile,
           message: formData.message,
         }
       );
 
       toast.success("Message sent successfully! We'll contact you soon.");
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", mobile: "", message: "" });
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
       console.error("EmailJS error:", error);
@@ -234,6 +236,27 @@ const Contact = () => {
                     htmlFor="mobile"
                     className="block text-sm font-medium mb-2"
                   >
+                    Mobile Number *
+                  </label>
+                  <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    required
+                    pattern="[0-9]{10}"
+                    title="Please enter a valid mobile number"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
+                    placeholder="Enter your mobile number"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="mobile"
+                    className="block text-sm font-medium mb-2"
+                  >
                     Your Message *
                   </label>
                   <input
@@ -243,6 +266,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
+                    maxLength={1000}
                     className="w-full h-20 px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
                     placeholder="Enter your message"
                   />
