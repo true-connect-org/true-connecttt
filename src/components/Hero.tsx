@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
+import CountUp from "react-countup";
 import { Wifi, Zap, Globe, MessageCircle } from "lucide-react";
 
 const Hero = () => {
@@ -124,25 +125,29 @@ const Hero = () => {
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-20 pt-8 group/stats">
           {[
             {
-              number: "10Gbps",
+              number: 10,
+              suffix: "Gbps",
               label: "Up To Speed",
               tooltip:
                 "Lightning-fast internet speeds up to 10 Gigabits per second for seamless business operations",
             },
             {
-              number: "100%",
+              number: 100,
+              suffix: "%",
               label: "SLA-Backed Uptime",
               tooltip:
                 "Guaranteed network availability with Service Level Agreement commitments and compensation for any downtime",
             },
             {
-              number: "500+",
+              number: 500,
+              suffix: "+",
               label: "Enterprises",
               tooltip:
                 "Trusted by over 500 enterprise businesses across various industries for their critical connectivity needs",
             },
             {
-              number: "24×7",
+              number: 24,
+              suffix: "×7",
               label: "Proactive Monitoring",
               tooltip:
                 "Round-the-clock network monitoring and proactive issue resolution to prevent disruptions before they occur",
@@ -153,7 +158,14 @@ const Hero = () => {
               className="float-icon text-center group relative transition-all duration-300 ease-out hover:scale-110 hover:z-10 group-hover/stats:scale-95 group-hover/stats:hover:scale-110"
             >
               <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
-                {stat.number}
+                <CountUp
+                  end={stat.number}
+                  duration={2.5}
+                  separator=","
+                  suffix={stat.suffix}
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
               </div>
               <div className="text-sm font-medium text-muted-foreground">
                 {stat.label}
