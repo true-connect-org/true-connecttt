@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import CountUp from "react-countup";
-import { Wifi, Zap, Globe, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MessageCircle, Send } from "lucide-react";
 
 const Hero = () => {
   useEffect(() => {
@@ -37,7 +38,6 @@ const Hero = () => {
         ".floating-icon",
         {
           scale: 0,
-          // rotation: 360,
 
           duration: 0.8,
           stagger: 0.2,
@@ -58,10 +58,7 @@ const Hero = () => {
   }, []);
 
   const openWhatsApp = () => {
-    window.open(
-      "https://wa.link/pn0hzn", //whatsapp link
-      "_blank"
-    );
+    window.open("https://wa.link/pn0hzn", "_blank");
   };
 
   return (
@@ -69,18 +66,10 @@ const Hero = () => {
       id="home"
       className="min-h-screen relative flex items-center justify-center bg-gradient-mesh overflow-hidden pt-24 "
     >
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-20"
-        // style={{ backgroundImage: `url(${networkBg})` }}
-      />
-
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        {/* <div className="absolute top-20 left-10 w-4 h-4 bg-primary rounded-full network-line"></div> */}
         <div className="absolute top-40 right-20 w-4 h-4 bg-secondary rounded-full network-line"></div>
         <div className="absolute bottom-32 left-12 w-3 h-3 bg-primary rounded-full network-line"></div>
-        {/* <div className="absolute bottom-20 right-10 w-5 h-5 bg-secondary rounded-full network-line"></div> */}
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
@@ -100,83 +89,90 @@ const Hero = () => {
           </p>
 
           {/* Buttons */}
-          <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-16 px-4 sm:px-0">
-            <button
-              className="btn-hero text-sm sm:text-base py-2 px-4 sm:py-3 sm:px-6"
+          <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 px-4 sm:px-0 w-full">
+            {/* Primary Hero Button */}
+            <Button
+              variant="hero"
+              size="lg"
+              className="w-full sm:w-auto text-sm sm:text-base px-6 py-3 font-semibold"
               onClick={() =>
                 document
                   .getElementById("plans")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              <span>Level Up</span>
-            </button>
-            <button
-              className="btn-whatsapp text-sm sm:text-base py-2 px-4 sm:py-3 sm:px-6 flex items-center justify-center gap-2"
+              Level Up
+            </Button>
+
+            {/* WhatsApp Button */}
+            <Button
+              variant="whatsapp"
+              size="lg"
+              className="w-full sm:w-auto text-sm sm:text-base px-6 py-3 font-semibold flex items-center justify-center gap-2"
               onClick={openWhatsApp}
             >
               <MessageCircle size={20} />
-              Connect Now
-            </button>
+              Let’s Connect
+            </Button>
           </div>
-        </div>
 
-        {/* Speed Stats */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-20 pt-8 group/stats">
-          {[
-            {
-              number: 10,
-              suffix: "Gbps",
-              label: "Up To Speed",
-              tooltip:
-                "Lightning-fast internet speeds up to 10 Gigabits per second for seamless business operations",
-            },
-            {
-              number: 100,
-              suffix: "%",
-              label: "SLA-Backed Uptime",
-              tooltip:
-                "Guaranteed network availability with Service Level Agreement commitments and compensation for any downtime",
-            },
-            {
-              number: 500,
-              suffix: "+",
-              label: "Enterprises",
-              tooltip:
-                "Trusted by over 500 enterprise businesses across various industries for their critical connectivity needs",
-            },
-            {
-              number: 24,
-              suffix: "×7",
-              label: "Proactive Monitoring",
-              tooltip:
-                "Round-the-clock network monitoring and proactive issue resolution to prevent disruptions before they occur",
-            },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="float-icon text-center group relative transition-all duration-300 ease-out hover:scale-110 hover:z-10 group-hover/stats:scale-95 group-hover/stats:hover:scale-110"
-            >
-              <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
-                <CountUp
-                  end={stat.number}
-                  duration={2.5}
-                  separator=","
-                  suffix={stat.suffix}
-                  enableScrollSpy
-                  scrollSpyOnce
-                />
-              </div>
-              <div className="text-sm font-medium text-muted-foreground">
-                {stat.label}
-              </div>
+          {/* Speed Stats */}
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-20 pt-8 group/stats">
+            {[
+              {
+                number: 10,
+                suffix: "Gbps",
+                label: "Up To Speed",
+                tooltip:
+                  "Lightning-fast internet speeds up to 10 Gigabits per second for seamless business operations",
+              },
+              {
+                number: 100,
+                suffix: "%",
+                label: "SLA-Backed Uptime",
+                tooltip:
+                  "Guaranteed network availability with Service Level Agreement commitments and compensation for any downtime",
+              },
+              {
+                number: 500,
+                suffix: "+",
+                label: "Enterprises",
+                tooltip:
+                  "Trusted by over 500 enterprise businesses across various industries for their critical connectivity needs",
+              },
+              {
+                number: 24,
+                suffix: "×7",
+                label: "Proactive Monitoring",
+                tooltip:
+                  "Round-the-clock network monitoring and proactive issue resolution to prevent disruptions before they occur",
+              },
+            ].map((stat, index) => (
+              <div
+                key={index}
+                className="float-icon text-center group relative transition-all duration-300 ease-out hover:scale-110 hover:z-10 group-hover/stats:scale-95 group-hover/stats:hover:scale-110"
+              >
+                <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
+                  <CountUp
+                    end={stat.number}
+                    duration={2.5}
+                    separator=","
+                    suffix={stat.suffix}
+                    enableScrollSpy
+                    scrollSpyOnce
+                  />
+                </div>
+                <div className="text-sm font-medium text-muted-foreground">
+                  {stat.label}
+                </div>
 
-              {/* Separator line between stats */}
-              {index < 3 && (
-                <div className="hidden md:block absolute top-1/2 -right-4 w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent transform -translate-y-1/2"></div>
-              )}
-            </div>
-          ))}
+                {/* Separator line between stats */}
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-1/2 -right-4 w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent transform -translate-y-1/2"></div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

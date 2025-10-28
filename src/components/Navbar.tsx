@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import logo from "../assets/logo.png";
 import logoText from "../assets/logo-text.png";
 
 const Navbar = () => {
@@ -17,7 +16,6 @@ const Navbar = () => {
       duration: 0.8,
       stagger: 0.1,
       ease: "power2.out",
-      delay: 0.2, // After splash screen
     });
 
     // Scroll effect
@@ -53,7 +51,6 @@ const Navbar = () => {
               className="nav-item flex items-center space-x-3 cursor-pointer"
               onClick={() => scrollToSection("home")}
             >
-              {/* <img src= {logo} alt="True Connect Logo" className="w-10 h-8 object-contain" /> */}
               <img
                 src={logoText}
                 alt="True Connect Text"
@@ -63,19 +60,21 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4">
-              {["Home", "About Us", "Plans", "Contact Us"].map((item) => (
-                <Button
-                  key={item}
-                  variant="ghost"
-                  size="sm"
-                  className="nav-item relative text-white hover:text-white hover:bg-white/10 transition-colors duration-200 font-medium after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-0.5 after:w-0  after:transition-all after:duration-200 hover:after:w-8"
-                  onClick={() =>
-                    scrollToSection(item.toLowerCase().replace(" ", "-"))
-                  }
-                >
-                  {item}
-                </Button>
-              ))}
+              {["Home", "Plans", "FAQ", "Contact Us", "About Us"].map(
+                (item) => (
+                  <Button
+                    key={item}
+                    variant="ghost"
+                    size="sm"
+                    className="nav-item relative text-white hover:text-white hover:bg-white/10 transition-colors duration-200 font-medium after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-0.5 after:w-0  after:transition-all after:duration-200 hover:after:w-8"
+                    onClick={() =>
+                      scrollToSection(item.toLowerCase().replace(" ", "-"))
+                    }
+                  >
+                    {item}
+                  </Button>
+                )
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -92,25 +91,24 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-[#23587C] border-t border-white/10">
             <div className="container mx-auto px-6 py-4 space-y-4">
-              {["Home", "About Us", "Plans", "Contact Us"].map((item) => (
-                <Button
-                  key={item}
-                  variant="ghost"
-                  className="block w-full justify-start text-white hover:text-white hover:bg-white/10 transition-colors duration-200 font-medium py-2"
-                  onClick={() =>
-                    scrollToSection(item.toLowerCase().replace(" ", "-"))
-                  }
-                >
-                  {item}
-                </Button>
-              ))}
+              {["Home", "About Us", "Plans", "FAQ", "Contact Us"].map(
+                (item) => (
+                  <Button
+                    key={item}
+                    variant="ghost"
+                    className="block w-full justify-start text-white hover:text-white hover:bg-white/10 transition-colors duration-200 font-medium py-2"
+                    onClick={() =>
+                      scrollToSection(item.toLowerCase().replace(" ", "-"))
+                    }
+                  >
+                    {item}
+                  </Button>
+                )
+              )}
             </div>
           </div>
         )}
       </nav>
-
-      {/* Divider */}
-      {/* <div className="fixed top-[88px] w-full z-30 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div> */}
     </>
   );
 };

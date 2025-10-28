@@ -9,19 +9,16 @@ import Faq from "@/components/Faq";
 const Index = () => {
   return (
     <>
-      {/* Navigation */}
       <Navbar />
 
-      {/* Main Content */}
       <main>
         <Hero />
-        <About />
-        <Contact />
         <Plans />
         <Faq />
+        <Contact />
+        <About />
       </main>
 
-      {/* Footer */}
       <Footer />
     </>
   );

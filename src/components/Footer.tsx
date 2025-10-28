@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Linkedin,
   Instagram,
-  MessageCircle,
   Phone,
   Mail,
   MapPin,
@@ -137,16 +136,14 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 text-primary" />
                   <span className="text-muted-foreground">
-                    trueeconnectt@gmail.com
+                  support@true-connect.in
                   </span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-4 h-4 text-primary " />
                   <span className="text-muted-foreground">
-                    True Connect, Building No. 2/35/A, <br /> Vettor Service
-                    Co-operative Bank Building,
-                    <br />
-                    Varkala, Trivandrum, Kerala
+                    SBC 22, -2 , Thejaswini Building, Technopark, <br />{" "}
+                    Thiruvananthapuram , 695581
                   </span>
                 </div>
               </div>

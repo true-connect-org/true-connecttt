@@ -71,10 +71,7 @@ const Faq = () => {
   };
 
   return (
-    <section
-      id="faq"
-      className="py-20 bg-gradient-to-b from-background to-muted/20 text-foreground"
-    >
+    <section id="faq" className="py-20 pt-40 bg-white text-foreground">
       <div ref={containerRef} className="container mx-auto px-6 max-w-4xl">
         {/* Title */}
         <div className="text-center mb-12">
