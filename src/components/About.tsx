@@ -13,7 +13,6 @@ import {
   Users,
 } from "lucide-react";
 import speedChart from "@/assets/about-ilustration.svg";
-import "@/app.css"; 
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,7 +76,7 @@ const About = () => {
   const pages = [features.slice(0, 4), features.slice(4, 8)];
   const totalPages = pages.length;
 
-  // GSAP Animations
+  // GSAP animations for desktop
   useEffect(() => {
     gsap.fromTo(
       ".about-animate",
@@ -112,38 +111,26 @@ const About = () => {
         },
       }
     );
-
-    gsap.fromTo(
-      ".about-chart",
-      { x: -100, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".about-chart",
-          start: "top 80%",
-        },
-      }
-    );
   }, []);
 
-  // Mobile Scroll Tracking
+  // Mobile horizontal scroll behavior
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
+    let isScrolling = false;
+
     const handleScroll = () => {
+      if (isScrolling) return;
       const scrollLeft = el.scrollLeft;
-      const cardWidth = el.scrollWidth / features.length;
+      const cardWidth = el.offsetWidth * 0.8; // one-card width
       const newIndex = Math.round(scrollLeft / cardWidth);
       setMobileIndex(newIndex);
     };
 
     el.addEventListener("scroll", handleScroll);
     return () => el.removeEventListener("scroll", handleScroll);
-  }, [features.length]);
+  }, []);
 
   return (
     <section
@@ -155,13 +142,15 @@ const About = () => {
         {/* Section Title */}
         <div className="text-center mb-24 sm:mb-28 px-6">
           <div className="max-w-5xl mx-auto">
-            <h1 className="about-title about-animate text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
+            <h1 className="about-animate text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
               Redefining{" "}
-              <span className="gradient-text">Business Connectivity</span>{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                Business Connectivity
+              </span>{" "}
               Standards
             </h1>
 
-            <p className="about-title about-animate text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            <p className="about-animate text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto text-left">
               Authorized Jio channel partner based in Trivandrum Technopark,
               delivering 1:1 dedicated leased line connections with guaranteed
               bandwidth across India. Enterprise-grade security, 24/7 support,
@@ -171,48 +160,62 @@ const About = () => {
           </div>
         </div>
 
-        {/* MOBILE: Horizontal Scroll */}
-        <div className="about-cards pb-4 mb-12 md:hidden">
-          <div
-            ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth no-vertical-scroll"
-          >
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300 w-72 flex-shrink-0 snap-start"
-              >
-                <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
+       {/* MOBILE: Smooth Center Snap Scroll */}
+<div className="about-cards mb-16 md:hidden">
+  <div
+    ref={scrollRef}
+    className="flex space-x-6 overflow-x-auto px-4 snap-x snap-mandatory scroll-smooth scrollbar-hide"
+    style={{
+      WebkitOverflowScrolling: "touch",
+      scrollSnapType: "x mandatory",
+      scrollBehavior: "smooth",
+    }}
+  >
+    {features.map((feature, index) => (
+      <div
+        key={index}
+        className={`about-card flex-shrink-0 w-72 p-6 text-center rounded-2xl transition-all duration-500 ease-in-out ${
+          mobileIndex === index
+            ? "bg-gray-100 shadow-lg scale-105"
+            : "bg-gray-50 opacity-70 scale-95"
+        } snap-center`}
+        style={{
+          flex: "0 0 80%",
+          scrollSnapAlign: "center",
+          transition: "all 0.4s ease-in-out",
+        }}
+      >
+        <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+        <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
+        <p className="text-muted-foreground text-sm leading-relaxed">
+          {feature.description}
+        </p>
+      </div>
+    ))}
+  </div>
 
-          {/* Pagination Dots (8 total) */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {Array.from({ length: features.length }).map((_, index) => (
-              <div
-                key={index}
-                className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  mobileIndex === index
-                    ? "bg-primary scale-110"
-                    : "bg-muted-foreground/40"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+  {/* Pagination Dots */}
+  <div className="flex justify-center mt-6 space-x-2">
+    {Array.from({ length: features.length }).map((_, index) => (
+      <div
+        key={index}
+        className={`h-2 w-2 rounded-full transition-all duration-300 ${
+          mobileIndex === index
+            ? "bg-primary scale-110"
+            : "bg-muted-foreground/40"
+        }`}
+      />
+    ))}
+  </div>
+</div>
+
 
         {/* DESKTOP: Arrow Slider */}
         <div className="relative about-cards pb-4 mb-20 hidden md:block">
           {page > 0 && (
             <button
-              aria-label="Scroll left"
               onClick={() => setPage((p) => Math.max(0, p - 1))}
-              className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-background/80 shadow-lg ring-1 ring-border hover:bg-background"
+              className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center rounded-full bg-background/80 shadow-lg ring-1 ring-border hover:bg-background transition"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
@@ -220,9 +223,8 @@ const About = () => {
 
           {page < totalPages - 1 && (
             <button
-              aria-label="Scroll right"
               onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-              className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-background/80 shadow-lg ring-1 ring-border hover:bg-background"
+              className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center rounded-full bg-background/80 shadow-lg ring-1 ring-border hover:bg-background transition"
             >
               <ArrowRight className="h-5 w-5" />
             </button>
@@ -239,13 +241,13 @@ const About = () => {
                     {group.map((feature, index) => (
                       <div
                         key={index}
-                        className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300"
+                        className="about-card p-6 text-center rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:scale-[1.03] transition-transform duration-300"
                       >
                         <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
                         <h3 className="text-xl font-bold mb-3">
                           {feature.title}
                         </h3>
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-muted-foreground text-sm leading-relaxed">
                           {feature.description}
                         </p>
                       </div>
@@ -257,32 +259,31 @@ const About = () => {
           </div>
         </div>
 
-        {/* Growth Chart Section */}
+        {/* GROWTH CHART SECTION */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="about-chart">
             <img
               src={speedChart}
-              alt="True Connect Network Infrastructure - Jio Powered Enterprise Connectivity"
-              className="w-full h-64 object-cover rounded-2xl shadow-elegant"
+              alt="True Connect Network Infrastructure"
+              className="w-full h-64 object-cover rounded-2xl shadow-lg"
             />
           </div>
 
           <div>
             <h3 className="text-3xl font-bold mb-6">
               Empowering India’s{" "}
-              <span className="gradient-text">Digital Future</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                Digital Future
+              </span>
             </h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Operating from Trivandrum Technopark, True Connect has been at the
-              forefront of India's internet transformation. As a certified
-              Reliance Jio channel partner, we bridge the gap between businesses
-              and world-class connectivity infrastructure. Our cutting-edge
+              Operating from Trivandrum Technopark, True Connect bridges the gap
+              between businesses and world-class connectivity. Our cutting-edge
               fiber network ensures your business stays connected to what
               matters most—whether you're in urban centers or expanding to
               tier-2 and tier-3 cities across India.
             </p>
 
-            {/* Static Numbers */}
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary mb-1">500+</div>
