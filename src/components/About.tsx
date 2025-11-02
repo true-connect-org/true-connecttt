@@ -173,14 +173,11 @@ const About = () => {
 
         {/* Mobile: horizontal scroll + pagination */}
         <div className="about-cards pb-4 mb-12 md:hidden">
-          <div
-            ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
-          >
+          <div className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory no-vertical-scroll">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300 w-72 flex-shrink-0 snap-center"
+                className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300 w-72 flex-shrink-0 snap-start"
               >
                 <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-3">{feature.title}</h3>

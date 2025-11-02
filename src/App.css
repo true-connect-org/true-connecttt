@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.no-vertical-scroll {
+  touch-action: pan-x;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
