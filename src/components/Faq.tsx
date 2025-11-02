@@ -73,16 +73,19 @@ const Faq = () => {
   return (
     <section id="faq" className="py-20 pt-40 bg-white text-foreground">
       <div ref={containerRef} className="container mx-auto px-6 max-w-4xl">
-        {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Frequently <span className="gradient-text">Asked Questions</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Get instant answers to the most common queries about True Connect’s
-            dedicated Jio Leased Line services — built to keep your business
-            always connected.
-          </p>
+        {/* Section */}
+        <div className="text-center mb-16 sm:mb-20 px-4">
+          <div className="max-w-3xl mx-auto text-left">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
+              Frequently <span className="gradient-text">Asked Questions</span>
+            </h2>
+
+            <p className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed">
+              Get instant answers to the most common queries about True
+              Connect’s dedicated Jio Leased Line services — built to keep your
+              business always connected.
+            </p>
+          </div>
         </div>
 
         {/* FAQ Items */}

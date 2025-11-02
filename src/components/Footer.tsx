@@ -1,13 +1,7 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Linkedin,
-  Instagram,
-  Phone,
-  Mail,
-  MapPin,
-} from "lucide-react";
+import { Linkedin, Instagram, Phone, Mail, MapPin } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,7 +31,10 @@ const Footer = () => {
   };
 
   const openLinkedIn = () => {
-    window.open("https://linkedin.com/company/trueconnect", "_blank");
+    window.open(
+      "https://www.linkedin.com/in/true-connect-92679a390/",
+      "_blank"
+    );
   };
 
   const openInstagram = () => {
@@ -91,99 +88,71 @@ const Footer = () => {
           </div>
 
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {/* Quick Links */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                {["Home", "About Us", "Plans", "Contact Us"].map((link) => (
-                  <li key={link}>
-                    <button
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                      onClick={() =>
-                        document
-                          .getElementById(link.toLowerCase().replace(" ", "-"))
-                          ?.scrollIntoView({ behavior: "smooth" })
-                      }
-                    >
-                      {link}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Our Services</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>High-Speed Internet</li>
-                <li>Fiber Optic Connection</li>
-                <li>Business Solutions</li>
-                <li>24/7 Technical Support</li>
-                <li>Network Security</li>
-              </ul>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-4 h-4 text-primary" />
-                  <span className="text-muted-foreground">+91 8848817833</span>
+          <div className="text-center mb-16 sm:mb-20 px-4">
+            <div className="max-w-6xl mx-auto text-left">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {/* Quick Links */}
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    Quick Links
+                  </h3>
+                  <ul className="space-y-2">
+                    {["Home", "About Us", "Plans", "Contact Us"].map((link) => (
+                      <li key={link}>
+                        <button
+                          className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                          onClick={() =>
+                            document
+                              .getElementById(
+                                link.toLowerCase().replace(" ", "-")
+                              )
+                              ?.scrollIntoView({ behavior: "smooth" })
+                          }
+                        >
+                          {link}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 text-primary" />
-                  <span className="text-muted-foreground">
-                  support@true-connect.in
-                  </span>
+
+                {/* Services */}
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    Our Services
+                  </h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>High-Speed Internet</li>
+                    <li>Fiber Optic Connection</li>
+                    <li>Business Solutions</li>
+                    <li>24/7 Technical Support</li>
+                  </ul>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-4 h-4 text-primary " />
-                  <span className="text-muted-foreground">
-                    SBC 22, -2 , Thejaswini Building, Technopark, <br />{" "}
-                    Thiruvananthapuram , 695581
-                  </span>
+
+                {/* Contact Info */}
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    Contact Info
+                  </h3>
+                  <div className="space-y-3 text-muted-foreground">
+                    <div className="flex items-center space-x-3">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span>+91 8848817833</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Mail className="w-4 h-4 text-primary" />
+                      <span>support@true-connect.in</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="leading-snug">
+                        Trivandrum Technopark, Thejaswini Building, SBC 22, -2,
+                        695581
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Social Media Links */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center space-x-6">
-              {/* Instagram */}
-              <button
-                onClick={openInstagram}
-                className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-all duration-300 group"
-              >
-                <div
-                  className="w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center 
-                      group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:scale-110 transition-all duration-300"
-                >
-                  <Instagram className="w-5 h-5 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <span className="text-sm font-medium group-hover:text-blue-600 transition-colors duration-300">
-                  Instagram
-                </span>
-              </button>
-
-              {/* LinkedIn */}
-              <button
-                onClick={openLinkedIn}
-                className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-all duration-300 group"
-              >
-                <div
-                  className="w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center 
-                      group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:scale-110 transition-all duration-300"
-                >
-                  <Linkedin className="w-5 h-5 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <span className="text-sm font-medium group-hover:text-blue-600 transition-colors duration-300">
-                  LinkedIn
-                </span>
-              </button>
             </div>
           </div>
 

@@ -19,8 +19,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const sectionRef = useRef(null);
+  const scrollRef = useRef(null);
   const [page, setPage] = useState(0);
-  
+  const [mobileIndex, setMobileIndex] = useState(0);
+
   const features = [
     {
       icon: Globe,
@@ -37,7 +39,7 @@ const About = () => {
     {
       icon: Cloud,
       title: "Scalable Solutions",
-      description: 
+      description:
         "Upgrade bandwidth from 10 Mbps to 100 Gbps as your business grows with flexible plans and seamless transitions",
     },
     {
@@ -71,23 +73,25 @@ const About = () => {
         "Dedicated account managers and round-the-clock technical support with guaranteed response times",
     },
   ];
-  
+
   const pages = [features.slice(0, 4), features.slice(4, 8)];
   const totalPages = pages.length;
 
+  // GSAP animations
   useEffect(() => {
-    // ScrollTrigger animations
     gsap.fromTo(
-      ".about-title",
-      { y: 50, opacity: 0 },
+      ".about-animate",
+      { y: 40, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration: 1,
-        ease: "power2.out",
+        ease: "power3.out",
+        stagger: 0.2,
         scrollTrigger: {
-          trigger: ".about-title",
-          start: "top 80%",
+          trigger: ".about-animate",
+          start: "top 85%",
+          once: true,
         },
       }
     );
@@ -125,6 +129,22 @@ const About = () => {
     );
   }, []);
 
+  // Mobile scroll tracking
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const scrollLeft = scrollContainer.scrollLeft;
+      const cardWidth = scrollContainer.offsetWidth;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      setMobileIndex(newIndex);
+    };
+
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => scrollContainer.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
       id="about-us"
@@ -133,44 +153,34 @@ const About = () => {
     >
       <div className="container mx-auto px-6">
         {/* Section Title */}
-        <div className="text-center mb-12">
-          <h1 className="about-title text-4xl md:text-5xl font-bold mb-6">
-            Why Choose <span className="gradient-text">True Connect</span>{" "}
-            Services?
-          </h1>
-          
-          {/* Option 1: Shortest (2 sentences) - RECOMMENDED FOR MOBILE */}
-          <p className="about-title text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-            Authorized Jio channel partner based in Trivandrum Technopark, delivering 
-            1:1 dedicated leased line connections with guaranteed bandwidth across India. 
-            Enterprise-grade security, 24/7 support, and seamless scalability backed by 
-            Reliance Jio's nationwide infrastructure.
-          </p>
+        <div className="text-center mb-24 sm:mb-28 px-6">
+          <div className="max-w-5xl mx-auto">
+            <h1 className="about-title about-animate text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
+              Redefining{" "}
+              <span className="gradient-text">Business Connectivity</span>{" "}
+              Standards
+            </h1>
 
-          {/* Option 2: Concise (3 sentences) - GOOD BALANCE */}
-          {/* <p className="about-title text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-            True Connect is an authorized Jio channel partner based in Trivandrum 
-            Technopark, specializing in 1:1 dedicated leased line connections for 
-            businesses across India. We deliver guaranteed bandwidth, enterprise-grade 
-            security, and 24/7 expert support. Reliable, scalable connectivity backed 
-            by Reliance Jio's nationwide infrastructure.
-          </p> */}
-
-          {/* Option 3: Ultra-short (1 sentence) - VERY MOBILE-FRIENDLY */}
-          {/* <p className="about-title text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-            Authorized Jio channel partner from Trivandrum Technopark, delivering 
-            enterprise-grade dedicated leased lines with guaranteed bandwidth, 
-            24/7 support, and seamless scalability across India.
-          </p> */}
+            <p className="about-title about-animate text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              Authorized Jio channel partner based in Trivandrum Technopark,
+              delivering 1:1 dedicated leased line connections with guaranteed
+              bandwidth across India. Enterprise-grade security, 24/7 support,
+              and seamless scalability backed by Reliance Jio's nationwide
+              infrastructure.
+            </p>
+          </div>
         </div>
 
-        {/* Mobile: horizontal scroll with 8 cards */}
-        <div className="about-cards pb-4 mb-8 md:hidden">
-          <div className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+        {/* Mobile: horizontal scroll + pagination */}
+        <div className="about-cards pb-4 mb-12 md:hidden">
+          <div
+            ref={scrollRef}
+            className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
+          >
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300 w-72 flex-shrink-0 snap-start"
+                className="about-card glass-card p-6 text-center hover:scale-105 transition-transform duration-300 w-72 flex-shrink-0 snap-center"
               >
                 <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
@@ -180,11 +190,24 @@ const About = () => {
               </div>
             ))}
           </div>
+
+          {/* Pagination dots */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {features.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  mobileIndex === index
+                    ? "bg-primary scale-110"
+                    : "bg-muted-foreground/40"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Tablet/Desktop: arrow slider, 2 pages x 4 cards */}
+        {/* Tablet/Desktop: arrow slider */}
         <div className="relative about-cards pb-4 mb-20 hidden md:block">
-          {/* Left Arrow (hidden when on first page) */}
           {page > 0 && (
             <button
               aria-label="Scroll left"
@@ -195,7 +218,6 @@ const About = () => {
             </button>
           )}
 
-          {/* Right Arrow (hidden when on last page) */}
           {page < totalPages - 1 && (
             <button
               aria-label="Scroll right"
@@ -247,19 +269,19 @@ const About = () => {
 
           <div>
             <h3 className="text-3xl font-bold mb-6">
-            Empowering India’s{" "}
+              Empowering India’s{" "}
               <span className="gradient-text">Digital Future</span>
             </h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Operating from Trivandrum Technopark, True Connect has been at the 
-              forefront of India's internet transformation. As a certified Reliance Jio 
-              channel partner, we bridge the gap between businesses and world-class 
-              connectivity infrastructure. Our cutting-edge fiber network ensures your 
-              business stays connected to what matters most—whether you're in urban 
-              centers or expanding to tier-2 and tier-3 cities across India.
+              Operating from Trivandrum Technopark, True Connect has been at the
+              forefront of India's internet transformation. As a certified
+              Reliance Jio channel partner, we bridge the gap between businesses
+              and world-class connectivity infrastructure. Our cutting-edge
+              fiber network ensures your business stays connected to what
+              matters most—whether you're in urban centers or expanding to
+              tier-2 and tier-3 cities across India.
             </p>
 
-            {/* Stats */}
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary mb-1">500+</div>

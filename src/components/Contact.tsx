@@ -121,15 +121,18 @@ const Contact = () => {
     >
       <div className="container mx-auto px-6">
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="contact-title text-4xl md:text-5xl font-bold mb-6">
-            Get Connected <span className="gradient-text">Today</span>
-          </h2>
-          <p className="contact-title text-l text-muted-foreground max-w-3xl mx-auto">
-            Ready to experience India's fastest leased line internet? Contact us
-            now and our team will help you choose the perfect plan with
-            high-speed connectivity and reliable internet for your needs.
-          </p>
+        <div className="text-center mb-16 sm:mb-20 px-4">
+          <div className="max-w-3xl mx-auto text-left">
+            <h2 className="contact-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight text-center">
+              Get Connected <span className="gradient-text">Today</span>
+            </h2>
+
+            <p className="contact-title text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
+              Ready to experience India's fastest leased line internet? Contact
+              us now and our team will help you choose the perfect plan with
+              high-speed connectivity and reliable internet for your needs.
+            </p>
+          </div>
         </div>
 
         <div className="contact-grid grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -147,9 +150,7 @@ const Contact = () => {
                   <MessageCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-green-500">
-                    Connect Now
-                  </h4>
+                  <h4 className="font-semibold text-green-500">Connect Now</h4>
                   <p className="text-sm text-muted-foreground">
                     Get instant support
                   </p>
@@ -373,36 +374,35 @@ const Contact = () => {
                 </div>
 
                 {/* Submit Button */}
-<div className="flex flex-col items-center justify-center gap-4 w-full mt-4 sm:mt-6">
-  <Button
-    type="submit"
-    variant="hero"
-    size="lg"
-    disabled={isSubmitting}
-    className="w-full sm:w-auto flex items-center justify-center gap-2 text-sm sm:text-base px-6 py-3 font-semibold"
-  >
-    {isSubmitting ? (
-      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-    ) : (
-      <>
-        <Send className="w-5 h-5" />
-        <span>Submit Request</span>
-      </>
-    )}
-  </Button>
+                <div className="flex flex-col items-center justify-center gap-4 w-full mt-4 sm:mt-6">
+                  <Button
+                    type="submit"
+                    variant="hero"
+                    size="lg"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-sm sm:text-base px-6 py-3 font-semibold"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        <span>Submit Request</span>
+                      </>
+                    )}
+                  </Button>
 
-  {/* WhatsApp Button */}
-  <Button
-    onClick={openWhatsApp}
-    variant="whatsapp"
-    size="lg"
-    className="w-full sm:w-auto flex items-center justify-center gap-2 text-sm sm:text-base px-6 py-3 font-semibold"
-  >
-    <MessageCircle size={20} />
-    Let’s Connect on WhatsApp
-  </Button>
-</div>
-
+                  {/* WhatsApp Button */}
+                  <Button
+                    onClick={openWhatsApp}
+                    variant="whatsapp"
+                    size="lg"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-sm sm:text-base px-6 py-3 font-semibold"
+                  >
+                    <MessageCircle size={20} />
+                    Let’s Connect
+                  </Button>
+                </div>
               </form>
             </div>
           </div>

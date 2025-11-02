@@ -135,20 +135,24 @@ const Plans = () => {
     <section id="plans" className="py-20 pt-40 bg-white">
       <div className="container mx-auto px-6">
         {/* Section Title */}
-        <div className="text-center mb-20">
-          <h2 className="plans-title text-4xl md:text-5xl font-bold mb-5">
-            <span className="text-black">Plans</span>{" "}
-            <span className="gradient-text">& Pricing</span>
-          </h2>
-          <p className="plans-title text-l text-muted-foreground max-w-[700px] mx-auto leading-relaxed mb-10 text-center">
-            Choose the right internet plan for your business.
-            <strong>
-              True Connect offers dedicated 1:1 leased line internet with
-              guaranteed speed, reliability, and 24/7 support.{" "}
-            </strong>{" "}
-            <br /> Whether you need 50 Mbps, 100 Mbps, 200 Mbps, 500 Mbps, or 1
-            Gbps.
-          </p>
+        <div className="text-center mb-16 sm:mb-20 px-4">
+          <div className="max-w-[700px] mx-auto text-left">
+            <h2 className="plans-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 leading-tight text-center">
+              <span className="text-black">Plans</span>{" "}
+              <span className="gradient-text">& Pricing</span>
+            </h2>
+
+            <p className="plans-title text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-8 sm:mb-10">
+              Choose the right internet plan for your business.
+              <strong className="font-semibold text-foreground">
+                {" "}
+                True Connect offers dedicated 1:1 leased line internet with
+                guaranteed speed, reliability, and 24/7 support.
+              </strong>
+              <br />
+              Whether you need 50 Mbps, 100 Mbps, 200 Mbps, 500 Mbps, or 1 Gbps.
+            </p>
+          </div>
         </div>
 
         {/* Plans Grid */}
