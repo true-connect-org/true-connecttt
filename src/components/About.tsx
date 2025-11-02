@@ -13,12 +13,13 @@ import {
   Users,
 } from "lucide-react";
 import speedChart from "@/assets/about-ilustration.svg";
+import "@/app.css"; 
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const sectionRef = useRef(null);
-  const scrollRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const [page, setPage] = useState(0);
   const [mobileIndex, setMobileIndex] = useState(0);
 
@@ -130,19 +131,19 @@ const About = () => {
 
   // Mobile Scroll Tracking
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const el = scrollRef.current;
+    if (!el) return;
 
     const handleScroll = () => {
-      const scrollLeft = scrollContainer.scrollLeft;
-      const cardWidth = scrollContainer.offsetWidth;
+      const scrollLeft = el.scrollLeft;
+      const cardWidth = el.scrollWidth / features.length;
       const newIndex = Math.round(scrollLeft / cardWidth);
       setMobileIndex(newIndex);
     };
 
-    scrollContainer.addEventListener("scroll", handleScroll);
-    return () => scrollContainer.removeEventListener("scroll", handleScroll);
-  }, []);
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [features.length]);
 
   return (
     <section
@@ -170,11 +171,11 @@ const About = () => {
           </div>
         </div>
 
-        {/* Mobile: Horizontal Scroll + Pagination */}
+        {/* MOBILE: Horizontal Scroll */}
         <div className="about-cards pb-4 mb-12 md:hidden">
           <div
             ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory no-vertical-scroll scroll-smooth"
+            className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth no-vertical-scroll"
           >
             {features.map((feature, index) => (
               <div
@@ -190,9 +191,9 @@ const About = () => {
             ))}
           </div>
 
-          {/* Pagination Dots */}
+          {/* Pagination Dots (8 total) */}
           <div className="flex justify-center mt-6 space-x-2">
-            {features.map((_, index) => (
+            {Array.from({ length: features.length }).map((_, index) => (
               <div
                 key={index}
                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
@@ -205,7 +206,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Tablet/Desktop: Arrow Slider */}
+        {/* DESKTOP: Arrow Slider */}
         <div className="relative about-cards pb-4 mb-20 hidden md:block">
           {page > 0 && (
             <button
