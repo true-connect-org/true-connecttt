@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Shield,
-  Clock,
   Globe,
   Star,
   Cloud,
@@ -77,7 +76,7 @@ const About = () => {
   const pages = [features.slice(0, 4), features.slice(4, 8)];
   const totalPages = pages.length;
 
-  // GSAP animations
+  // GSAP Animations
   useEffect(() => {
     gsap.fromTo(
       ".about-animate",
@@ -129,7 +128,7 @@ const About = () => {
     );
   }, []);
 
-  // Mobile scroll tracking
+  // Mobile Scroll Tracking
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
@@ -171,9 +170,12 @@ const About = () => {
           </div>
         </div>
 
-        {/* Mobile: horizontal scroll + pagination */}
+        {/* Mobile: Horizontal Scroll + Pagination */}
         <div className="about-cards pb-4 mb-12 md:hidden">
-          <div className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory no-vertical-scroll">
+          <div
+            ref={scrollRef}
+            className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory no-vertical-scroll scroll-smooth"
+          >
             {features.map((feature, index) => (
               <div
                 key={index}
@@ -188,7 +190,7 @@ const About = () => {
             ))}
           </div>
 
-          {/* Pagination dots */}
+          {/* Pagination Dots */}
           <div className="flex justify-center mt-6 space-x-2">
             {features.map((_, index) => (
               <div
@@ -203,7 +205,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Tablet/Desktop: arrow slider */}
+        {/* Tablet/Desktop: Arrow Slider */}
         <div className="relative about-cards pb-4 mb-20 hidden md:block">
           {page > 0 && (
             <button
@@ -279,6 +281,7 @@ const About = () => {
               tier-2 and tier-3 cities across India.
             </p>
 
+            {/* Static Numbers */}
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary mb-1">500+</div>
