@@ -84,8 +84,8 @@ const Hero = () => {
           </h1>
 
           <p className="hero-subtitle text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4 text-center">
-            Premium leased line services with 24x7 support, hassle-free
-            installation, and nationwide coverage across India.
+            High-speed enterprise leased line with 100% dedicated bandwidth and
+            guaranteed uptime for seamless business connectivity.
           </p>
 
           {/* Buttons */}

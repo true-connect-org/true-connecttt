@@ -97,22 +97,24 @@ const Footer = () => {
                     Quick Links
                   </h3>
                   <ul className="space-y-2">
-                    {["Home", "About Us", "Plans", "Contact Us"].map((link) => (
-                      <li key={link}>
-                        <button
-                          className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                          onClick={() =>
-                            document
-                              .getElementById(
-                                link.toLowerCase().replace(" ", "-")
-                              )
-                              ?.scrollIntoView({ behavior: "smooth" })
-                          }
-                        >
-                          {link}
-                        </button>
-                      </li>
-                    ))}
+                    {["Home", "Plans", "FAQ", "Contact Us"].map(
+                      (link) => (
+                        <li key={link}>
+                          <button
+                            className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                            onClick={() =>
+                              document
+                                .getElementById(
+                                  link.toLowerCase().replace(" ", "-")
+                                )
+                                ?.scrollIntoView({ behavior: "smooth" })
+                            }
+                          >
+                            {link}
+                          </button>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
 
@@ -122,10 +124,10 @@ const Footer = () => {
                     Our Services
                   </h3>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>High-Speed Internet</li>
+                    <li>Internet Leased Line</li>
+                    <li>Business Internet Line</li>
                     <li>Fiber Optic Connection</li>
-                    <li>Business Solutions</li>
-                    <li>24/7 Technical Support</li>
+                    <li>Network Security</li>
                   </ul>
                 </div>
 

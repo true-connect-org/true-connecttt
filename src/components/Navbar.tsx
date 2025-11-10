@@ -91,7 +91,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-[#23587C] border-t border-white/10">
             <div className="container mx-auto px-6 py-4 space-y-4">
-              {["Home", "About Us", "Plans", "FAQ", "Contact Us"].map(
+              {["Home", "Plans", "FAQ", "Contact Us", "About Us"].map(
                 (item) => (
                   <Button
                     key={item}

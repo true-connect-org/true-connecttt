@@ -160,55 +160,54 @@ const About = () => {
           </div>
         </div>
 
-       {/* MOBILE: Smooth Center Snap Scroll */}
-<div className="about-cards mb-16 md:hidden">
-  <div
-    ref={scrollRef}
-    className="flex space-x-6 overflow-x-auto px-4 snap-x snap-mandatory scroll-smooth scrollbar-hide"
-    style={{
-      WebkitOverflowScrolling: "touch",
-      scrollSnapType: "x mandatory",
-      scrollBehavior: "smooth",
-    }}
-  >
-    {features.map((feature, index) => (
-      <div
-        key={index}
-        className={`about-card flex-shrink-0 w-72 p-6 text-center rounded-2xl transition-all duration-500 ease-in-out ${
-          mobileIndex === index
-            ? "bg-gray-100 shadow-lg scale-105"
-            : "bg-gray-50 opacity-70 scale-95"
-        } snap-center`}
-        style={{
-          flex: "0 0 80%",
-          scrollSnapAlign: "center",
-          transition: "all 0.4s ease-in-out",
-        }}
-      >
-        <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-        <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-        <p className="text-muted-foreground text-sm leading-relaxed">
-          {feature.description}
-        </p>
-      </div>
-    ))}
-  </div>
+        {/* MOBILE: Smooth Center Snap Scroll */}
+        <div className="about-cards mb-16 md:hidden">
+          <div
+            ref={scrollRef}
+            className="flex space-x-6 overflow-x-auto px-4 snap-x snap-mandatory scroll-smooth scrollbar-hide"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              scrollSnapType: "x mandatory",
+              scrollBehavior: "smooth",
+            }}
+          >
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className={`about-card flex-shrink-0 w-72 p-6 text-center rounded-2xl transition-all duration-500 ease-in-out ${
+                  mobileIndex === index
+                    ? "bg-gray-100 shadow-lg scale-105"
+                    : "bg-gray-50 opacity-70 scale-95"
+                } snap-center`}
+                style={{
+                  flex: "0 0 80%",
+                  scrollSnapAlign: "center",
+                  transition: "all 0.4s ease-in-out",
+                }}
+              >
+                <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+                <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
 
-  {/* Pagination Dots */}
-  <div className="flex justify-center mt-6 space-x-2">
-    {Array.from({ length: features.length }).map((_, index) => (
-      <div
-        key={index}
-        className={`h-2 w-2 rounded-full transition-all duration-300 ${
-          mobileIndex === index
-            ? "bg-primary scale-110"
-            : "bg-muted-foreground/40"
-        }`}
-      />
-    ))}
-  </div>
-</div>
-
+          {/* Pagination Dots */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {Array.from({ length: features.length }).map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  mobileIndex === index
+                    ? "bg-primary scale-110"
+                    : "bg-muted-foreground/40"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* DESKTOP: Arrow Slider */}
         <div className="relative about-cards pb-4 mb-20 hidden md:block">
@@ -276,12 +275,16 @@ const About = () => {
                 Digital Future
               </span>
             </h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Operating from Trivandrum Technopark, True Connect bridges the gap
-              between businesses and world-class connectivity. Our cutting-edge
-              fiber network ensures your business stays connected to what
-              matters most—whether you're in urban centers or expanding to
-              tier-2 and tier-3 cities across India.
+            <p className="about-animate text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto text-left">
+              <b>
+                True Connect delivers premium internet solutions for businesses
+                of all sizes.
+              </b>{" "}
+              Backed by a <b>decade of enterprise expertise</b>, we are an{" "}
+              <b>official channel partner of Reliance Jio</b>. Our cutting-edge
+              fiber network is dedicated to supporting India's digital growth,
+              ensuring entrepreneurs and corporations across all tier cities
+              have the reliable, top-tier connectivity they need to thrive.
             </p>
 
             <div className="grid grid-cols-2 gap-6">
