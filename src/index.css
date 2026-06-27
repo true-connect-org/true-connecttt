@@ -18,20 +18,20 @@
     --popover: 0 0% 100%; /* White popover */
     --popover-foreground: 0 0% 0%; /* Black text on popover */
 
-    /* Primary - Logo Blue (#6A9BB5) */
-    --primary: 201 30% 60%; /* #6A9BB5 */
+    /* Primary - Brand Dark Navy (#0b1f3f) */
+    --primary: 218 69% 14%; /* #0b1f3f */
     --primary-foreground: 0 0% 100%; /* White text on primary */
-    --primary-glow: 201 30% 70%; /* Lighter blue for glow */
+    --primary-glow: 218 69% 24%; /* Lighter navy for glow */
 
-    /* Secondary - Logo Dark Blue (#23587C) */
-    --secondary: 201 55% 30%; /* #23587C */
+    /* Secondary - Brand Dark Navy (#0b1f3f) */
+    --secondary: 218 69% 14%; /* #0b1f3f */
     --secondary-foreground: 0 0% 100%; /* White text on secondary */
-    --secondary-glow: 201 55% 40%; /* Lighter dark blue for glow */
+    --secondary-glow: 218 69% 24%; /* Lighter navy for glow */
 
     --muted: 0 0% 95%; /* Light gray */
     --muted-foreground: 0 0% 40%; /* Dark gray text */
 
-    --accent: 201 30% 60%; /* Same as primary */
+    --accent: 218 69% 14%; /* Same as primary */
     --accent-foreground: 0 0% 100%; /* White text on accent */
 
     --destructive: 0 84% 60%;
@@ -39,41 +39,41 @@
 
     --border: 0 0% 90%; /* Light gray border */
     --input: 0 0% 95%; /* Light gray input */
-    --ring: 201 30% 60%; /* Primary blue ring */
+    --ring: 218 69% 14%; /* Primary navy ring */
 
     --radius: 0.75rem;
 
     /* True Connect Gradients - Updated with Logo Colors */
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(201 30% 60%),
-      hsl(201 30% 70%)
+      hsl(218 69% 14%),
+      hsl(218 69% 24%)
     );
     --gradient-secondary: linear-gradient(
       135deg,
-      hsl(201 55% 30%),
-      hsl(201 55% 40%)
+      hsl(218 69% 14%),
+      hsl(218 69% 24%)
     );
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 98%));
     --gradient-mesh: radial-gradient(
         circle at 20% 50%,
-        hsl(201 30% 60% / 0.1) 0%,
+        hsl(218 69% 14% / 0.1) 0%,
         transparent 50%
       ),
       radial-gradient(
         circle at 80% 20%,
-        hsl(201 55% 30% / 0.1) 0%,
+        hsl(218 69% 14% / 0.1) 0%,
         transparent 50%
       ),
       radial-gradient(
         circle at 40% 80%,
-        hsl(201 30% 60% / 0.05) 0%,
+        hsl(218 69% 14% / 0.05) 0%,
         transparent 50%
       );
 
     /* Shadows */
-    --shadow-primary: 0 10px 40px hsl(201 30% 60% / 0.2);
-    --shadow-secondary: 0 10px 40px hsl(201 55% 30% / 0.2);
+    --shadow-primary: 0 10px 40px hsl(218 69% 14% / 0.2);
+    --shadow-secondary: 0 10px 40px hsl(218 69% 14% / 0.2);
     --shadow-elegant: 0 20px 60px hsl(0 0% 0% / 0.1);
 
     /* Animations */
@@ -153,6 +153,7 @@
   .hero-title .letter:hover {
     @apply text-primary transition-colors duration-300;
   }
+
 }
 
 @layer utilities {

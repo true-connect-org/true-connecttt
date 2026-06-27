@@ -8,15 +8,19 @@ import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const createCaptcha = () => ({
+  captchaNum1: Math.floor(Math.random() * 9) + 1,
+  captchaNum2: Math.floor(Math.random() * 9) + 1,
+  captchaAnswer: "",
+});
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
     message: "",
-    captchaNum1: Math.floor(Math.random() * 10) + 1,
-    captchaNum2: Math.floor(Math.random() * 10) + 1,
-    captchaAnswer: "",
+    ...createCaptcha(),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -68,10 +72,13 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Verify CAPTCHA
-    const correctAnswer = formData.captchaNum1 + formData.captchaNum2;
-    if (parseInt(formData.captchaAnswer) !== correctAnswer) {
-      toast.error("Please solve the math problem correctly!");
+    const expectedAnswer = formData.captchaNum1 + formData.captchaNum2;
+    if (Number(formData.captchaAnswer) !== expectedAnswer) {
+      toast.error("Please solve the verification question correctly.");
+      setFormData((current) => ({
+        ...current,
+        ...createCaptcha(),
+      }));
       return;
     }
 
@@ -88,15 +95,13 @@ const Contact = () => {
 
       toast.success("Message sent successfully! We'll contact you soon.");
 
-      // Reset form with new CAPTCHA numbers
+      // Reset form
       setFormData({
         name: "",
         email: "",
         mobile: "",
         message: "",
-        captchaNum1: Math.floor(Math.random() * 10) + 1,
-        captchaNum2: Math.floor(Math.random() * 10) + 1,
-        captchaAnswer: "",
+        ...createCaptcha(),
       });
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
@@ -119,6 +124,136 @@ const Contact = () => {
       id="contact-us"
       className="py-20 pt-40 bg-gradient-to-b from-background to-muted/20"
     >
+      <style>{`
+        .tc-contact-form-shell {
+          position: relative;
+          min-height: 560px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border-radius: 1rem;
+          background: #FAF9F6;
+          border: 1px solid rgba(11, 31, 63, 0.12);
+          box-shadow: 0 18px 50px rgba(11, 31, 63, 0.1);
+        }
+
+        .tc-contact-form-shell svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: min(920px, 160%);
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          stroke: #000000;
+          stroke-width: 1.2px;
+          fill: none;
+          opacity: 0.22;
+        }
+
+        .tc-form-container {
+          position: relative;
+          z-index: 2;
+          width: min(100%, 330px);
+          padding: 1.5rem;
+          font-family: Inter, sans-serif;
+        }
+
+        .tc-form-row {
+          display: flex;
+          width: 100%;
+          min-height: 72px;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.45rem;
+        }
+
+        .tc-form-row label {
+          color: #000000;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 1;
+        }
+
+        .tc-form-row input,
+        .tc-form-row textarea {
+          width: 100%;
+          margin: 0;
+          padding: 8px 10px;
+          outline: none;
+          border: 2px solid #dddddd;
+          border-radius: 0;
+          background: #ffffff;
+          color: #000000;
+          font: inherit;
+          font-size: 15px;
+          transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .tc-form-row input {
+          height: 34px;
+        }
+
+        .tc-form-row textarea {
+          min-height: 74px;
+          resize: vertical;
+        }
+
+        .tc-form-row input::placeholder,
+        .tc-form-row textarea::placeholder {
+          color: #8a8a8a;
+          font: inherit;
+          font-size: 15px;
+        }
+
+        .tc-form-row input:focus,
+        .tc-form-row textarea:focus,
+        .tc-form-row .valid {
+          border-color: #000000;
+        }
+
+        .tc-submit-row {
+          min-height: 60px;
+          display: flex;
+          align-items: center;
+        }
+
+        .tc-submit-button {
+          width: 100%;
+          height: 42px;
+          cursor: pointer;
+          border: none;
+          border-radius: 0;
+          background: #eeeeee;
+          color: #000000;
+          font: inherit;
+          font-size: 15px;
+          font-weight: 700;
+          text-transform: lowercase;
+          transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .tc-submit-button:hover:not(:disabled) {
+          background: #dddddd;
+          transform: translateY(-1px);
+        }
+
+        .tc-submit-button:disabled {
+          cursor: not-allowed;
+          opacity: 0.65;
+        }
+
+        @media (max-width: 640px) {
+          .tc-contact-form-shell {
+            min-height: 520px;
+          }
+
+          .tc-form-container {
+            width: min(100%, 300px);
+            padding: 1rem;
+          }
+        }
+      `}</style>
       <div className="container mx-auto px-6">
         {/* Section Title */}
         <div className="text-center mb-16 sm:mb-20 px-4">

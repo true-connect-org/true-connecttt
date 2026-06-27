@@ -118,7 +118,7 @@ const About = () => {
     const el = scrollRef.current;
     if (!el) return;
 
-    let isScrolling = false;
+    const isScrolling = false;
 
     const handleScroll = () => {
       if (isScrolling) return;

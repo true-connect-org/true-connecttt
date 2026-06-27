@@ -1,177 +1,148 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
-import CountUp from "react-countup";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Send } from "lucide-react";
+import { MessageCircle, ArrowRight, Cpu } from "lucide-react";
 
 const Hero = () => {
   useEffect(() => {
     // Hero animations
     const tl = gsap.timeline({ delay: 0.2 });
-    tl.from(".hero-title", {
-      y: 100,
+    tl.from(".hero-tag", {
+      y: 30,
       opacity: 0,
-      duration: 1,
-      ease: "power3.out",
+      duration: 0.6,
+      ease: "power2.out",
     })
       .from(
-        ".hero-subtitle",
+        ".hero-title",
         {
-          y: 50,
+          y: 40,
           opacity: 0,
           duration: 0.8,
-          ease: "power2.out",
+          ease: "power3.out",
         },
-        "-=0.5"
+        "-=0.3"
       )
       .from(
-        ".hero-buttons",
+        ".hero-desc",
         {
           y: 30,
           opacity: 0,
           duration: 0.6,
           ease: "power2.out",
         },
-        "-=0.3"
+        "-=0.4"
       )
       .from(
-        ".floating-icon",
+        ".hero-ctas",
         {
-          scale: 0,
-
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "back.out(1.7)",
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
         },
-        "-=0.8"
+        "-=0.3"
       );
-
-    // Floating animation for icons
-    gsap.to(".floating-icon", {
-      y: -20,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2.inOut",
-      stagger: 0.9,
-    });
   }, []);
 
   const openWhatsApp = () => {
-    window.open("https://wa.link/pn0hzn", "_blank");
+    window.open("https://wa.me/918848817833?text=Hi!%20I%20want%20to%20know%20more%20about%20your%20IT%20solutions.", "_blank");
   };
 
   return (
-    <section
-      id="home"
-      className="min-h-screen relative flex items-center justify-center bg-gradient-mesh overflow-hidden pt-24 "
-    >
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-40 right-20 w-4 h-4 bg-secondary rounded-full network-line"></div>
-        <div className="absolute bottom-32 left-12 w-3 h-3 bg-primary rounded-full network-line"></div>
+    <section id="home" className="relative flex flex-col lg:flex-row items-center min-h-[100dvh] lg:min-h-screen justify-center bg-gradient-mesh overflow-hidden">
+      
+      {/* Image Section (Top on mobile, Right on desktop) */}
+      <div className="relative w-full h-[50vh] min-h-[350px] lg:absolute lg:inset-y-0 lg:right-0 lg:w-7/12 lg:h-full z-0 overflow-hidden lg:overflow-visible">
+        {/* Desktop Diagonal Cut */}
+        <svg 
+          className="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block z-10" 
+          viewBox="0 0 100 100" 
+          fill="currentColor" 
+          preserveAspectRatio="none slice"
+        >
+          <path d="M50 0H100L50 100H0L50 0Z"></path>
+        </svg>
+        
+        {/* Mobile Diagonal Cut (Bottom) */}
+        <svg 
+          className="absolute bottom-[-1px] left-0 w-full h-16 text-white lg:hidden z-10" 
+          viewBox="0 0 100 100" 
+          fill="currentColor" 
+          preserveAspectRatio="none"
+        >
+          <polygon points="0,100 100,0 100,100" />
+        </svg>
+
+        <img 
+          className="object-cover w-full h-full object-center lg:shadow-none transition-transform duration-700 hover:scale-105" 
+          src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
+          alt="IT Solutions Team Working" 
+        />
       </div>
 
-      <div className="container mx-auto px-6 text-center relative z-10">
-        {/* Main Content */}
-        <div className="max-w-4xl mx-auto mt-20">
-          <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-shadow text-center">
-            India's Best{" "}
-            <span className="block sm:inline">
-              <span className="gradient-text">"Leased Line"</span>
-            </span>{" "}
-            <span className="block sm:inline">Provider</span>
+      {/* Text Content (Bottom on mobile, Left on desktop) */}
+      <div className="relative flex flex-col items-start w-full max-w-xl px-6 mx-auto md:px-12 lg:px-8 lg:max-w-screen-xl z-20 pt-6 pb-6 lg:py-40">
+        <div className="w-full lg:max-w-lg lg:pr-5 mt-2 lg:mt-0">
+          {/* Main Title */}
+          <h1 className="hero-title mb-3 lg:mb-5 font-space-grotesk text-3xl sm:text-5xl font-bold tracking-tight sm:leading-tight">
+            <span
+              style={{
+                background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                display: "inline-block",
+                paddingBottom: "0.1em",
+              }}
+            >
+              Everything you
+            </span>
+            <br className="hidden md:block" />
+            <span
+              style={{
+                background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                display: "inline-block",
+                paddingBottom: "0.2em",
+                paddingRight: "0.15em",
+              }}
+            >
+              can imagine,{" "}
+              <span className="italic">is real</span>
+            </span>
           </h1>
 
-          <p className="hero-subtitle text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4 text-center">
-            High-speed enterprise leased line with 100% dedicated bandwidth and
-            guaranteed uptime for seamless business connectivity.
+          {/* Description */}
+          <p className="hero-desc pr-2 lg:pr-5 mb-5 lg:mb-8 text-sm sm:text-lg text-muted-foreground leading-relaxed">
+            Based in Technopark, we engineer custom software, build multi-tenant SaaS products, design reactive web applications, and provide high-speed leased line networking to scale your operations.
           </p>
 
           {/* Buttons */}
-          <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 px-4 sm:px-0 w-full">
-            {/* Primary Hero Button */}
+          <div className="hero-ctas flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-auto">
             <Button
-              variant="hero"
               size="lg"
-              className="w-full sm:w-auto text-sm sm:text-base px-6 py-3 font-semibold"
+              className="bg-[#0b1f3f] hover:bg-[#0f2d5a] text-white px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-xl font-semibold text-[13px] sm:text-base flex items-center justify-center gap-2 shadow-lg transition-all"
               onClick={() =>
                 document
                   .getElementById("plans")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              Level Up
+              Get Started <ArrowRight size={16} />
             </Button>
 
-            {/* WhatsApp Button */}
             <Button
-              variant="whatsapp"
+              variant="outline"
               size="lg"
-              className="w-full sm:w-auto text-sm sm:text-base px-6 py-3 font-semibold flex items-center justify-center gap-2"
+              className="border-border hover:bg-muted text-foreground px-5 py-2.5 sm:px-6 sm:py-3.5 rounded-xl font-semibold text-[13px] sm:text-base flex items-center justify-center gap-2"
               onClick={openWhatsApp}
             >
-              <MessageCircle size={20} />
-              Let’s Connect
+              <MessageCircle size={18} className="text-[#1EA952]" />
+              Let's Connect
             </Button>
-          </div>
-
-          {/* Speed Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-20 pt-8 group/stats">
-            {[
-              {
-                number: 10,
-                suffix: "Gbps",
-                label: "Up To Speed",
-                tooltip:
-                  "Lightning-fast internet speeds up to 10 Gigabits per second for seamless business operations",
-              },
-              {
-                number: 100,
-                suffix: "%",
-                label: "SLA-Backed Uptime",
-                tooltip:
-                  "Guaranteed network availability with Service Level Agreement commitments and compensation for any downtime",
-              },
-              {
-                number: 500,
-                suffix: "+",
-                label: "Enterprises",
-                tooltip:
-                  "Trusted by over 500 enterprise businesses across various industries for their critical connectivity needs",
-              },
-              {
-                number: 24,
-                suffix: "×7",
-                label: "Proactive Monitoring",
-                tooltip:
-                  "Round-the-clock network monitoring and proactive issue resolution to prevent disruptions before they occur",
-              },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="float-icon text-center group relative transition-all duration-300 ease-out hover:scale-110 hover:z-10 group-hover/stats:scale-95 group-hover/stats:hover:scale-110"
-              >
-                <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
-                  <CountUp
-                    end={stat.number}
-                    duration={2.5}
-                    separator=","
-                    suffix={stat.suffix}
-                    enableScrollSpy
-                    scrollSpyOnce
-                  />
-                </div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  {stat.label}
-                </div>
-
-                {/* Separator line between stats */}
-                {index < 3 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent transform -translate-y-1/2"></div>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </div>

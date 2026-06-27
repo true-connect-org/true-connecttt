@@ -1,115 +1,186 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "./ui/button";
-import logoText from "../assets/logo-text.png";
+import logo from "../assets/true connect logo-03.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  
+  const lastScrollY = useRef(0);
+  
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    // Navbar entrance animation
-    gsap.from(".nav-item", {
-      x: -50,
+    gsap.from(".notch-container", {
+      y: -100,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power2.out",
+      duration: 1,
+      ease: "power4.out",
     });
 
-    // Scroll effect
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      if (currentScrollY <= 20) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        setVisible(false);
+      } else if (currentScrollY < lastScrollY.current) {
+        setVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleNavClick = (sectionId: string) => {
     setIsOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
+  const isNavbarVisible = visible || isOpen;
+
   return (
-    <>
-      <nav
-        className={`fixed top-0 w-full z-40 transition-all duration-300 ${
-          scrolled
-            ? "bg-[#23587C]/90 backdrop-blur-md shadow-lg ring-1 ring-white/10"
-            : "bg-[#23587C] shadow-md"
+    <div
+      className={`fixed top-0 left-0 w-full z-50 flex justify-center transition-all duration-500 ease-in-out transform ${
+        isNavbarVisible
+          ? "translate-y-0 opacity-100 pointer-events-auto"
+          : "-translate-y-full opacity-0 pointer-events-none"
+      }`}
+    >
+      <div
+        className={`notch-container bg-[#0b1f3f]/95 backdrop-blur-md text-white shadow-2xl border-x border-b border-white/20 transition-all duration-500 ease-in-out ${
+          isOpen
+            ? "w-full max-w-lg rounded-b-[24px] py-3 px-6"
+            : "w-[92%] md:w-[1200px] rounded-b-[24px] py-0 px-6 md:px-8"
         }`}
       >
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div
-              className="nav-item flex items-center space-x-3 cursor-pointer"
-              onClick={() => scrollToSection("home")}
+        <div className="flex flex-col">
+          {/* Main Bar */}
+          <div className="flex items-center justify-between h-14">
+
+            {/* Logo — sized to fill navbar height exactly */}
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center h-full cursor-pointer"
             >
               <img
-                src={logoText}
-                alt="True Connect Text"
-                className="h-8 object-contain"
+                src={logo}
+                alt="True Connect IT Solutions"
+                className="h-[42px] w-auto object-contain"
               />
+            </Link>
+
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center space-x-3">
+              <button
+                className="text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 px-3.5 py-2 rounded-lg transition-all"
+                onClick={() => handleNavClick("home")}
+              >
+                Home
+              </button>
+
+              <button
+                className="text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 px-3.5 py-2 rounded-lg transition-all"
+                onClick={() => handleNavClick("plans")}
+              >
+                Services
+              </button>
+
+              <button
+                className="text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 px-3.5 py-2 rounded-lg transition-all"
+                onClick={() => handleNavClick("faq")}
+              >
+                FAQ
+              </button>
+
+              <button
+                className="text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 px-3.5 py-2 rounded-lg transition-all"
+                onClick={() => handleNavClick("about-us")}
+              >
+                About
+              </button>
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4">
-              {["Home", "Plans", "FAQ", "Contact Us", "About Us"].map(
-                (item) => (
-                  <Button
-                    key={item}
-                    variant="ghost"
-                    size="sm"
-                    className="nav-item relative text-white hover:text-white hover:bg-white/10 transition-colors duration-200 font-medium after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-0.5 after:w-0  after:transition-all after:duration-200 hover:after:w-8"
-                    onClick={() =>
-                      scrollToSection(item.toLowerCase().replace(" ", "-"))
-                    }
-                  >
-                    {item}
-                  </Button>
-                )
-              )}
+            {/* Right Action Button */}
+            <div className="hidden md:block">
+              <Button
+                onClick={() => handleNavClick("contact-us")}
+                size="sm"
+                className="bg-white hover:bg-[#0b1f3f] text-[#0b1f3f] hover:text-white border border-[#0b1f3f] text-xs font-bold px-6 py-2 rounded-full flex items-center gap-1 shadow-lg transition-all duration-300"
+              >
+                <Phone size={12} />
+                Connect
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden nav-item text-white"
+              className="md:hidden text-white/85 hover:text-white p-0.5"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
-        </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden bg-[#23587C] border-t border-white/10">
-            <div className="container mx-auto px-6 py-4 space-y-4">
-              {["Home", "Plans", "FAQ", "Contact Us", "About Us"].map(
-                (item) => (
-                  <Button
-                    key={item}
-                    variant="ghost"
-                    className="block w-full justify-start text-white hover:text-white hover:bg-white/10 transition-colors duration-200 font-medium py-2"
-                    onClick={() =>
-                      scrollToSection(item.toLowerCase().replace(" ", "-"))
-                    }
-                  >
-                    {item}
-                  </Button>
-                )
-              )}
+          {/* Mobile Collapsible Navigation */}
+          {isOpen && (
+            <div className="mt-3 space-y-3.5 md:hidden border-t border-white/10 pt-4 pb-3 max-h-[70vh] overflow-y-auto">
+              <button
+                className="block w-full text-left text-xs text-white/80 hover:text-white py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all"
+                onClick={() => handleNavClick("home")}
+              >
+                Home
+              </button>
+
+              <button
+                className="block w-full text-left text-xs text-white/80 hover:text-white py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all"
+                onClick={() => handleNavClick("plans")}
+              >
+                Services
+              </button>
+
+              <button
+                className="block w-full text-left text-xs text-white/80 hover:text-white py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all"
+                onClick={() => handleNavClick("faq")}
+              >
+                FAQ
+              </button>
+
+              <button
+                className="block w-full text-left text-xs text-white/80 hover:text-white py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all"
+                onClick={() => handleNavClick("about-us")}
+              >
+                About
+              </button>
+
+              <button
+                className="w-full bg-white hover:bg-[#0b1f3f] text-[#0b1f3f] hover:text-white border border-[#0b1f3f] text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-1 shadow-lg transition-all duration-300"
+                onClick={() => handleNavClick("contact-us")}
+              >
+                <Phone size={12} />
+                Connect Now
+              </button>
             </div>
-          </div>
-        )}
-      </nav>
-    </>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
