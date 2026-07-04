@@ -1,309 +1,141 @@
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Shield,
-  Globe,
-  Star,
-  Cloud,
-  CheckCircle,
-  ArrowRight,
-  ArrowLeft,
-  Award,
-  Users,
-} from "lucide-react";
-import speedChart from "@/assets/about-ilustration.svg";
-
-gsap.registerPlugin(ScrollTrigger);
+import { Target, Lightbulb } from "lucide-react";
 
 const About = () => {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const [page, setPage] = useState(0);
-  const [mobileIndex, setMobileIndex] = useState(0);
-
-  const features = [
-    {
-      icon: Globe,
-      title: "Dedicated Bandwidth",
-      description:
-        "1:1 uplink and downlink ratio with guaranteed speeds to support data-intensive applications without sharing resources",
-    },
-    {
-      icon: Star,
-      title: "99.9% Uptime",
-      description:
-        "Enterprise-grade SLA with redundant connections and proactive monitoring to ensure uninterrupted business operations",
-    },
-    {
-      icon: Cloud,
-      title: "Scalable Solutions",
-      description:
-        "Upgrade bandwidth from 10 Mbps to 100 Gbps as your business grows with flexible plans and seamless transitions",
-    },
-    {
-      icon: Shield,
-      title: "Enterprise Security",
-      description:
-        "Built-in DDoS protection, encrypted connections, and enterprise-grade security protocols to safeguard your data",
-    },
-    {
-      icon: CheckCircle,
-      title: "Dual Stack Support",
-      description:
-        "IPv4 and IPv6 dual stack connectivity for modern application hosting and future-ready infrastructure",
-    },
-    {
-      icon: Award,
-      title: "Jio Partnership",
-      description:
-        "Official Reliance Jio channel partner with access to premium nationwide infrastructure and priority support",
-    },
-    {
-      icon: Cloud,
-      title: "Burstable Bandwidth",
-      description:
-        "Flexible bandwidth allocation that automatically adapts to your business peak demand requirements",
-    },
-    {
-      icon: Users,
-      title: "24/7 Expert Support",
-      description:
-        "Dedicated account managers and round-the-clock technical support with guaranteed response times",
-    },
-  ];
-
-  const pages = [features.slice(0, 4), features.slice(4, 8)];
-  const totalPages = pages.length;
-
-  // GSAP animations for desktop
-  useEffect(() => {
-    gsap.fromTo(
-      ".about-animate",
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: ".about-animate",
-          start: "top 85%",
-          once: true,
-        },
-      }
-    );
-
-    gsap.fromTo(
-      ".about-card",
-      { y: 80, opacity: 0, scale: 0.9 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: ".about-cards",
-          start: "top 85%",
-        },
-      }
-    );
-  }, []);
-
-  // Mobile horizontal scroll behavior
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const isScrolling = false;
-
-    const handleScroll = () => {
-      if (isScrolling) return;
-      const scrollLeft = el.scrollLeft;
-      const cardWidth = el.offsetWidth * 0.8; // one-card width
-      const newIndex = Math.round(scrollLeft / cardWidth);
-      setMobileIndex(newIndex);
-    };
-
-    el.addEventListener("scroll", handleScroll);
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <section
       id="about-us"
-      ref={sectionRef}
-      className="py-20 pt-40 bg-gradient-to-b from-background to-muted/20"
+      className="py-20 bg-gradient-to-b from-background to-muted/20"
     >
-      <div className="container mx-auto px-6">
-        {/* Section Title */}
-        <div className="text-center mb-24 sm:mb-28 px-6">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="about-animate text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
-              Redefining{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Business Connectivity
-              </span>{" "}
-              Standards
-            </h1>
-
-            <p className="about-animate text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto text-left">
-              Authorized Jio channel partner based in Trivandrum Technopark,
-              delivering 1:1 dedicated leased line connections with guaranteed
-              bandwidth across India. Enterprise-grade security, 24/7 support,
-              and seamless scalability backed by Reliance Jio's nationwide
-              infrastructure.
-            </p>
-          </div>
+      {/* Mission & Vision Desktop Monitor */}
+      <div className="max-w-[1200px] w-full mx-auto px-6 md:px-12 relative z-20">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+            <span
+              style={{
+                background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                display: "inline-block",
+                paddingBottom: "0.1em",
+                paddingRight: "0.1em",
+              }}
+            >
+              Our Mission & Vision
+            </span>
+          </h2>
+          <div className="w-20 h-1.5 bg-gradient-to-r from-[#0b1f3f] to-blue-800 mx-auto mt-6 mb-6 rounded-full" />
+          <p className="text-sm md:text-base text-gray-500 max-w-md mx-auto">
+            Discover the driving forces behind True Connect's commitment to
+            delivering enterprise-grade connectivity.
+          </p>
         </div>
 
-        {/* MOBILE: Smooth Center Snap Scroll */}
-        <div className="about-cards mb-16 md:hidden">
-          <div
-            ref={scrollRef}
-            className="flex space-x-6 overflow-x-auto px-4 snap-x snap-mandatory scroll-smooth scrollbar-hide"
-            style={{
-              WebkitOverflowScrolling: "touch",
-              scrollSnapType: "x mandatory",
-              scrollBehavior: "smooth",
-            }}
-          >
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`about-card flex-shrink-0 w-72 p-6 text-center rounded-2xl transition-all duration-500 ease-in-out ${
-                  mobileIndex === index
-                    ? "bg-gray-100 shadow-lg scale-105"
-                    : "bg-gray-50 opacity-70 scale-95"
-                } snap-center`}
-                style={{
-                  flex: "0 0 80%",
-                  scrollSnapAlign: "center",
-                  transition: "all 0.4s ease-in-out",
-                }}
-              >
-                <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
+        {/* Desktop Monitor Mockup */}
+        <div className="mx-auto w-full max-w-4xl relative">
+          {/* Screen Bezel */}
+          <div className="relative rounded-t-3xl rounded-b-xl border-[12px] md:border-[20px] border-gray-900 bg-[#E9EDF1] shadow-2xl overflow-visible flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 px-12 pb-20 pt-8 md:px-16 md:pb-24 md:pt-12 mb-2">
+            {/* Card 1: Mission */}
+            <div className="relative group w-full max-w-[340px]">
+              {/* Colored Holder Background */}
+              <div className="absolute inset-0 z-0 drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-1">
+                {/* Main colored base */}
+                <div className="absolute top-[45%] -bottom-6 -left-5 -right-5 bg-[#0b1f3f] rounded-b-2xl rounded-t-[4px]" />
+                {/* Left Horn */}
+                <div
+                  className="absolute bottom-[55%] -left-5 w-6 h-12 bg-[#0b1f3f]"
+                  style={{ clipPath: "polygon(0 100%, 100% 100%, 100% 0)" }}
+                />
+                {/* Right Horn */}
+                <div
+                  className="absolute bottom-[55%] -right-5 w-6 h-12 bg-[#0b1f3f]"
+                  style={{ clipPath: "polygon(0 0, 0 100%, 100% 100%)" }}
+                />
+
+                {/* Bottom Tab */}
+                <div
+                  className="absolute -bottom-14 left-1/2 -translate-x-1/2 w-32 h-9 bg-gradient-to-b from-[#0b1f3f] to-[#07152b] flex items-center justify-center"
+                  style={{
+                    clipPath: "polygon(0 0, 100% 0, 85% 100%, 15% 100%)",
+                  }}
+                >
+                  <span className="text-white font-bold text-lg leading-none mt-0.5">
+                    01
+                  </span>
+                </div>
+              </div>
+
+              {/* White Content Card */}
+              <div className="relative z-10 bg-white rounded-2xl shadow-sm p-6 md:p-8 aspect-square text-center flex flex-col items-center justify-center transition-transform duration-300 group-hover:-translate-y-1">
+                <Target
+                  className="w-14 h-14 text-gray-800 mb-6"
+                  strokeWidth={1}
+                />
+                <h3 className="text-xl font-bold tracking-widest text-gray-900 mb-5 relative">
+                  Mission
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed px-2">
+                  To empower businesses across India with ultra-fast, secure,
+                  and reliable enterprise-grade connectivity solutions that
+                  drive innovation and growth.
                 </p>
               </div>
-            ))}
-          </div>
-
-          {/* Pagination Dots */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {Array.from({ length: features.length }).map((_, index) => (
-              <div
-                key={index}
-                className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  mobileIndex === index
-                    ? "bg-primary scale-110"
-                    : "bg-muted-foreground/40"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* DESKTOP: Arrow Slider */}
-        <div className="relative about-cards pb-4 mb-20 hidden md:block">
-          {page > 0 && (
-            <button
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
-              className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center rounded-full bg-background/80 shadow-lg ring-1 ring-border hover:bg-background transition"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-          )}
-
-          {page < totalPages - 1 && (
-            <button
-              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-              className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 flex items-center justify-center rounded-full bg-background/80 shadow-lg ring-1 ring-border hover:bg-background transition"
-            >
-              <ArrowRight className="h-5 w-5" />
-            </button>
-          )}
-
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${page * 100}%)` }}
-            >
-              {pages.map((group, i) => (
-                <div key={i} className="min-w-full">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {group.map((feature, index) => (
-                      <div
-                        key={index}
-                        className="about-card p-6 text-center rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:scale-[1.03] transition-transform duration-300"
-                      >
-                        <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                        <h3 className="text-xl font-bold mb-3">
-                          {feature.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {feature.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
             </div>
-          </div>
-        </div>
 
-        {/* GROWTH CHART SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="about-chart">
-            <img
-              src={speedChart}
-              alt="True Connect Network Infrastructure"
-              className="w-full h-64 object-cover rounded-2xl shadow-lg"
-            />
-          </div>
+            {/* Card 2: Vision */}
+            <div className="relative group w-full max-w-[340px] mt-12 md:mt-0">
+              {/* Colored Holder Background */}
+              <div className="absolute inset-0 z-0 drop-shadow-xl transition-transform duration-300 group-hover:-translate-y-1">
+                {/* Main colored base */}
+                <div className="absolute top-[45%] -bottom-6 -left-5 -right-5 bg-[#e6e84a] rounded-b-2xl rounded-t-[4px]" />
+                {/* Left Horn */}
+                <div
+                  className="absolute bottom-[55%] -left-5 w-6 h-12 bg-[#e6e84a]"
+                  style={{ clipPath: "polygon(0 100%, 100% 100%, 100% 0)" }}
+                />
+                {/* Right Horn */}
+                <div
+                  className="absolute bottom-[55%] -right-5 w-6 h-12 bg-[#e6e84a]"
+                  style={{ clipPath: "polygon(0 0, 0 100%, 100% 100%)" }}
+                />
 
-          <div>
-            <h3 className="text-3xl font-bold mb-6">
-              Empowering India’s{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Digital Future
-              </span>
-            </h3>
-            <p className="about-animate text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto text-left">
-              <b>
-                True Connect delivers premium internet solutions for businesses
-                of all sizes.
-              </b>{" "}
-              Backed by a <b>decade of enterprise expertise</b>, we are an{" "}
-              <b>official channel partner of Reliance Jio</b>. Our cutting-edge
-              fiber network is dedicated to supporting India's digital growth,
-              ensuring entrepreneurs and corporations across all tier cities
-              have the reliable, top-tier connectivity they need to thrive.
-            </p>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">500+</div>
-                <div className="text-sm text-muted-foreground">
-                  Enterprise Clients
+                {/* Bottom Tab */}
+                <div
+                  className="absolute -bottom-14 left-1/2 -translate-x-1/2 w-32 h-9 bg-gradient-to-b from-[#e6e84a] to-[#cdd138] flex items-center justify-center"
+                  style={{
+                    clipPath: "polygon(0 0, 100% 0, 85% 100%, 15% 100%)",
+                  }}
+                >
+                  <span className="text-gray-900 font-bold text-lg leading-none mt-0.5">
+                    02
+                  </span>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-secondary mb-1">
-                  50K+
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Active Connections
-                </div>
+
+              {/* White Content Card */}
+              <div className="relative z-10 bg-white rounded-2xl shadow-sm p-6 md:p-8 aspect-square text-center flex flex-col items-center justify-center transition-transform duration-300 group-hover:-translate-y-1">
+                <Lightbulb
+                  className="w-14 h-14 text-gray-800 mb-6"
+                  strokeWidth={1}
+                />
+                <h3 className="text-xl font-bold tracking-widest text-gray-900 mb-5 relative">
+                  Vision
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed px-2">
+                  To be the leading provider of digital infrastructure,
+                  redefining industry standards and connecting every enterprise
+                  to a limitless digital future.
+                </p>
               </div>
             </div>
           </div>
+
+          {/* Monitor Stand */}
+          <div
+            className="hidden md:block mx-auto w-24 md:w-32 h-6 md:h-10 bg-gradient-to-b from-gray-700 to-gray-800 shadow-inner"
+            style={{ clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0% 100%)" }}
+          />
+          <div className="hidden md:block mx-auto w-40 md:w-56 h-3 md:h-4 bg-gray-900 rounded-full shadow-2xl" />
         </div>
       </div>
     </section>

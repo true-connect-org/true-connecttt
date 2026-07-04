@@ -8,19 +8,12 @@ import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const createCaptcha = () => ({
-  captchaNum1: Math.floor(Math.random() * 9) + 1,
-  captchaNum2: Math.floor(Math.random() * 9) + 1,
-  captchaAnswer: "",
-});
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
     message: "",
-    ...createCaptcha(),
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,7 +33,7 @@ const Contact = () => {
           trigger: ".contact-title",
           start: "top 80%",
         },
-      }
+      },
     );
 
     gsap.fromTo(
@@ -56,12 +49,12 @@ const Contact = () => {
           trigger: ".contact-grid",
           start: "top 85%",
         },
-      }
+      },
     );
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
@@ -71,16 +64,6 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const expectedAnswer = formData.captchaNum1 + formData.captchaNum2;
-    if (Number(formData.captchaAnswer) !== expectedAnswer) {
-      toast.error("Please solve the verification question correctly.");
-      setFormData((current) => ({
-        ...current,
-        ...createCaptcha(),
-      }));
-      return;
-    }
 
     setIsSubmitting(true);
 
@@ -101,7 +84,6 @@ const Contact = () => {
         email: "",
         mobile: "",
         message: "",
-        ...createCaptcha(),
       });
     } catch (error) {
       toast.error("Failed to send message. Please try again.");
@@ -122,291 +104,101 @@ const Contact = () => {
   return (
     <section
       id="contact-us"
-      className="py-20 pt-40 bg-gradient-to-b from-background to-muted/20"
+      className="py-16 md:py-24 bg-gray-50 flex items-center justify-center px-6 md:px-12 min-h-screen"
     >
-      <style>{`
-        .tc-contact-form-shell {
-          position: relative;
-          min-height: 560px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          border-radius: 1rem;
-          background: #FAF9F6;
-          border: 1px solid rgba(11, 31, 63, 0.12);
-          box-shadow: 0 18px 50px rgba(11, 31, 63, 0.1);
-        }
+      <div className="contact-grid w-full max-w-[1200px] mx-auto bg-white rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl border border-gray-100 relative z-10 md:h-[80vh]">
+        {/* Left Side (Image/Text) */}
+        <div className="contact-item w-full md:w-[45%] relative min-h-[350px] md:min-h-0 bg-white p-8 md:p-10 lg:p-12 flex flex-col justify-end overflow-hidden">
+          {/* Temporary Background Image */}
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1650&q=80"
+            alt="Collaboration"
+            className="absolute inset-0 w-full h-full object-cover opacity-100 blur-[2px] pointer-events-none"
+          />
+          {/* White foggy gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
 
-        .tc-contact-form-shell svg {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: min(920px, 160%);
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-          stroke: #000000;
-          stroke-width: 1.2px;
-          fill: none;
-          opacity: 0.22;
-        }
-
-        .tc-form-container {
-          position: relative;
-          z-index: 2;
-          width: min(100%, 330px);
-          padding: 1.5rem;
-          font-family: Inter, sans-serif;
-        }
-
-        .tc-form-row {
-          display: flex;
-          width: 100%;
-          min-height: 72px;
-          flex-direction: column;
-          justify-content: center;
-          gap: 0.45rem;
-        }
-
-        .tc-form-row label {
-          color: #000000;
-          font-size: 15px;
-          font-weight: 600;
-          line-height: 1;
-        }
-
-        .tc-form-row input,
-        .tc-form-row textarea {
-          width: 100%;
-          margin: 0;
-          padding: 8px 10px;
-          outline: none;
-          border: 2px solid #dddddd;
-          border-radius: 0;
-          background: #ffffff;
-          color: #000000;
-          font: inherit;
-          font-size: 15px;
-          transition: border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .tc-form-row input {
-          height: 34px;
-        }
-
-        .tc-form-row textarea {
-          min-height: 74px;
-          resize: vertical;
-        }
-
-        .tc-form-row input::placeholder,
-        .tc-form-row textarea::placeholder {
-          color: #8a8a8a;
-          font: inherit;
-          font-size: 15px;
-        }
-
-        .tc-form-row input:focus,
-        .tc-form-row textarea:focus,
-        .tc-form-row .valid {
-          border-color: #000000;
-        }
-
-        .tc-submit-row {
-          min-height: 60px;
-          display: flex;
-          align-items: center;
-        }
-
-        .tc-submit-button {
-          width: 100%;
-          height: 42px;
-          cursor: pointer;
-          border: none;
-          border-radius: 0;
-          background: #eeeeee;
-          color: #000000;
-          font: inherit;
-          font-size: 15px;
-          font-weight: 700;
-          text-transform: lowercase;
-          transition: background-color 0.2s ease, transform 0.2s ease;
-        }
-
-        .tc-submit-button:hover:not(:disabled) {
-          background: #dddddd;
-          transform: translateY(-1px);
-        }
-
-        .tc-submit-button:disabled {
-          cursor: not-allowed;
-          opacity: 0.65;
-        }
-
-        @media (max-width: 640px) {
-          .tc-contact-form-shell {
-            min-height: 520px;
-          }
-
-          .tc-form-container {
-            width: min(100%, 300px);
-            padding: 1rem;
-          }
-        }
-      `}</style>
-      <div className="container mx-auto px-6">
-        {/* Section Title */}
-        <div className="text-center mb-16 sm:mb-20 px-4">
-          <div className="max-w-3xl mx-auto text-left">
-            <h2 className="contact-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight text-center">
-              Get Connected <span className="gradient-text">Today</span>
+          <div className="relative z-10 contact-title mt-20">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+              <span
+                style={{
+                  background:
+                    "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  display: "inline-block",
+                  paddingBottom: "0.1em",
+                  paddingRight: "0.1em",
+                }}
+              >
+                Build better products <br />
+                with True Connect
+              </span>
             </h2>
-
-            <p className="contact-title text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
-              Ready to experience India's fastest leased line internet? Contact
-              us now and our team will help you choose the perfect plan with
-              high-speed connectivity and reliable internet for your needs.
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-[90%]">
+              Connect your data sources, build insights, and share them with
+              your team. Experience seamless and high-speed internet.
             </p>
           </div>
         </div>
 
-        <div className="contact-grid grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Contact Information */}
-          <div className="contact-item">
-            <div className="glass-card p-8 h-full">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+        {/* Right Side (Form) */}
+        <div className="contact-item w-full md:w-[55%] bg-white p-6 md:p-8 lg:p-10 flex flex-col justify-start md:justify-center md:min-h-0">
+          <div className="max-w-[400px] w-full mx-auto">
+            <h3 className="text-2xl text-gray-900 font-medium mb-1">
+              Welcome back
+            </h3>
+            <p className="text-gray-500 text-sm mb-4">
+              Contact us to experience India's fastest internet.
+            </p>
 
-              {/* WhatsApp */}
-              <div
-                className="flex items-center space-x-4 p-4 bg-green-500/10 border border-green-500/20 rounded-xl cursor-pointer hover:bg-green-500/20 transition-all duration-300 mb-3"
+            {/* Social / Direct Contact Buttons */}
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <button
                 onClick={openWhatsApp}
+                type="button"
+                className="flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-900 text-sm font-medium py-2 rounded-lg border border-gray-200 transition-colors"
               >
-                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <MessageCircle className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-green-500">Connect Now</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Get instant support
-                  </p>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div
-                className="flex items-center space-x-4 p-4 bg-primary/10 border border-primary/20 rounded-xl cursor-pointer hover:bg-primary/20 transition-all duration-300 mb-3"
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp
+              </button>
+              <button
                 onClick={dialNow}
+                type="button"
+                className="flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-900 text-sm font-medium py-2 rounded-lg border border-gray-200 transition-colors"
               >
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-primary">Talk to Expert</h4>
-                  <p className="text-sm text-muted-foreground">
-                    +91 8848817833
-                  </p>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-center space-x-4 p-4 bg-secondary/10 border border-secondary/20 rounded-xl cursor-pointer hover:bg-secondary/20 transition-all duration-300 mb-6">
-                <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-secondary-foreground" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-secondary">Write to Us</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {" "}
-                    support@true-connect.in{" "}
-                  </p>
-                </div>
-              </div>
-
-              {/* Why Choose Us - Compact */}
-
-              <div className="pt-6 border-t border-border">
-                <h4 className="text-lg font-semibold text-center mb-4">
-                  What Makes True Connect Different?
-                </h4>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm text-muted-foreground">
-                  {/* Column 1 */}
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      End-to-end fiber solutions built for enterprises
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Seamless installation — zero disruption or downtime
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      24/7 proactive monitoring & priority business support
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Powered by Jio — trusted nationwide connectivity
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Tailored plans that scale with your business growth
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Dedicated account management for enterprise clients
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      High SLA uptime guarantees backed by robust infrastructure
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Next-gen solutions optimized for hybrid and remote teams
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Enterprise-grade security for seamless data protection
-                    </span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <div className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-                    <span>
-                      Smart scalability — upgrade anytime as your needs grow
-                    </span>
-                  </div>
-                </div>
-              </div>
+                <Phone className="w-4 h-4" />
+                Call Us
+              </button>
             </div>
-          </div>
+            <button
+              type="button"
+              onClick={() =>
+                (window.location.href = "mailto:support@true-connect.in")
+              }
+              className="w-full flex items-center justify-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-900 text-sm font-medium py-2 rounded-lg border border-gray-200 transition-colors mb-4"
+            >
+              <Mail className="w-4 h-4" />
+              Email
+            </button>
 
-          {/* Contact Form */}
-          <div className="contact-item">
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-bold mb-6">Get Your Connection</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="relative flex items-center py-3">
+              <div className="flex-grow border-t border-gray-200"></div>
+              <span className="flex-shrink-0 mx-4 text-gray-400 text-xs">
+                Or
+              </span>
+              <div className="flex-grow border-t border-gray-200"></div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium mb-2"
+                    className="block text-gray-700 text-xs font-medium mb-2"
                   >
-                    Full Name *
+                    Full Name*
                   </label>
                   <input
                     type="text"
@@ -415,17 +207,17 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
-                    placeholder="Enter your full name"
+                    className="w-full bg-gray-100 text-gray-900 border border-transparent focus:border-blue-400 focus:bg-white rounded-lg px-3 py-2 text-sm outline-none transition-all placeholder:text-gray-400"
+                    placeholder="Full name"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium mb-2"
+                    className="block text-gray-700 text-xs font-medium mb-2"
                   >
-                    Email Address *
+                    Email*
                   </label>
                   <input
                     type="email"
@@ -434,112 +226,63 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
-                    placeholder="Enter your email"
+                    className="w-full bg-gray-100 text-gray-900 border border-transparent focus:border-blue-400 focus:bg-white rounded-lg px-3 py-2 text-sm outline-none transition-all placeholder:text-gray-400"
+                    placeholder="Email"
                   />
                 </div>
+              </div>
 
-                <div>
-                  <label
-                    htmlFor="mobile"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Mobile Number *
-                  </label>
-                  <input
-                    type="tel"
-                    id="mobile"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={handleChange}
-                    required
-                    pattern="[0-9]{10}"
-                    title="Please enter a valid mobile number"
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
-                    placeholder="Enter your mobile number"
-                  />
-                </div>
+              <div>
+                <label
+                  htmlFor="mobile"
+                  className="block text-gray-700 text-xs font-medium mb-2"
+                >
+                  Mobile Number*
+                </label>
+                <input
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  required
+                  pattern="[0-9]{10}"
+                  className="w-full bg-gray-100 text-gray-900 border border-transparent focus:border-blue-400 focus:bg-white rounded-lg px-3 py-2 text-sm outline-none transition-all placeholder:text-gray-400"
+                  placeholder="Enter your mobile number"
+                />
+              </div>
 
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium mb-2"
-                  >
-                    Your Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    maxLength={1000}
-                    rows={2}
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300 resize-none"
-                    placeholder="Enter your message"
-                  />
-                </div>
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-gray-700 text-xs font-medium mb-2"
+                >
+                  Message*
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={2}
+                  className="w-full bg-gray-100 text-gray-900 border border-transparent focus:border-blue-400 focus:bg-white rounded-lg px-3 py-2 text-sm outline-none transition-all placeholder:text-gray-400 resize-none"
+                  placeholder="Enter your message"
+                />
+              </div>
 
-                {/* CAPTCHA Section */}
-                <div className="border border-border rounded-xl p-4 bg-background/50">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <div className="flex items-center gap-2 text-lg font-semibold">
-                      <span className="px-3 py-2 bg-white/10 rounded border border-border">
-                        {formData.captchaNum1}
-                      </span>
-                      <span>+</span>
-                      <span className="px-3 py-2 bg-white/10 rounded border border-border">
-                        {formData.captchaNum2}
-                      </span>
-                      <span>=</span>
-                      <input
-                        type="number"
-                        name="captchaAnswer"
-                        value={formData.captchaAnswer}
-                        onChange={handleChange}
-                        required
-                        className="w-20 px-3 py-2 bg-background border border-border rounded focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
-                        placeholder="?"
-                      />
-                    </div>
-                    <span className="text-sm text-muted-foreground">
-                      (Are you human, or spambot?)
-                    </span>
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <div className="flex flex-col items-center justify-center gap-4 w-full mt-4 sm:mt-6">
-                  <Button
-                    type="submit"
-                    variant="hero"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-sm sm:text-base px-6 py-3 font-semibold"
-                  >
-                    {isSubmitting ? (
-                      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5" />
-                        <span>Submit Request</span>
-                      </>
-                    )}
-                  </Button>
-
-                  {/* WhatsApp Button */}
-                  <Button
-                    onClick={openWhatsApp}
-                    variant="whatsapp"
-                    size="lg"
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-sm sm:text-base px-6 py-3 font-semibold"
-                  >
-                    <MessageCircle size={20} />
-                    Let’s Connect
-                  </Button>
-                </div>
-              </form>
-            </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-[#0b1f3f] text-white hover:bg-[#1a4480] font-medium py-2.5 rounded-lg text-sm transition-colors mt-3 flex items-center justify-center shadow-lg"
+              >
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  "Submit Request"
+                )}
+              </button>
+            </form>
           </div>
         </div>
       </div>

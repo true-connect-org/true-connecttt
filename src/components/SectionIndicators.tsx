@@ -5,7 +5,6 @@ const sections = [
   { id: "plans", label: "Services" },
   { id: "faq", label: "FAQ" },
   { id: "contact-us", label: "Contact" },
-  { id: "about-us", label: "About" },
 ];
 
 const SectionIndicators = () => {

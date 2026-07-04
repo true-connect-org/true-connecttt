@@ -1,172 +1,104 @@
-import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Linkedin, Instagram, Phone, Mail, MapPin } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { Facebook, Instagram, Linkedin, ArrowRight } from "lucide-react";
+import footerLogo from "../assets/logo/w-bg submark.svg";
 
 const Footer = () => {
-  useEffect(() => {
-    gsap.fromTo(
-      ".footer-content",
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".footer-content",
-          start: "top 90%",
-        },
-      }
-    );
-  }, []);
-
-  const openWhatsApp = () => {
-    window.open(
-      "https://wa.me/919876543210?text=Hi%20True%20Connect!%20I%20want%20to%20know%20more%20about%20your%20services.",
-      "_blank"
-    );
-  };
-
-  const openLinkedIn = () => {
-    window.open(
-      "https://www.linkedin.com/in/true-connect-92679a390/",
-      "_blank"
-    );
-  };
-
-  const openInstagram = () => {
-    window.open("https://www.instagram.com/true.connectt/", "_blank");
-  };
-
   return (
-    <footer className="bg-white border-t border-border">
-      <div className="container mx-auto px-6 py-8">
-        <div className="footer-content">
-          {/* Stats Section */}
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8 mb-6">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold mb-2">
-                India's #1{" "}
-                <span className="gradient-text">Internet Service Provider</span>
-              </h3>
-              <p className="text-muted-foreground">
-                Trusted by millions across the nation
-              </p>
-            </div>
+    <footer className="bg-gray-50 h-auto md:h-[50vh] flex flex-col justify-between">
+      <div className="max-w-[1200px] w-full mx-auto flex-1 flex flex-col justify-center items-center text-center px-6 md:px-12 py-8 md:py-0">
+        <p className="text-gray-700 mb-6 max-w-lg mx-auto text-sm md:text-base">
+          Empowering businesses with enterprise-grade IT solutions and
+          ultra-fast, reliable leased line connectivity.
+        </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">
-                  10M+
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Active Users
-                </div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-secondary mb-1">
-                  500+
-                </div>
-                <div className="text-sm text-muted-foreground">Cities</div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">
-                  99.9%
-                </div>
-                <div className="text-sm text-muted-foreground">Uptime</div>
-              </div>
-              <div>
-                <div className="text-2xl md:text-3xl font-bold text-secondary mb-1">
-                  24/7
-                </div>
-                <div className="text-sm text-muted-foreground">Support</div>
-              </div>
+        <div className="w-full max-w-2xl relative flex items-center bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+          <div className="pl-4 pr-2 text-gray-400">
+            <span className="w-2 h-2 rounded-full bg-gray-700 inline-block"></span>
+          </div>
+          <input
+            type="email"
+            placeholder="Subscribe to our newsletter"
+            className="w-full py-4 px-3 outline-none text-sm text-gray-900 placeholder-gray-500"
+          />
+          <button className="pr-4 pl-2 text-gray-600 hover:text-black transition-colors">
+            <ArrowRight size={20} />
+          </button>
+        </div>
+      </div>
+
+      <div className="max-w-[1200px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 border-t border-gray-200">
+        {/* Left Side */}
+        <div className="flex flex-col justify-between border-b md:border-b-0 md:border-r border-gray-200 p-6 md:p-12 min-h-[150px] relative overflow-hidden">
+          <div className="absolute top-1/2 -translate-y-1/2 left-6 md:left-8 pointer-events-none">
+            <img
+              src={footerLogo}
+              alt="True Connect"
+              className="h-[40px] md:h-[60px] w-auto object-contain"
+            />
+          </div>
+          <p className="text-xs text-gray-500 font-medium mt-auto relative z-10">
+            ©2026 True Connect, Inc. All Rights Reserved.
+          </p>
+        </div>
+
+        {/* Right Side */}
+        <div className="flex flex-col justify-between p-6 md:p-12 min-h-[150px]">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-3">
+              <a
+                href="#home"
+                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                Home
+              </a>
+              <a
+                href="#plans"
+                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                Services
+              </a>
+              <a
+                href="#faq"
+                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                FAQ
+              </a>
+              <a
+                href="#contact-us"
+                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                Contact
+              </a>
+            </div>
+            <div className="flex flex-col gap-3">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                <Instagram size={16} /> Instagram
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                <Linkedin size={16} /> LinkedIn
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-black transition-colors"
+              >
+                <Facebook size={16} /> Facebook
+              </a>
             </div>
           </div>
-
-          {/* Main Footer Content */}
-          <div className="text-center mb-16 sm:mb-20 px-4">
-            <div className="max-w-6xl mx-auto text-left">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {/* Quick Links */}
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                    Quick Links
-                  </h3>
-                  <ul className="space-y-2">
-                    {["Home", "Plans", "FAQ", "Contact Us"].map(
-                      (link) => (
-                        <li key={link}>
-                          <button
-                            className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                            onClick={() =>
-                              document
-                                .getElementById(
-                                  link.toLowerCase().replace(" ", "-")
-                                )
-                                ?.scrollIntoView({ behavior: "smooth" })
-                            }
-                          >
-                            {link}
-                          </button>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-
-                {/* Services */}
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                    Our Services
-                  </h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>Internet Leased Line</li>
-                    <li>Business Internet Line</li>
-                    <li>Fiber Optic Connection</li>
-                    <li>Network Security</li>
-                  </ul>
-                </div>
-
-                {/* Contact Info */}
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold mb-4">
-                    Contact Info
-                  </h3>
-                  <div className="space-y-3 text-muted-foreground">
-                    <div className="flex items-center space-x-3">
-                      <Phone className="w-4 h-4 text-primary" />
-                      <span>+91 8848817833</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <Mail className="w-4 h-4 text-primary" />
-                      <span>support@true-connect.in</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="leading-snug">
-                        Trivandrum Technopark, Thejaswini Building, SBC 22, -2,
-                        695581
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="border-t border-border pt-10">
-            <div className="flex justify-center items-center">
-              <p className="text-muted-foreground text-sm text-center">
-                © 2025 True Connect. All rights reserved. Delivering India's
-                fastest internet.
-              </p>
-            </div>
-          </div>
+          <p className="text-xs text-gray-500 font-medium mt-auto">
+            Privacy Notice
+          </p>
         </div>
       </div>
     </footer>

@@ -82,7 +82,7 @@ const Hero = () => {
       </div>
 
       {/* Text Content (Bottom on mobile, Left on desktop) */}
-      <div className="relative flex flex-col items-start w-full max-w-xl px-6 mx-auto md:px-12 lg:px-8 lg:max-w-screen-xl z-20 pt-6 pb-6 lg:py-40">
+      <div className="relative flex flex-col items-start w-full max-w-xl px-6 mx-auto md:px-12 lg:max-w-[1200px] z-20 pt-6 pb-6 lg:py-40">
         <div className="w-full lg:max-w-lg lg:pr-5 mt-2 lg:mt-0">
           {/* Main Title */}
           <h1 className="hero-title mb-3 lg:mb-5 font-space-grotesk text-3xl sm:text-5xl font-bold tracking-tight sm:leading-tight">

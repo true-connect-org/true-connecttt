@@ -83,7 +83,7 @@ const Faq = () => {
         <div className="absolute bottom-8 right-[-8rem] h-72 w-72 rounded-full bg-[#2d6aad]/10 blur-3xl" />
       </div>
 
-      <div ref={containerRef} className="container relative z-10 mx-auto px-6">
+      <div ref={containerRef} className="max-w-[1200px] w-full relative z-10 mx-auto px-6 md:px-12">
         <div className="mb-12 md:mb-16">
           <div className="mb-5 flex items-center gap-2">
             <span className="h-px w-8 bg-[#0b1f3f]" />
