@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Briefcase } from "lucide-react";
 import { Button } from "./ui/button";
 import logo from "../assets/logo/nav-logo.png";
 
@@ -110,17 +110,24 @@ const Navbar = () => {
               >
                 Case Studies
               </button>
+
+              <button
+                className="text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 px-3.5 py-2 rounded-lg transition-all"
+                onClick={() => handleNavClick("/contact-us")}
+              >
+                Contact Us
+              </button>
             </div>
 
             {/* Right Action Button */}
             <div className="hidden md:block">
               <Button
-                onClick={() => handleNavClick("/contact-us")}
+                onClick={() => handleNavClick("/careers")}
                 size="sm"
                 className="bg-white hover:bg-[#0b1f3f] text-[#0b1f3f] hover:text-white border border-[#0b1f3f] text-xs font-bold px-6 py-2 rounded-full flex items-center gap-1 shadow-lg transition-all duration-300"
               >
-                <Phone size={12} />
-                Contact Us
+                <Briefcase size={12} />
+                Careers
               </Button>
             </div>
 
@@ -164,13 +171,18 @@ const Navbar = () => {
                 Case Studies
               </button>
 
-
               <button
-                className="w-full bg-white hover:bg-[#0b1f3f] text-[#0b1f3f] hover:text-white border border-[#0b1f3f] text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-1 shadow-lg transition-all duration-300"
+                className="block w-full text-left text-xs text-white/80 hover:text-white py-1.5 px-2 rounded-lg hover:bg-white/5 transition-all"
                 onClick={() => handleNavClick("/contact-us")}
               >
-                <Phone size={12} />
                 Contact Us
+              </button>
+              <button
+                className="w-full bg-white hover:bg-[#0b1f3f] text-[#0b1f3f] hover:text-white border border-[#0b1f3f] text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-1 shadow-lg transition-all duration-300"
+                onClick={() => handleNavClick("/careers")}
+              >
+                <Briefcase size={12} />
+                Careers
               </button>
             </div>
           )}
