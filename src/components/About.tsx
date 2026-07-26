@@ -31,10 +31,9 @@ const About = () => {
           </p>
         </div>
 
-        {/* Desktop Monitor Mockup */}
+        {/* Mission & Vision Cards */}
         <div className="mx-auto w-full max-w-4xl relative">
-          {/* Screen Bezel */}
-          <div className="relative rounded-t-3xl rounded-b-xl border-[12px] md:border-[20px] border-gray-900 bg-[#E9EDF1] shadow-2xl overflow-visible flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 px-12 pb-20 pt-8 md:px-16 md:pb-24 md:pt-12 mb-2">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 py-12 md:py-8">
             {/* Card 1: Mission */}
             <div className="relative group w-full max-w-[340px]">
               {/* Colored Holder Background */}
@@ -129,13 +128,6 @@ const About = () => {
               </div>
             </div>
           </div>
-
-          {/* Monitor Stand */}
-          <div
-            className="hidden md:block mx-auto w-24 md:w-32 h-6 md:h-10 bg-gradient-to-b from-gray-700 to-gray-800 shadow-inner"
-            style={{ clipPath: "polygon(20% 0, 80% 0, 100% 100%, 0% 100%)" }}
-          />
-          <div className="hidden md:block mx-auto w-40 md:w-56 h-3 md:h-4 bg-gray-900 rounded-full shadow-2xl" />
         </div>
       </div>
     </section>
