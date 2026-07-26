@@ -58,7 +58,13 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
-				}
+				},
+				'tc-navy': '#0B1F3F',
+				'tc-deepblue': '#122A52',
+				'tc-yellow': '#E6E84A',
+				'tc-mutedyellow': '#C9C83A',
+				'tc-lightgray': '#F1F1F1',
+				'tc-softgray': '#D9D9D9'
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

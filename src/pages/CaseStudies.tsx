@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { ArrowDown, MapPin, CheckCircle2, Zap, Target, Lightbulb, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowRight, ChevronDown, CheckCircle2, X } from "lucide-react";
+import { gsap } from "gsap";
 
-// The 4 generated case studies with full content added
+// The 4 case studies
 const caseStudies = [
   {
     id: 1,
@@ -72,180 +71,153 @@ const caseStudies = [
 ];
 
 const CaseStudies = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState<'challenge' | 'solution' | 'impact'>('challenge');
-  const [bgImage, setBgImage] = useState(caseStudies[0].image);
+  const [activeStudy, setActiveStudy] = useState<number | null>(null);
 
-  // Preload images
   useEffect(() => {
-    caseStudies.forEach((study) => {
-      const img = new Image();
-      img.src = study.image;
-    });
+    // Initial fade in for the page elements
+    gsap.fromTo(
+      ".cs-header",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.1 }
+    );
+    gsap.fromTo(
+      ".cs-card",
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.3 }
+    );
   }, []);
 
-  // Handle smooth transition
-  const handleStudyChange = (index: number) => {
-    setActiveIndex(index);
-    setActiveTab('challenge');
-  };
-
-  const activeStudy = caseStudies[activeIndex];
-
   return (
-    <div className="flex flex-col min-h-screen bg-black overflow-x-hidden selection:bg-blue-500/30">
-      {/* We need to ensure Navbar is visible against dark background. */}
-      <div className="absolute top-0 w-full z-50">
-        <Navbar />
-      </div>
+    <div className="bg-tc-lightgray min-h-screen pb-24">
       
-      {/* Hero Carousel Section */}
-      <main className="relative flex-shrink-0 flex items-center justify-center h-screen pt-20 overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out"
+      {/* Impressive Animated Dark Hero Section */}
+      <div className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden bg-tc-navy mb-20">
+        
+        {/* Fallback gradient while video loads */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0b1f3f] via-[#0f2a52] to-[#0a1829] z-0 animate-pulse" />
+        
+        {/* Animated Video Background */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 z-0 w-full h-full object-cover opacity-40 mix-blend-screen"
         >
-          {caseStudies.map((study, index) => (
-             <div
-               key={study.id}
-               className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === activeIndex ? 'opacity-100' : 'opacity-0'}`}
-               style={{
-                 backgroundImage: `url(${study.image})`,
-                 backgroundSize: "cover",
-                 backgroundPosition: "center",
-               }}
-             />
-          ))}
-          {/* Gradient Overlays for readability and mood */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10" />
-        </div>
+          {/* Abstract particles/network loop suitable for Case Studies */}
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-network-connections-loop-27415-large.mp4" type="video/mp4" />
+        </video>
 
-        <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center h-full gap-8 md:gap-12 mt-10 md:mt-0">
-          
-          {/* Left Content: Active Case Study */}
-          <div className="flex-1 max-w-2xl text-white mt-12 md:mt-0 self-start md:self-auto pt-10 md:pt-0">
-            <h1 
-                key={`title-${activeStudy.id}`}
-                className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700"
-              >
-                {activeStudy.title}
-              </h1>
-              
-              <div 
-                key={`content-${activeStudy.id}`}
-                className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 font-light max-w-xl pb-10"
-              >
-                <p className="text-lg text-gray-300 italic mb-4">
-                  "{activeStudy.shortDesc}"
-                </p>
-                
-                {/* Minimalist Content Panel (All Visible) */}
-                <div className="flex flex-col gap-8 mt-4">
-                  {/* Challenge */}
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500 pl-5 border-l-2 border-red-500/60">
-                    <h4 className="text-red-400 text-xs font-bold uppercase tracking-widest mb-2">The Challenge</h4>
-                    <p className="text-gray-300 leading-relaxed text-sm md:text-base font-light tracking-wide">{activeStudy.fullContent.challenge}</p>
-                  </div>
-                  
-                  {/* Solution */}
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500 delay-150 pl-5 border-l-2 border-blue-500/60">
-                    <h4 className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-2">Our Solution</h4>
-                    <p className="text-gray-300 leading-relaxed text-sm md:text-base font-light tracking-wide">{activeStudy.fullContent.solution}</p>
-                  </div>
-                  
-                  {/* Impact */}
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500 delay-300 pl-5 border-l-2 border-green-500/60">
-                    <h4 className="text-green-400 text-xs font-bold uppercase tracking-widest mb-3">Key Impact</h4>
-                    <ul className="space-y-3">
-                      {activeStudy.fullContent.results.map((r, i) => (
-                        <li key={i} className="flex items-center gap-3 text-gray-300 text-sm md:text-base font-light group">
-                          <div className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
-                          <span>{r}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        {/* Navy Overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-tc-navy/40 via-tc-navy/70 to-tc-navy z-0" />
+        
+        <div className="relative z-10 text-center px-6 max-w-4xl cs-header mt-16">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Client Success Stories</h1>
+          <p className="text-[#D9D9D9] text-lg md:text-xl font-light max-w-2xl mx-auto">
+            Explore how we've helped enterprises across India and the UAE scale their operations through highly-reliable internet infrastructure and custom-built AI platforms.
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-[1200px] mx-auto px-6 md:px-8">
+        {/* Case Studies Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {caseStudies.map((study, index) => (
+            <div 
+              key={study.id} 
+              className="cs-card group bg-white border border-tc-softgray rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col cursor-pointer"
+              onClick={() => setActiveStudy(study.id)}
+            >
+              {/* Image Container with Zoom effect */}
+              <div className="relative h-64 md:h-80 overflow-hidden w-full bg-tc-navy">
+                <img 
+                  src={study.image} 
+                  alt={study.title} 
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                />
+                <div className="absolute top-6 left-6 bg-white px-4 py-1.5 shadow-md">
+                  <span className="text-xs font-bold uppercase tracking-wider text-tc-navy">{study.industry}</span>
                 </div>
               </div>
-          </div>
 
-          {/* Right Content: Circular Thumbnails */}
-          <div className="hidden md:flex flex-col gap-8 items-end justify-center py-12 pr-4 relative">
-            {/* Subtle connecting arc (simulated with border) */}
-            <div className="absolute right-[46px] top-1/2 -translate-y-1/2 w-[200px] h-[80%] border-r-2 border-white/10 rounded-full z-0 opacity-50 pointer-events-none" />
+              {/* Content */}
+              <div className="p-8 md:p-10 flex flex-col flex-grow">
+                <h2 className="text-2xl font-bold text-tc-navy mb-4 group-hover:text-tc-navy transition-colors duration-300">
+                  {study.title}
+                </h2>
+                <p className="text-[#666666] text-sm leading-relaxed mb-8 flex-grow">
+                  {study.shortDesc}
+                </p>
+                <div className="flex items-center text-tc-navy font-semibold text-sm uppercase tracking-wide group-hover:text-tc-navy transition-colors">
+                  Read Case Study <ArrowRight size={16} className="ml-2 transform group-hover:translate-x-2 transition-transform duration-300" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
-            {caseStudies.map((study, index) => {
-              const isActive = index === activeIndex;
-              // Calculate horizontal offset to create a curved effect
-              const distFromCenter = Math.abs(index - 1.5);
-              const translateX = distFromCenter * 15; // pixels to shift left
+      {/* Modal / Overlay for Full Case Study */}
+      {activeStudy !== null && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 animate-in fade-in duration-300">
+          <div 
+            className="absolute inset-0 bg-tc-navy/90 backdrop-blur-sm cursor-pointer" 
+            onClick={() => setActiveStudy(null)}
+          />
+          
+          <div className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl rounded-sm">
+            <button 
+              className="absolute top-6 right-6 text-[#666666] hover:text-tc-navy transition-colors z-10 bg-white rounded-full p-1 shadow-md"
+              onClick={() => setActiveStudy(null)}
+            >
+              <X size={24} />
+            </button>
 
+            {(() => {
+              const study = caseStudies.find(s => s.id === activeStudy)!;
               return (
-                <button
-                  key={study.id}
-                  onClick={() => handleStudyChange(index)}
-                  className={`group relative flex items-center justify-end gap-6 transition-all duration-500 z-10 ${
-                    isActive ? "opacity-100" : "opacity-60 hover:opacity-100"
-                  }`}
-                  style={{
-                     transform: `translateX(-${isActive ? translateX - 10 : translateX}px)`,
-                  }}
-                >
-                  {/* Thumbnail Label */}
-                  <div className={`transition-all duration-500 text-right drop-shadow-md ${
-                    isActive ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
-                  }`}>
-                    <p className="text-white font-bold text-base whitespace-nowrap tracking-wide">{study.title}</p>
-                    <p className="text-gray-300 text-xs tracking-wider uppercase mt-1">{study.industry}</p>
+                <div className="flex flex-col">
+                  {/* Modal Header Image */}
+                  <div className="w-full h-48 md:h-72 relative bg-tc-navy">
+                    <img src={study.image} alt={study.title} className="w-full h-full object-cover opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-tc-navy to-transparent" />
+                    <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+                      <span className="text-tc-navy text-xs font-bold uppercase tracking-wider mb-2 block">{study.industry}</span>
+                      <h2 className="text-white text-3xl md:text-4xl">{study.title}</h2>
+                    </div>
                   </div>
 
-                  {/* Circular Image */}
-                  <div className={`relative rounded-full overflow-hidden transition-all duration-500 ease-out flex-shrink-0 ${
-                    isActive 
-                      ? "w-28 h-28 ring-[6px] ring-white/90 ring-offset-[6px] ring-offset-transparent shadow-[0_0_40px_rgba(255,255,255,0.4)]" 
-                      : "w-20 h-20 ring-2 ring-white/30 hover:ring-white/70"
-                  }`}>
-                    <img 
-                      src={study.image} 
-                      alt={study.title} 
-                      className={`w-full h-full object-cover transition-transform duration-700 ${isActive ? "scale-110" : "group-hover:scale-110"}`}
-                    />
-                    {!isActive && <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-300" />}
+                  {/* Modal Content */}
+                  <div className="p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="space-y-8">
+                      <div>
+                        <h3 className="text-sm font-bold uppercase tracking-widest text-[#999999] mb-3">The Challenge</h3>
+                        <p className="text-[#333333] text-sm leading-relaxed">{study.fullContent.challenge}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-bold uppercase tracking-widest text-[#999999] mb-3">Our Solution</h3>
+                        <p className="text-[#333333] text-sm leading-relaxed">{study.fullContent.solution}</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-tc-lightgray p-8 border border-tc-softgray">
+                      <h3 className="text-sm font-bold uppercase tracking-widest text-tc-navy mb-6">Key Impact</h3>
+                      <ul className="space-y-4">
+                        {study.fullContent.results.map((result, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <CheckCircle2 size={18} className="text-tc-navy flex-shrink-0 mt-0.5" />
+                            <span className="text-[#333333] text-sm font-medium">{result}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </button>
+                </div>
               );
-            })}
-          </div>
-
-          {/* Mobile Thumbnails */}
-          <div className="md:hidden w-full flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide mt-auto px-6">
-            {caseStudies.map((study, index) => (
-              <button
-                key={study.id}
-                onClick={() => handleStudyChange(index)}
-                className={`flex-shrink-0 snap-center rounded-2xl overflow-hidden relative transition-all duration-500 ${
-                  index === activeIndex ? "w-[70vw] h-40 ring-2 ring-white shadow-xl" : "w-32 h-32 opacity-60 mt-4"
-                }`}
-              >
-                <img src={study.image} alt={study.title} className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                
-                {index === activeIndex && (
-                  <div className="absolute bottom-4 left-4 text-left pr-4">
-                    <p className="text-white text-sm font-bold truncate tracking-wide">{study.title}</p>
-                    <p className="text-gray-300 text-xs truncate mt-1">{study.industry}</p>
-                  </div>
-                )}
-              </button>
-            ))}
+            })()}
           </div>
         </div>
-      </main>
-
-      <div className="relative z-50 bg-white">
-        <Footer />
-      </div>
+      )}
     </div>
   );
 };

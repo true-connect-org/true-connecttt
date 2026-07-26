@@ -1,105 +1,102 @@
-import { Facebook, Instagram, Linkedin, ArrowRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import footerLogo from "../assets/logo/w-bg submark.svg";
+import { Button } from "./ui/button";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
-    <footer className="bg-gray-50 h-auto md:h-[50vh] flex flex-col justify-between">
-      <div className="max-w-[1200px] w-full mx-auto flex-1 flex flex-col justify-center items-center text-center px-6 md:px-12 py-8 md:py-0">
-        <p className="text-gray-700 mb-6 max-w-lg mx-auto text-sm md:text-base">
-          Empowering businesses with enterprise-grade IT solutions and
-          ultra-fast, reliable leased line connectivity.
-        </p>
-
-        <div className="w-full max-w-2xl relative flex items-center bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-          <div className="pl-4 pr-2 text-gray-400">
-            <span className="w-2 h-2 rounded-full bg-gray-700 inline-block"></span>
-          </div>
-          <input
-            type="email"
-            placeholder="Subscribe to our newsletter"
-            className="w-full py-4 px-3 outline-none text-sm text-gray-900 placeholder-gray-500"
-          />
-          <button className="pr-4 pl-2 text-gray-600 hover:text-black transition-colors">
-            <ArrowRight size={20} />
-          </button>
-        </div>
-      </div>
-
-      <div className="max-w-[1200px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 border-t border-gray-200">
-        {/* Left Side */}
-        <div className="flex flex-col justify-between border-b md:border-b-0 md:border-r border-gray-200 p-6 md:p-12 min-h-[150px] relative overflow-hidden">
-          <div className="absolute top-1/2 -translate-y-1/2 left-6 md:left-8 pointer-events-none">
-            <img
-              src={footerLogo}
-              alt="True Connect"
-              className="h-[40px] md:h-[60px] w-auto object-contain"
-            />
-          </div>
-          <p className="text-xs text-gray-500 font-medium mt-auto relative z-10">
-            ©2026 True Connect, Inc. All Rights Reserved.
-          </p>
-        </div>
-
-        {/* Right Side */}
-        <div className="flex flex-col justify-between p-6 md:p-12 min-h-[150px]">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-3">
-              <a
-                href="#home"
-                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                Home
+    <footer className="bg-white border-t border-gray-200 pt-12 pb-6">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-8">
+        
+        {/* Top Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-10">
+          
+          {/* Brand Info */}
+          <div className="lg:col-span-4 flex flex-col items-start">
+            <Link to="/" className="mb-6 cursor-pointer">
+              <img
+                src={footerLogo}
+                alt="True Connect"
+                className="h-12 w-auto object-contain"
+              />
+            </Link>
+            <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-6">
+              Empowering businesses with enterprise-grade IT solutions and ultra-fast, reliable leased line connectivity. Backed by Reliance Jio.
+            </p>
+            <div className="flex items-center gap-4">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-tc-lightgray border border-gray-200 flex items-center justify-center text-tc-navy hover:bg-tc-deepblue hover:text-white transition-all duration-300">
+                <Instagram size={18} />
               </a>
-              <a
-                href="#plans"
-                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                Services
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-tc-lightgray border border-gray-200 flex items-center justify-center text-tc-navy hover:bg-tc-deepblue hover:text-white transition-all duration-300">
+                <Linkedin size={18} />
               </a>
-              <a
-                href="#faq"
-                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                FAQ
-              </a>
-              <a
-                href="#contact-us"
-                className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                Contact
-              </a>
-            </div>
-            <div className="flex flex-col gap-3">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                <Instagram size={16} /> Instagram
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                <Linkedin size={16} /> LinkedIn
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-black transition-colors"
-              >
-                <Facebook size={16} /> Facebook
+              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-tc-lightgray border border-gray-200 flex items-center justify-center text-tc-navy hover:bg-tc-deepblue hover:text-white transition-all duration-300">
+                <Facebook size={18} />
               </a>
             </div>
           </div>
-          <p className="text-xs text-gray-500 font-medium mt-auto">
-            Privacy Notice
-          </p>
+
+          {/* Quick Links */}
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            <h4 className="font-bold text-tc-navy uppercase tracking-widest text-xs mb-4">Company</h4>
+            <Link to="/" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Home</Link>
+            <Link to="/about-us" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">About Us</Link>
+            <Link to="/careers" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Careers</Link>
+            <Link to="/contact-us" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Contact</Link>
+          </div>
+
+          {/* Services */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="font-bold text-tc-navy uppercase tracking-widest text-xs mb-4">Services</h4>
+            <Link to="/internet-services" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Internet Leased Line</Link>
+            <Link to="/enterprise-services" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Software Development</Link>
+            <Link to="/enterprise-services" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Digital Growth</Link>
+            <Link to="/case-studies" className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit">Case Studies</Link>
+          </div>
+
+          {/* Contact & Newsletter */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="font-bold text-tc-navy uppercase tracking-widest text-xs mb-4">Get in Touch</h4>
+            <div className="flex items-start gap-3 text-gray-500 mb-2">
+              <MapPin size={18} className="text-tc-navy flex-shrink-0 mt-1" />
+              <span className="text-sm">Trivandrum Technopark, Kerala</span>
+            </div>
+            <div className="flex items-center gap-3 text-gray-500 mb-2">
+              <Phone size={18} className="text-tc-navy flex-shrink-0" />
+              <a href="tel:+919048032223" className="text-sm hover:text-tc-navy transition-colors">+91 90480 32223</a>
+            </div>
+            <div className="flex items-center gap-3 text-gray-500 mb-6">
+              <Mail size={18} className="text-tc-navy flex-shrink-0" />
+              <a href="mailto:support@trueconnect.in" className="text-sm hover:text-tc-navy transition-colors">support@trueconnect.in</a>
+            </div>
+
+            <div className="w-full relative flex items-center bg-tc-lightgray rounded-xl border border-gray-200 overflow-hidden group focus-within:border-tc-navy transition-colors">
+              <input
+                type="email"
+                placeholder="Newsletter Signup"
+                className="w-full py-3.5 px-4 outline-none text-sm text-tc-navy bg-transparent placeholder-gray-400"
+              />
+              <button className="pr-4 pl-2 text-tc-navy hover:scale-110 transition-transform">
+                <ArrowRight size={18} />
+              </button>
+            </div>
+          </div>
+
         </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-gray-400 font-medium">
+            © {new Date().getFullYear()} True Connect IT Solutions. All Rights Reserved.
+          </p>
+          <div className="flex items-center gap-6">
+            <Link to="#" className="text-xs text-gray-400 hover:text-tc-navy font-medium transition-colors">Privacy Policy</Link>
+            <Link to="#" className="text-xs text-gray-400 hover:text-tc-navy font-medium transition-colors">Terms of Service</Link>
+          </div>
+        </div>
+
       </div>
     </footer>
   );
