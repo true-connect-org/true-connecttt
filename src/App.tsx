@@ -10,6 +10,7 @@ import EnterpriseServices from "./pages/EnterpriseServices";
 import CaseStudies from "./pages/CaseStudies";
 import ContactUs from "./pages/ContactUs";
 import Careers from "./pages/Careers";
+import Services from "./pages/Services";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -29,7 +30,8 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/internet-services" element={<InternetServices />} />
-              <Route path="/enterprise-services" element={<EnterpriseServices />} />
+              <Route path="/enterprise-services" element={<Services />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/careers" element={<Careers />} />

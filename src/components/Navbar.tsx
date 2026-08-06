@@ -17,7 +17,7 @@ const Navbar = () => {
     gsap.fromTo(
       ".notch-container",
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power4.out" }
+      { y: 0, opacity: 1, duration: 1, ease: "power4.out" },
     );
 
     const handleScroll = () => {
@@ -48,13 +48,15 @@ const Navbar = () => {
   const getNavClass = (path: string) => {
     const isActive = location.pathname === path;
     return `text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-300 ${
-      isActive 
-        ? "text-tc-navy bg-white shadow-sm" 
+      isActive
+        ? "text-tc-navy bg-white shadow-sm"
         : "text-white/70 hover:text-white hover:bg-white/10"
     }`;
   };
 
-  const isServicesActive = location.pathname.includes('/internet-services') || location.pathname.includes('/enterprise-services');
+  const isServicesActive =
+    location.pathname.includes("/internet-services") ||
+    location.pathname.includes("/enterprise-services");
 
   return (
     <div
@@ -74,7 +76,6 @@ const Navbar = () => {
         <div className="flex flex-col">
           {/* Main Bar */}
           <div className="flex items-center justify-between h-16">
-            
             {/* Logo */}
             <Link
               to="/"
@@ -90,39 +91,53 @@ const Navbar = () => {
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center gap-2">
-              <button className={getNavClass("/")} onClick={() => handleNavClick("/")}>
+              <button
+                className={getNavClass("/")}
+                onClick={() => handleNavClick("/")}
+              >
                 Home
               </button>
-              <button className={getNavClass("/about-us")} onClick={() => handleNavClick("/about-us")}>
+              <button
+                className={getNavClass("/about-us")}
+                onClick={() => handleNavClick("/about-us")}
+              >
                 About Us
               </button>
-              
+
               {/* Desktop Services Dropdown */}
               <div className="relative group">
-                <button 
+                <button
                   className={`flex items-center gap-1 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-300 ${
-                    isServicesActive
+                    isServicesActive || location.pathname === "/services"
                       ? "text-tc-navy bg-white shadow-sm"
                       : "text-white/70 group-hover:text-white group-hover:bg-white/10"
                   }`}
                 >
-                  Services <ChevronDown size={14} className="opacity-70 group-hover:rotate-180 transition-transform duration-300" />
+                  Services{" "}
+                  <ChevronDown
+                    size={14}
+                    className="opacity-70 group-hover:rotate-180 transition-transform duration-300"
+                  />
                 </button>
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-50">
                   <div className="bg-tc-navy/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 p-2 flex flex-col w-64 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <button 
-                      onClick={() => handleNavClick("/internet-services")} 
+                    <button
+                      onClick={() => handleNavClick("/internet-services")}
                       className={`text-left text-xs font-bold uppercase tracking-widest px-4 py-3 rounded-xl transition-all relative overflow-hidden group/item ${
-                        location.pathname === '/internet-services' ? 'bg-white/10 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'
+                        location.pathname === "/internet-services"
+                          ? "bg-white/10 text-white"
+                          : "text-white/80 hover:bg-white/10 hover:text-white"
                       }`}
                     >
                       <span className="relative z-10">Internet Services</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-tc-yellow/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
                     </button>
-                    <button 
-                      onClick={() => handleNavClick("/enterprise-services")} 
+                    <button
+                      onClick={() => handleNavClick("/enterprise-services")}
                       className={`text-left text-xs font-bold uppercase tracking-widest px-4 py-3 rounded-xl transition-all relative overflow-hidden group/item ${
-                        location.pathname === '/enterprise-services' ? 'bg-white/10 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'
+                        location.pathname === "/enterprise-services"
+                          ? "bg-white/10 text-white"
+                          : "text-white/80 hover:bg-white/10 hover:text-white"
                       }`}
                     >
                       <span className="relative z-10">Enterprise Services</span>
@@ -132,10 +147,16 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <button className={getNavClass("/case-studies")} onClick={() => handleNavClick("/case-studies")}>
+              <button
+                className={getNavClass("/case-studies")}
+                onClick={() => handleNavClick("/case-studies")}
+              >
                 Case Studies
               </button>
-              <button className={getNavClass("/contact-us")} onClick={() => handleNavClick("/contact-us")}>
+              <button
+                className={getNavClass("/contact-us")}
+                onClick={() => handleNavClick("/contact-us")}
+              >
                 Contact
               </button>
             </div>
@@ -174,20 +195,26 @@ const Navbar = () => {
               >
                 About Us
               </button>
-              
+
               {/* Mobile Services Accordion */}
               <div className="w-full">
                 <button
                   className="w-full flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-white/80 hover:text-white py-3 rounded-xl hover:bg-white/10 transition-all"
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                 >
-                  Services <ChevronDown size={16} className={`transition-transform duration-300 ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+                  Services{" "}
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-300 ${mobileServicesOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {mobileServicesOpen && (
                   <div className="flex flex-col gap-2 mt-2 bg-black/20 rounded-xl p-2 animate-in fade-in zoom-in duration-200">
                     <button
                       className={`block w-full text-center text-xs font-bold uppercase tracking-widest py-3 rounded-lg transition-all ${
-                        location.pathname === '/internet-services' ? 'bg-white text-tc-navy' : 'text-white/70 hover:text-white hover:bg-white/10'
+                        location.pathname === "/internet-services"
+                          ? "bg-white text-tc-navy"
+                          : "text-white/70 hover:text-white hover:bg-white/10"
                       }`}
                       onClick={() => handleNavClick("/internet-services")}
                     >
@@ -195,7 +222,9 @@ const Navbar = () => {
                     </button>
                     <button
                       className={`block w-full text-center text-xs font-bold uppercase tracking-widest py-3 rounded-lg transition-all ${
-                        location.pathname === '/enterprise-services' ? 'bg-white text-tc-navy' : 'text-white/70 hover:text-white hover:bg-white/10'
+                        location.pathname === "/enterprise-services"
+                          ? "bg-white text-tc-navy"
+                          : "text-white/70 hover:text-white hover:bg-white/10"
                       }`}
                       onClick={() => handleNavClick("/enterprise-services")}
                     >

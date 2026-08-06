@@ -55,7 +55,8 @@
       hsl(218 69% 24%)
     );
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 98%));
-    --gradient-mesh: radial-gradient(
+    --gradient-mesh:
+      radial-gradient(
         circle at 20% 50%,
         hsl(218 69% 14% / 0.1) 0%,
         transparent 50%
@@ -153,7 +154,6 @@
   .hero-title .letter:hover {
     @apply text-primary transition-colors duration-300;
   }
-
 }
 
 @layer utilities {
