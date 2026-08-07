@@ -40,7 +40,7 @@ const ServicesScroll: React.FC = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
       const imgs = gsap.utils.toArray<HTMLElement>(".img-wrapper img");
       const bgColors = servicesData.map(s => s.bgColor);
