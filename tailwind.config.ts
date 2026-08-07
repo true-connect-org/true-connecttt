@@ -20,8 +20,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'space-grotesk': ['Space Grotesk', 'sans-serif'],
-				'inter': ['Inter', 'sans-serif'],
+				'satoshi': ['Satoshi', 'sans-serif'],
+				'space-grotesk': ['Satoshi', 'Space Grotesk', 'sans-serif'],
+				'inter': ['Satoshi', 'Inter', 'sans-serif'],
+				'sans': ['Satoshi', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

@@ -1,187 +1,237 @@
+import { Link, useNavigate } from "react-router-dom";
 import {
   Facebook,
   Instagram,
   Linkedin,
-  ArrowRight,
+  Twitter,
+  Globe,
+  Star,
   MapPin,
   Phone,
   Mail,
+  Sparkles,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import footerLogo from "../assets/logo/w-bg submark.svg";
-import { Button } from "./ui/button";
+import footerLogo from "../assets/logo/nav-logo.png";
 
 const Footer = () => {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-white border-t border-gray-200 pt-12 pb-6">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-        {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-10">
-          {/* Brand Info */}
-          <div className="lg:col-span-4 flex flex-col items-start">
-            <Link to="/" className="mb-6 cursor-pointer">
-              <img
-                src={footerLogo}
-                alt="True Connect"
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-6">
-              Empowering businesses with enterprise-grade IT solutions and
-              ultra-fast, reliable leased line connectivity. Backed by Reliance
-              Jio.
-            </p>
-            <div className="flex items-center gap-4">
+    <footer className="bg-white text-[#eae7e3] pt-8 pb-8 px-4 md:px-8 font-sans">
+      {/* Main Navy Card Container */}
+      <div className="max-w-[1440px] mx-auto bg-[#0B1F3F] rounded-[2.5rem] p-8 md:p-16 border border-white/10 shadow-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+          {/* Column 1: Brand & Intro */}
+          <div className="lg:col-span-4 flex flex-col justify-between">
+            <div>
+              {/* Logo */}
+              <Link to="/" className="inline-block mb-6">
+                <img
+                  src={footerLogo}
+                  alt="True Connect"
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+
+              {/* Tagline */}
+              <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">
+                We build websites that convert, apps that scale, and connections people remember.
+              </p>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-4 text-gray-400">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-white transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook size={18} />
+              </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-tc-lightgray border border-gray-200 flex items-center justify-center text-tc-navy hover:bg-tc-deepblue hover:text-white transition-all duration-300"
+                className="hover:text-white transition-colors"
+                aria-label="Instagram"
               >
                 <Instagram size={18} />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-white transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter size={18} />
               </a>
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-tc-lightgray border border-gray-200 flex items-center justify-center text-tc-navy hover:bg-tc-deepblue hover:text-white transition-all duration-300"
+                className="hover:text-white transition-colors"
+                aria-label="LinkedIn"
               >
                 <Linkedin size={18} />
               </a>
+              <span className="text-gray-600">|</span>
               <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-tc-lightgray border border-gray-200 flex items-center justify-center text-tc-navy hover:bg-tc-deepblue hover:text-white transition-all duration-300"
+                href="#"
+                className="hover:text-white transition-colors"
+                aria-label="Rating"
               >
-                <Facebook size={18} />
+                <Star size={18} />
+              </a>
+              <a
+                href="#"
+                className="hover:text-white transition-colors"
+                aria-label="Global"
+              >
+                <Globe size={18} />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Column 2: Quick Links */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <h4 className="font-bold text-tc-navy uppercase tracking-widest text-xs mb-4">
-              Company
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">
+              QUICK LINKS
             </h4>
-            <Link
-              to="/"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about-us"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              About Us
-            </Link>
-            <Link
-              to="/careers"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Careers
-            </Link>
-            <Link
-              to="/contact-us"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Contact
-            </Link>
+            <ul className="space-y-3 text-sm font-medium text-gray-300">
+              <li>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about-us" className="hover:text-white transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/case-studies" className="hover:text-white transition-colors">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link to="/case-studies" className="hover:text-white transition-colors">
+                  Case Studies
+                </Link>
+              </li>
+              <li>
+                <Link to="/careers" className="hover:text-white transition-colors">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact-us" className="hover:text-white transition-colors">
+                  Contact
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Services */}
+          {/* Column 3: Services */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="font-bold text-tc-navy uppercase tracking-widest text-xs mb-4">
-              Services
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">
+              SERVICES
             </h4>
-            <Link
-              to="/internet-services"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Internet Leased Line
-            </Link>
-            <Link
-              to="/enterprise-services"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Software Development
-            </Link>
-            <Link
-              to="/enterprise-services"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Digital Growth
-            </Link>
-            <Link
-              to="/case-studies"
-              className="text-gray-500 hover:text-tc-navy font-medium transition-colors w-fit"
-            >
-              Case Studies
-            </Link>
+            <ul className="space-y-3 text-sm font-medium text-gray-300">
+              <li>
+                <Link to="/enterprise-services" className="hover:text-white transition-colors">
+                  Website Development
+                </Link>
+              </li>
+              <li>
+                <Link to="/enterprise-services" className="hover:text-white transition-colors">
+                  App Development
+                </Link>
+              </li>
+              <li>
+                <Link to="/enterprise-services" className="hover:text-white transition-colors">
+                  Systems & Platforms
+                </Link>
+              </li>
+              <li>
+                <Link to="/enterprise-services" className="hover:text-white transition-colors">
+                  AI Media & Content
+                </Link>
+              </li>
+              <li>
+                <Link to="/internet-services" className="hover:text-white transition-colors">
+                  Internet Leased Line
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Contact & Newsletter */}
-          <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="font-bold text-tc-navy uppercase tracking-widest text-xs mb-4">
-              Get in Touch
-            </h4>
-            <div className="flex items-start gap-3 text-gray-500 mb-2">
-              <MapPin size={18} className="text-tc-navy flex-shrink-0 mt-1" />
-              <span className="text-sm">Trivandrum Technopark, Kerala</span>
-            </div>
-            <div className="flex items-center gap-3 text-gray-500 mb-2">
-              <Phone size={18} className="text-tc-navy flex-shrink-0" />
-              <a
-                href="tel:+919048032223"
-                className="text-sm hover:text-tc-navy transition-colors"
-              >
-                +91 90480 32223
-              </a>
-            </div>
-            <div className="flex items-center gap-3 text-gray-500 mb-6">
-              <Mail size={18} className="text-tc-navy flex-shrink-0" />
-              <a
-                href="mailto:support@trueconnect.in"
-                className="text-sm hover:text-tc-navy transition-colors"
-              >
-                support@trueconnect.in
-              </a>
+          {/* Column 4: Studio & Contact */}
+          <div className="lg:col-span-3 flex flex-col justify-between gap-6">
+            <div>
+              <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">
+                STUDIO & CONTACT
+              </h4>
+              <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold mb-6">
+                TRUE CONNECT TECHNOLOGIES
+              </p>
+
+              <div className="space-y-4 text-xs text-gray-300 leading-relaxed">
+                <div className="flex items-start gap-3">
+                  <MapPin size={16} className="text-gray-400 flex-shrink-0 mt-0.5" />
+                  <span>
+                    Technopark Campus, Trivandrum, Kerala 695581, India
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone size={16} className="text-gray-400 flex-shrink-0" />
+                  <a
+                    href="tel:+918848817833"
+                    className="hover:text-white transition-colors"
+                  >
+                    +91 88488 17833
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail size={16} className="text-gray-400 flex-shrink-0" />
+                  <a
+                    href="mailto:info@trueconnect.in"
+                    className="hover:text-white transition-colors"
+                  >
+                    info@trueconnect.in
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div className="w-full relative flex items-center bg-tc-lightgray rounded-xl border border-gray-200 overflow-hidden group focus-within:border-tc-navy transition-colors">
-              <input
-                type="email"
-                placeholder="Newsletter Signup"
-                className="w-full py-3.5 px-4 outline-none text-sm text-tc-navy bg-transparent placeholder-gray-400"
-              />
-              <button className="pr-4 pl-2 text-tc-navy hover:scale-110 transition-transform">
-                <ArrowRight size={18} />
+            {/* GET QUOTE Button */}
+            <div>
+              <button
+                onClick={() => navigate("/contact-us")}
+                className="bg-tc-yellow hover:bg-tc-mutedyellow text-tc-navy font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+              >
+                GET QUOTE
               </button>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-400 font-medium">
-            © {new Date().getFullYear()} True Connect IT Solutions. All Rights
-            Reserved.
+        {/* Divider */}
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} True Connect. All rights reserved.</p>
+
+          <p className="italic text-gray-400 font-serif text-center md:text-left">
+            "We build with empathy, creativity, and purpose."
           </p>
+
           <div className="flex items-center gap-6">
-            <Link
-              to="#"
-              className="text-xs text-gray-400 hover:text-tc-navy font-medium transition-colors"
-            >
-              Privacy Policy
+            <Link to="#" className="hover:text-gray-300 transition-colors">
+              Privacy
             </Link>
-            <Link
-              to="#"
-              className="text-xs text-gray-400 hover:text-tc-navy font-medium transition-colors"
-            >
-              Terms of Service
+            <Link to="#" className="hover:text-gray-300 transition-colors">
+              Terms
             </Link>
           </div>
         </div>

@@ -84,8 +84,13 @@ const Hero = () => {
       {/* Text Content (Bottom on mobile, Left on desktop) */}
       <div className="relative flex flex-col items-start w-full max-w-xl px-6 mx-auto md:px-12 lg:max-w-[1200px] z-20 pt-6 pb-6 lg:py-40">
         <div className="w-full lg:max-w-lg lg:pr-5 mt-2 lg:mt-0">
+          {/* Subtitle Tagline */}
+          <div className="hero-tag mb-2.5 font-medium text-[11px] sm:text-xs tracking-[0.2em] text-[#0b1f3f]/70 uppercase font-satoshi">
+            TECH CRAFTED WITH EMPATHY · PURPOSE IN EVERY PIXEL
+          </div>
+
           {/* Main Title */}
-          <h1 className="hero-title mb-3 lg:mb-5 font-space-grotesk text-3xl sm:text-5xl font-bold tracking-tight sm:leading-tight">
+          <h1 className="hero-title mb-3 font-satoshi text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight sm:leading-tight">
             <span
               style={{
                 background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
@@ -96,9 +101,9 @@ const Hero = () => {
                 paddingBottom: "0.1em",
               }}
             >
-              Everything you
+              Design engineering
             </span>
-            <br className="hidden md:block" />
+            <br />
             <span
               style={{
                 background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
@@ -110,14 +115,13 @@ const Hero = () => {
                 paddingRight: "0.15em",
               }}
             >
-              can imagine,{" "}
-              <span className="italic">is real</span>
+              for ambitious brands.
             </span>
           </h1>
 
           {/* Description */}
-          <p className="hero-desc pr-2 lg:pr-5 mb-5 lg:mb-8 text-sm sm:text-lg text-muted-foreground leading-relaxed">
-            Based in Technopark, we engineer custom software, build multi-tenant SaaS products, design reactive web applications, and provide high-speed leased line networking to scale your operations.
+          <p className="hero-desc pr-2 lg:pr-5 mb-5 lg:mb-7 text-xs sm:text-base text-muted-foreground leading-relaxed font-satoshi font-normal">
+            We design and build custom websites, portals, and apps with uncompromised performance. High-speed connectivity & IT solutions tailored for your growth.
           </p>
 
           {/* Buttons */}

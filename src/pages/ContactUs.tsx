@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { Phone, Mail, MapPin, CheckCircle2, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
 import { gsap } from "gsap";
-import { Button } from "@/components/ui/button";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    businessName: "",
     name: "",
+    company: "",
     email: "",
     phone: "",
-    service: "",
+    projectType: "",
+    budgetRange: "",
     message: "",
-    time: "",
+    agreeToTerms: false,
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,17 +20,14 @@ const ContactUs = () => {
     window.scrollTo(0, 0);
 
     gsap.fromTo(
-      ".contact-animate",
-      { y: 50, opacity: 0, scale: 0.95 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.5,
-        stagger: 0.05,
-        ease: "expo.out",
-        delay: 0.05,
-      },
+      ".contact-header",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+    );
+    gsap.fromTo(
+      ".contact-elem",
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.2 }
     );
   }, []);
 
@@ -40,296 +37,298 @@ const ContactUs = () => {
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({
-        businessName: "",
         name: "",
+        company: "",
         email: "",
         phone: "",
-        service: "",
+        projectType: "",
+        budgetRange: "",
         message: "",
-        time: "",
+        agreeToTerms: false,
       });
     }, 4000);
   };
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const target = e.target;
+    const value = target.type === "checkbox" ? (target as HTMLInputElement).checked : target.value;
+    setFormData({ ...formData, [target.name]: value });
   };
 
   return (
-    <div className="bg-[#F1F1F1] min-h-screen text-tc-navy pt-40 pb-32 relative overflow-hidden">
-      {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-tc-navy/5 rounded-full blur-[150px] pointer-events-none -mr-40 -mt-40 z-0" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-tc-navy/5 rounded-full blur-[120px] pointer-events-none -ml-40 -mb-40 z-0" />
+    <div className="bg-white min-h-screen text-gray-900 font-sans pt-28 md:pt-36 pb-24">
+      {/* 1. Header Section */}
+      <div className="text-center max-w-4xl mx-auto px-6 mb-16 contact-header">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-[#2d2a26] tracking-tight mb-6 leading-[1.1]">
+          Let's build something amazing together.
+        </h1>
+        <p className="text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
+          Tell us about your project. No pressure, just a conversation about what's possible.
+        </p>
+      </div>
 
-      {/* Abstract Grid Background */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(11, 31, 63, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(11, 31, 63, 1) 1px, transparent 1px)",
-          backgroundSize: "100px 100px",
-        }}
-      />
+      {/* 2. Workspace Image */}
+      <div className="max-w-[1200px] mx-auto px-6 mb-16 contact-elem">
+        <div className="w-full h-[320px] md:h-[460px] rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100 bg-gray-100">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
+            alt="True Connect Studio"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8 relative z-10">
-        {/* Hero Section */}
-        <div className="text-center mb-24 contact-animate max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-[1.1] text-tc-navy">
-            Let's Build Something <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tc-navy to-tc-navy/60">
-              Great Together.
-            </span>
-          </h1>
-          <p className="text-xl text-gray-500 font-light max-w-2xl mx-auto">
-            Our technical experts are ready to understand your infrastructure
-            challenges and engineer the perfect solution.
-          </p>
+      {/* 3. Info Row (4 Columns) */}
+      <div className="max-w-5xl mx-auto px-6 mb-28 grid grid-cols-2 md:grid-cols-4 gap-8 text-center contact-elem">
+        <div className="flex flex-col items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 mb-4">
+            <Mail size={18} />
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1 block">
+            EMAIL
+          </span>
+          <a
+            href="mailto:info@trueconnect.in"
+            className="text-xs md:text-sm font-semibold text-gray-800 hover:text-black transition-colors"
+          >
+            info@trueconnect.in
+          </a>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          {/* Left Column: Form (Light Mode Bento) */}
-          <div className="lg:col-span-7 contact-animate">
-            <div className="bg-white p-8 md:p-12 rounded-[2rem] border border-gray-200 relative overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-tc-navy/5 rounded-full blur-[60px] -mr-32 -mt-32 pointer-events-none" />
-
-              {isSubmitted ? (
-                <div className="flex flex-col items-center justify-center h-full min-h-[500px] text-center animate-in fade-in duration-500">
-                  <div className="w-24 h-24 bg-tc-navy/5 rounded-full flex items-center justify-center mb-8">
-                    <CheckCircle2 size={48} className="text-tc-navy" />
-                  </div>
-                  <h3 className="text-3xl font-bold mb-4 text-tc-navy">
-                    Request Received.
-                  </h3>
-                  <p className="text-gray-500 text-lg">
-                    Our engineering team will contact you within the next hour.
-                  </p>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-8 relative z-10"
-                >
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-tc-navy">
-                      <span className="w-2 h-2 rounded-full bg-tc-navy" />{" "}
-                      Business Details
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                          Business Name *
-                        </label>
-                        <input
-                          required
-                          type="text"
-                          name="businessName"
-                          value={formData.businessName}
-                          onChange={handleChange}
-                          className="w-full bg-gray-50 border border-gray-200 text-tc-navy placeholder-gray-400 px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                          Your Name *
-                        </label>
-                        <input
-                          required
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full bg-gray-50 border border-gray-200 text-tc-navy placeholder-gray-400 px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                          Email Address *
-                        </label>
-                        <input
-                          required
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full bg-gray-50 border border-gray-200 text-tc-navy placeholder-gray-400 px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                          Phone Number *
-                        </label>
-                        <input
-                          required
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="w-full bg-gray-50 border border-gray-200 text-tc-navy placeholder-gray-400 px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-6 pt-6 border-t border-gray-100">
-                    <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-tc-navy">
-                      <span className="w-2 h-2 rounded-full bg-tc-navy" />{" "}
-                      Project Details
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                          Interested Service *
-                        </label>
-                        <select
-                          required
-                          name="service"
-                          value={formData.service}
-                          onChange={handleChange}
-                          className="w-full bg-gray-50 border border-gray-200 text-tc-navy px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm appearance-none"
-                        >
-                          <option value="">Select a service...</option>
-                          <option value="Internet Leased Line">
-                            Internet Leased Line
-                          </option>
-                          <option value="Software Development">
-                            Software Development
-                          </option>
-                          <option value="Digital Growth">Digital Growth</option>
-                          <option value="Other">Other</option>
-                        </select>
-                      </div>
-                      <div className="space-y-3">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                          Contact Time
-                        </label>
-                        <input
-                          type="text"
-                          name="time"
-                          placeholder="e.g., Morning, 2 PM"
-                          value={formData.time}
-                          onChange={handleChange}
-                          className="w-full bg-gray-50 border border-gray-200 text-tc-navy placeholder-gray-400 px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <label className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
-                        Message
-                      </label>
-                      <textarea
-                        name="message"
-                        rows={4}
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="w-full bg-gray-50 border border-gray-200 text-tc-navy placeholder-gray-400 px-6 py-4 rounded-xl focus:outline-none focus:border-tc-navy focus:ring-1 focus:ring-tc-navy transition-shadow shadow-sm resize-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="pt-6">
-                    <Button
-                      type="submit"
-                      className="w-full md:w-auto bg-tc-navy text-white hover:bg-tc-navy/90 font-bold uppercase tracking-widest px-10 py-7 rounded-full shadow-lg transition-all hover:scale-105 flex items-center justify-center gap-3"
-                    >
-                      Submit Request <Send size={18} />
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </div>
+        <div className="flex flex-col items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 mb-4">
+            <Phone size={18} />
           </div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1 block">
+            PHONE
+          </span>
+          <a
+            href="tel:+918848817833"
+            className="text-xs md:text-sm font-semibold text-gray-800 hover:text-black transition-colors"
+          >
+            +91 88488 17833
+          </a>
+        </div>
 
-          {/* Right Column: Direct Contact (Keeping Navy for contrast) */}
-          <div className="lg:col-span-5 space-y-6 contact-animate flex flex-col">
-            {/* Direct Contact Card - Strong Navy Contrast */}
-            <div className="bg-tc-navy border border-tc-navy p-10 rounded-[2rem] shadow-xl relative overflow-hidden flex-1 flex flex-col justify-center">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-[40px] -mr-10 -mt-10" />
+        <div className="flex flex-col items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 mb-4">
+            <MapPin size={18} />
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1 block">
+            OFFICE
+          </span>
+          <span className="text-xs md:text-sm font-semibold text-gray-800">
+            Technopark, Trivandrum
+          </span>
+        </div>
 
-              <h3 className="text-2xl font-bold mb-10 text-white">
-                Direct Line.
-              </h3>
+        <div className="flex flex-col items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-500 mb-4">
+            <Clock size={18} />
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1 block">
+            HOURS
+          </span>
+          <span className="text-xs md:text-sm font-semibold text-gray-800">
+            Mon – Fri, 9 – 6 IST
+          </span>
+        </div>
+      </div>
 
-              <div className="space-y-8">
-                <div className="flex items-start gap-6 group">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors duration-300">
-                    <Phone className="text-white" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#A0AABF] mb-1.5">
-                      Phone
-                    </div>
-                    <div className="font-semibold text-lg text-white">
-                      +91 90480 32223
-                    </div>
-                  </div>
-                </div>
+      {/* 4. Form Section */}
+      <div className="max-w-4xl mx-auto px-6 mb-28 contact-elem">
+        {isSubmitted ? (
+          <div className="bg-gray-50 rounded-[2.5rem] p-12 text-center border border-gray-100 animate-in fade-in duration-500">
+            <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <CheckCircle2 size={32} />
+            </div>
+            <h3 className="text-3xl font-semibold text-gray-900 mb-3">
+              Inquiry Sent Successfully!
+            </h3>
+            <p className="text-gray-500 text-sm max-w-md mx-auto">
+              Thank you for reaching out. We will review your project details and respond within 24 hours.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Input Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Name */}
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                  NAME *
+                </label>
+                <input
+                  required
+                  type="text"
+                  name="name"
+                  placeholder="Your name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full bg-gray-50/80 border border-gray-100 px-6 py-4 rounded-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all"
+                />
+              </div>
 
-                <div className="flex items-start gap-6 group">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors duration-300">
-                    <Mail className="text-white" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#A0AABF] mb-1.5">
-                      Email
-                    </div>
-                    <div className="font-semibold text-lg text-white">
-                      support@trueconnect.in
-                    </div>
-                  </div>
-                </div>
+              {/* Company */}
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                  COMPANY
+                </label>
+                <input
+                  type="text"
+                  name="company"
+                  placeholder="Company name"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="w-full bg-gray-50/80 border border-gray-100 px-6 py-4 rounded-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all"
+                />
+              </div>
 
-                <div className="flex items-start gap-6 group">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors duration-300">
-                    <MapPin className="text-white" size={20} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#A0AABF] mb-1.5">
-                      Headquarters
-                    </div>
-                    <div className="font-medium text-white leading-relaxed">
-                      Trivandrum Technopark,
-                      <br />
-                      Thiruvananthapuram, Kerala
-                    </div>
-                  </div>
-                </div>
+              {/* Email */}
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                  EMAIL *
+                </label>
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  placeholder="you@company.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full bg-gray-50/80 border border-gray-100 px-6 py-4 rounded-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                  PHONE
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="+91 88488 17833"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full bg-gray-50/80 border border-gray-100 px-6 py-4 rounded-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all"
+                />
+              </div>
+
+              {/* Project Type */}
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                  PROJECT TYPE
+                </label>
+                <select
+                  name="projectType"
+                  value={formData.projectType}
+                  onChange={handleChange}
+                  className="w-full bg-gray-50/80 border border-gray-100 px-6 py-4 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all appearance-none cursor-pointer"
+                >
+                  <option value="">Select type</option>
+                  <option value="Website Development">Website Development</option>
+                  <option value="App Development">App Development</option>
+                  <option value="Systems Development">Systems Development</option>
+                  <option value="AI & Automation">AI & Automation</option>
+                  <option value="Internet Leased Line">Internet Leased Line</option>
+                </select>
+              </div>
+
+              {/* Budget Range */}
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                  BUDGET RANGE
+                </label>
+                <select
+                  name="budgetRange"
+                  value={formData.budgetRange}
+                  onChange={handleChange}
+                  className="w-full bg-gray-50/80 border border-gray-100 px-6 py-4 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all appearance-none cursor-pointer"
+                >
+                  <option value="">Select range</option>
+                  <option value="< $5,000">&lt; $5,000</option>
+                  <option value="$5,000 - $15,000">$5,000 - $15,000</option>
+                  <option value="$15,000 - $50,000">$15,000 - $50,000</option>
+                  <option value="$50,000+">$50,000+</option>
+                </select>
               </div>
             </div>
 
-            {/* Quick Facts Card - Light Mode */}
-            <div className="bg-white border border-gray-200 p-10 rounded-[2rem] shadow-lg">
-              <h4 className="text-xs font-bold text-tc-navy uppercase tracking-[0.2em] mb-8">
-                Our Guarantee
-              </h4>
-              <ul className="space-y-5">
-                {[
-                  "No commitment required",
-                  "Free technical consultation",
-                  "Custom solution engineering",
-                  "Same-day response guarantee",
-                ].map((fact, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start text-gray-600 font-medium"
-                  >
-                    <CheckCircle2
-                      size={18}
-                      className="text-tc-navy mr-4 flex-shrink-0 mt-0.5"
-                    />
-                    {fact}
-                  </li>
-                ))}
-              </ul>
+            {/* Message Area */}
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">
+                MESSAGE
+              </label>
+              <textarea
+                name="message"
+                rows={5}
+                placeholder="Tell us about your project: goals, timeline, any specific requirements..."
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full bg-gray-50/80 border border-gray-100 p-6 rounded-3xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10 font-medium transition-all resize-none"
+              />
             </div>
-          </div>
+
+            {/* Checkbox */}
+            <div className="flex items-center gap-3 pt-2">
+              <input
+                type="checkbox"
+                id="agreeToTerms"
+                name="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={handleChange}
+                className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black cursor-pointer"
+              />
+              <label htmlFor="agreeToTerms" className="text-xs text-gray-500 cursor-pointer">
+                I agree to the <span className="underline">Privacy Policy</span> and{" "}
+                <span className="underline">Terms and Conditions</span>. My data will only be used to respond to this inquiry.
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <div className="text-center pt-5">
+              <button
+                type="submit"
+                className="bg-black hover:bg-gray-800 text-white font-bold text-xs md:text-sm uppercase tracking-[0.2em] px-12 md:px-14 py-4 md:py-4.5 rounded-full shadow-xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2.5"
+              >
+                SEND INQUIRY <Send size={15} />
+              </button>
+              <p className="text-xs text-gray-400 mt-4 font-medium">
+                We respond within 24 hours · No spam, ever
+              </p>
+            </div>
+          </form>
+        )}
+      </div>
+
+      {/* 5. Location Map Container */}
+      <div className="max-w-[1200px] mx-auto px-6 mb-24 contact-elem">
+        <div className="group w-full h-[400px] rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 bg-gray-100 relative transition-all duration-500">
+          <iframe
+            title="Office Location Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.452678627763!2d76.8789!3d8.5565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bef19a4e8d35%3A0xa19f9f2575db55d1!2sTechnopark%20Trivandrum!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+            className="w-full h-full border-0 filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100 transition-all duration-700 ease-out"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      {/* 6. Bottom 3 Stats / Promises Row */}
+      <div className="max-w-5xl mx-auto px-6 border-t border-gray-100 pt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center contact-elem">
+        <div>
+          <h4 className="text-base font-semibold text-gray-900 mb-1">24hr Response</h4>
+          <p className="text-xs text-gray-400">Every inquiry, every time</p>
+        </div>
+        <div>
+          <h4 className="text-base font-semibold text-gray-900 mb-1">50+ Projects</h4>
+          <p className="text-xs text-gray-400">Delivered across industries</p>
+        </div>
+        <div>
+          <h4 className="text-base font-semibold text-gray-900 mb-1">India & UAE-Based</h4>
+          <p className="text-xs text-gray-400">Local team, global standards</p>
         </div>
       </div>
     </div>
