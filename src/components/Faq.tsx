@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -134,66 +134,85 @@ const PIANO_NOTES = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 659.25];
 
 let audioCtx: AudioContext | null = null;
 
-const playPianoNote = (index: number) => {
-  try {
-    if (!audioCtx) {
-      const AudioContextClass =
-        window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContextClass) return;
+const getAudioContext = () => {
+  if (!audioCtx) {
+    const AudioContextClass =
+      window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (AudioContextClass) {
       audioCtx = new AudioContextClass();
     }
+  }
+  if (audioCtx && audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+  return audioCtx;
+};
 
-    if (audioCtx.state === "suspended") {
-      audioCtx.resume();
-    }
+const playPianoNote = (index: number) => {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
 
     const freq = PIANO_NOTES[index % PIANO_NOTES.length];
-    const now = audioCtx.currentTime;
+    const now = ctx.currentTime;
 
-    // Fundamental Sine Oscillator (Soft Warmth)
-    const osc1 = audioCtx.createOscillator();
-    const gain1 = audioCtx.createGain();
+    // Fundamental Sine Oscillator (Soft Acoustic Tone)
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
     osc1.type = "sine";
     osc1.frequency.setValueAtTime(freq, now);
 
-    // Harmonic Overtone Oscillator (Piano String Body)
-    const osc2 = audioCtx.createOscillator();
-    const gain2 = audioCtx.createGain();
+    // Harmonic Overtone Oscillator (Piano Body Ring)
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
     osc2.type = "triangle";
     osc2.frequency.setValueAtTime(freq * 2, now);
 
-    // Envelope Curves (Fast Attack, Smooth Piano Decay)
+    // Envelope Curves (Fast Strike, Exponential Decay with boosted volume)
     gain1.gain.setValueAtTime(0, now);
-    gain1.gain.linearRampToValueAtTime(0.18, now + 0.015);
-    gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+    gain1.gain.linearRampToValueAtTime(0.38, now + 0.01);
+    gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
 
     gain2.gain.setValueAtTime(0, now);
-    gain2.gain.linearRampToValueAtTime(0.05, now + 0.015);
-    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+    gain2.gain.linearRampToValueAtTime(0.12, now + 0.01);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
 
-    // Acoustic Low-pass Filter
-    const filter = audioCtx.createBiquadFilter();
+    // Low-pass Filter for rich grand piano timbre
+    const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
-    filter.frequency.setValueAtTime(1200, now);
+    filter.frequency.setValueAtTime(2200, now);
 
     osc1.connect(gain1);
     osc2.connect(gain2);
     gain1.connect(filter);
     gain2.connect(filter);
-    filter.connect(audioCtx.destination);
+    filter.connect(ctx.destination);
 
     osc1.start(now);
     osc2.start(now);
-    osc1.stop(now + 0.9);
-    osc2.stop(now + 0.9);
+    osc1.stop(now + 0.95);
+    osc2.stop(now + 0.95);
   } catch {
-    // Autoplay fallback silently handled
+    // Silent fallback if AudioContext fails
   }
 };
 
 const Faq: React.FC = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+  useEffect(() => {
+    // Unlock browser audio context on first user click or touch anywhere
+    const unlockAudio = () => {
+      getAudioContext();
+    };
+    window.addEventListener("pointerdown", unlockAudio, { once: true });
+    window.addEventListener("keydown", unlockAudio, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+    };
+  }, []);
 
   const handleHover = (index: number) => {
     if (activeIndex !== index) {

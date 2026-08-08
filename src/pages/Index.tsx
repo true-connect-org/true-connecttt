@@ -41,22 +41,65 @@ const Index = () => {
       { y: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power3.out" },
     );
 
-    // Snappy Scroll Animations for Bento Grid
-    gsap.utils.toArray(".bento-item").forEach((element: Element) => {
+    // Service-style Left & Right 3D Reveal Animations for Bento Grid
+    gsap.utils.toArray<HTMLElement>(".bento-left").forEach((el) => {
+      gsap.fromTo(
+        el,
+        { x: -100, y: 30, opacity: 0, scale: 0.95 },
+        {
+          x: 0,
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    });
+
+    gsap.utils.toArray<HTMLElement>(".bento-right").forEach((el) => {
+      gsap.fromTo(
+        el,
+        { x: 100, y: 30, opacity: 0, scale: 0.95 },
+        {
+          x: 0,
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          delay: 0.1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    });
+
+    // General Scroll Animations for Header & Bento items
+    gsap.utils.toArray<HTMLElement>(".bento-item").forEach((element) => {
       gsap.fromTo(
         element,
-        { y: 40, opacity: 0 },
+        { y: 50, opacity: 0, scale: 0.96 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.4,
-          ease: "power3.out",
+          scale: 1,
+          duration: 0.7,
+          ease: "power4.out",
           scrollTrigger: {
             trigger: element,
             start: "top 90%",
             toggleActions: "play none none none",
           },
-        },
+        }
       );
     });
 
@@ -109,7 +152,7 @@ const Index = () => {
             {/* 4-Card Symmetric Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
               {/* CARD 1: FASTER */}
-              <div className="bento-item bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
+              <div className="bento-left bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
@@ -137,7 +180,7 @@ const Index = () => {
               </div>
 
               {/* CARD 2: SEARCH */}
-              <div className="bento-item bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
+              <div className="bento-right bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
@@ -165,7 +208,7 @@ const Index = () => {
               </div>
 
               {/* CARD 3: SCALE */}
-              <div className="bento-item bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
+              <div className="bento-left bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
@@ -193,7 +236,7 @@ const Index = () => {
               </div>
 
               {/* CARD 4: SECURITY */}
-              <div className="bento-item bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
+              <div className="bento-right bg-[#0a0a0a] text-white rounded-[2rem] overflow-hidden shadow-2xl group border border-white/10 flex flex-col justify-between">
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
