@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 import {
   Monitor,
   Smartphone,
@@ -8,8 +10,6 @@ import {
   Zap,
   Target,
   Network,
-  ArrowRight,
-  ArrowLeft,
   ArrowUpRight,
   X,
   Check
@@ -165,20 +165,59 @@ const services = [
 const ServicesCarousel = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactServiceTitle, setContactServiceTitle] = useState("");
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    projectType: "",
+    budgetRange: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      emailjs.init("XR7hy2NvuKPVARIUd");
+      await emailjs.send("service_ojf96cm", "template_wa9gvmt", {
+        from_name: contactForm.name,
+        from_email: contactForm.email,
+        company: contactForm.company,
+        mobile: contactForm.phone,
+        project_type: contactForm.projectType || contactServiceTitle,
+        budget_range: contactForm.budgetRange,
+        message: `${contactForm.message} (Service: ${contactServiceTitle || contactForm.projectType})`,
+      });
+
+      toast.success("Message sent successfully! We'll contact you soon.");
+      setIsContactModalOpen(false);
+      setContactForm({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        projectType: "",
+        budgetRange: "",
+        message: "",
+      });
+    } catch (error) {
+      toast.error("Failed to send message. Please try again.");
+      console.error("EmailJS error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const [emblaRef] = useEmblaCarousel({
     align: "start",
     dragFree: true,
     containScroll: "trimSnaps"
   });
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
 
   return (
     <section className="py-20 md:py-32 bg-[#f8f9fa] overflow-hidden">
@@ -192,23 +231,6 @@ const ServicesCarousel = () => {
           <p className="text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">
             End-to-end digital engineering and robust network solutions that elevate your brand and ensure your operations perform flawlessly.
           </p>
-          
-          <div className="hidden md:flex items-center gap-3 mt-8 md:absolute md:bottom-0 md:right-0 md:mt-0">
-            <button
-              onClick={scrollPrev}
-              className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors shadow-sm"
-              aria-label="Previous slide"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <button
-              onClick={scrollNext}
-              className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors shadow-sm"
-              aria-label="Next slide"
-            >
-              <ArrowRight size={20} />
-            </button>
-          </div>
         </div>
 
         {/* Embla Carousel Viewport */}
@@ -221,7 +243,10 @@ const ServicesCarousel = () => {
                   key={service.id}
                   className="embla__slide flex-[0_0_95%] sm:flex-[0_0_75%] md:flex-[0_0_60%] lg:flex-[0_0_50%] xl:flex-[0_0_40%] min-w-0"
                 >
-                  <div className={`relative w-full aspect-[4/3] md:h-[380px] md:aspect-auto rounded-[2rem] overflow-hidden p-8 flex flex-col justify-between group ${service.bgGradient} transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl`}>
+                  <div 
+                    onClick={() => setSelectedService(service)}
+                    className={`relative w-full aspect-[4/3] md:h-[380px] md:aspect-auto rounded-[2rem] overflow-hidden p-8 flex flex-col justify-between group ${service.bgGradient} transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer`}
+                  >
                     
                     {/* Background Image */}
                     <img 
@@ -311,7 +336,7 @@ const ServicesCarousel = () => {
               <div>
                 {/* Title Row with Icon */}
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="text-[#c93812]">
+                  <div className="text-[#0b1f3f]">
                     {React.createElement(selectedService.icon, { size: 22, strokeWidth: 2 })}
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
@@ -332,7 +357,7 @@ const ServicesCarousel = () => {
                   <ul className="space-y-1.5">
                     {selectedService.whatWeOffer.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-xs text-gray-700">
-                        <Check size={15} className="text-[#c93812] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                        <Check size={15} className="text-[#0b1f3f] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -347,7 +372,7 @@ const ServicesCarousel = () => {
                   <ul className="space-y-1">
                     {selectedService.included.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-xs text-gray-700">
-                        <span className="text-[#c93812] font-bold">•</span>
+                        <span className="text-[#0b1f3f] font-bold">•</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -359,15 +384,183 @@ const ServicesCarousel = () => {
               <div className="pt-4 border-t border-gray-100 flex items-center justify-end">
                 <button
                   onClick={() => {
+                    const currentTitle = selectedService?.title || "";
+                    setContactServiceTitle(currentTitle);
+                    setContactForm((prev) => ({
+                      ...prev,
+                      message: currentTitle ? `Hi, I am interested in ${currentTitle}.` : "",
+                    }));
                     setSelectedService(null);
-                    navigate("/contact-us");
+                    setIsContactModalOpen(true);
                   }}
-                  className="w-full sm:w-auto bg-[#c93812] hover:bg-[#a82d0e] text-white text-xs md:text-sm font-semibold px-7 py-3 rounded-full transition-colors shadow-md text-center"
+                  className="w-full sm:w-auto bg-[#0b1f3f] hover:bg-[#122a52] text-white text-xs md:text-sm font-semibold px-7 py-3 rounded-full transition-colors shadow-md text-center"
                 >
                   Talk to the studio
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Form Modal Popup */}
+      {isContactModalOpen && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-200">
+          {/* Dark Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-md cursor-pointer"
+            onClick={() => setIsContactModalOpen(false)}
+          />
+
+          {/* Contact Form Modal Container */}
+          <div className="relative w-full max-w-xl bg-white rounded-[2rem] p-6 md:p-8 shadow-2xl z-10 border border-gray-100 max-h-[90vh] overflow-y-auto">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsContactModalOpen(false)}
+              className="absolute top-5 right-5 z-20 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-black flex items-center justify-center transition-colors shadow-sm"
+              aria-label="Close contact modal"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Modal Title */}
+            <div className="mb-6">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#0b1f3f] block mb-1">
+                DIRECT INQUIRY
+              </span>
+              <h3 className="text-2xl font-bold text-gray-900 tracking-tight">
+                Talk to the Studio
+              </h3>
+              {contactServiceTitle && (
+                <p className="text-xs text-gray-500 mt-1 font-medium">
+                  Service interested in: <span className="text-[#0b1f3f] font-semibold">{contactServiceTitle}</span>
+                </p>
+              )}
+            </div>
+
+            {/* Form Fields (Matching ContactUs Page) */}
+            <form onSubmit={handleContactSubmit} className="space-y-4">
+              {/* Row 1: Name & Company */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    NAME *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    placeholder="Your name"
+                    className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    COMPANY
+                  </label>
+                  <input
+                    type="text"
+                    value={contactForm.company}
+                    onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
+                    placeholder="Company name"
+                    className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Row 2: Email & Phone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    EMAIL *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    placeholder="you@company.com"
+                    className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    PHONE
+                  </label>
+                  <input
+                    type="tel"
+                    value={contactForm.phone}
+                    onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                    placeholder="+91 88488 17833"
+                    className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Row 3: Project Type & Budget Range */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    PROJECT TYPE
+                  </label>
+                  <select
+                    value={contactForm.projectType || contactServiceTitle}
+                    onChange={(e) => setContactForm({ ...contactForm, projectType: e.target.value })}
+                    className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-700 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all cursor-pointer"
+                  >
+                    <option value="">Select type</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="App Development">App Development</option>
+                    <option value="Systems Development">Systems Development</option>
+                    <option value="AI & Automation">AI & Automation</option>
+                    <option value="Internet Leased Line">Internet Leased Line</option>
+                    <option value="Enterprise Internet">Enterprise Internet</option>
+                    <option value="Brand Strategy">Brand Strategy</option>
+                    <option value="Connectivity">Connectivity</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    BUDGET RANGE
+                  </label>
+                  <select
+                    value={contactForm.budgetRange}
+                    onChange={(e) => setContactForm({ ...contactForm, budgetRange: e.target.value })}
+                    className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-700 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all cursor-pointer"
+                  >
+                    <option value="">Select range</option>
+                    <option value="< $5,000">&lt; $5,000</option>
+                    <option value="$5,000 - $15,000">$5,000 - $15,000</option>
+                    <option value="$15,000 - $50,000">$15,000 - $50,000</option>
+                    <option value="$50,000+">$50,000+</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Row 4: Message */}
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                  MESSAGE *
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={contactForm.message}
+                  onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                  placeholder="Tell us about your project requirements..."
+                  className="w-full bg-gray-50/80 border border-gray-200 px-4 py-2.5 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0b1f3f] focus:ring-1 focus:ring-[#0b1f3f] font-medium transition-all resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-[#0b1f3f] hover:bg-[#122a52] text-white text-sm font-semibold py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 mt-2 flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? "Sending..." : "Submit Inquiry"}
+              </button>
+            </form>
           </div>
         </div>
       )}

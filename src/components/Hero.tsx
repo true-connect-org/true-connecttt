@@ -5,42 +5,31 @@ import { MessageCircle, ArrowRight, Cpu } from "lucide-react";
 
 const Hero = () => {
   useEffect(() => {
-    // Hero animations
-    const tl = gsap.timeline({ delay: 0.2 });
-    tl.from(".hero-tag", {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      ease: "power2.out",
-    })
-      .from(
-        ".hero-title",
-        {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        },
+    // Hero Entrance Text Reveal animation
+    const tl = gsap.timeline({ delay: 0.15 });
+    gsap.set(".hero-reveal-line", { transformPerspective: 800 });
+
+    tl.fromTo(
+      ".hero-tag",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+    )
+      .fromTo(
+        ".hero-reveal-line",
+        { y: "115%", opacity: 0, rotateX: 12 },
+        { y: "0%", opacity: 1, rotateX: 0, duration: 1.1, stagger: 0.16, ease: "power4.out" },
         "-=0.3"
       )
-      .from(
+      .fromTo(
         ".hero-desc",
-        {
-          y: 30,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        "-=0.4"
+        { y: 25, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
+        "-=0.6"
       )
-      .from(
+      .fromTo(
         ".hero-ctas",
-        {
-          y: 20,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.out",
-        },
+        { y: 20, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" },
         "-=0.3"
       );
   }, []);
@@ -84,38 +73,36 @@ const Hero = () => {
       {/* Text Content (Bottom on mobile, Left on desktop) */}
       <div className="relative flex flex-col items-start w-full max-w-xl px-6 mx-auto md:px-12 lg:max-w-[1200px] z-20 pt-6 pb-6 lg:py-40">
         <div className="w-full lg:max-w-lg lg:pr-5 mt-2 lg:mt-0">
-          {/* Subtitle Tagline */}
-          <div className="hero-tag mb-2.5 font-medium text-[11px] sm:text-xs tracking-[0.2em] text-[#0b1f3f]/70 uppercase font-satoshi">
-            TECH CRAFTED WITH EMPATHY · PURPOSE IN EVERY PIXEL
-          </div>
-
           {/* Main Title */}
           <h1 className="hero-title mb-3 font-satoshi text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight sm:leading-tight">
-            <span
-              style={{
-                background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                display: "inline-block",
-                paddingBottom: "0.1em",
-              }}
-            >
-              Design engineering
+            <span className="block overflow-hidden py-0.5">
+              <span
+                className="hero-reveal-line inline-block transform-gpu"
+                style={{
+                  background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  paddingBottom: "0.1em",
+                }}
+              >
+                Design engineering
+              </span>
             </span>
-            <br />
-            <span
-              style={{
-                background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                display: "inline-block",
-                paddingBottom: "0.2em",
-                paddingRight: "0.15em",
-              }}
-            >
-              for ambitious brands.
+            <span className="block overflow-hidden py-0.5">
+              <span
+                className="hero-reveal-line inline-block transform-gpu"
+                style={{
+                  background: "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  paddingBottom: "0.2em",
+                  paddingRight: "0.15em",
+                }}
+              >
+                for ambitious brands.
+              </span>
             </span>
           </h1>
 

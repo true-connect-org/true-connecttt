@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, CheckCircle2, X, Star } from "lucide-react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // 4 Case Studies with tags & Unsplash images matching the reference screenshot aesthetic
 const caseStudies = [
@@ -68,8 +71,8 @@ const caseStudies = [
       solution: "We established dedicated Jio leased lines with redundant failovers and enterprise-grade security protocols.",
       results: [
         "100% uptime maintained across 12 consecutive months",
-        "Sub-10ms network latency achieved",
-        "Seamless scale across 15 regional office branches"
+        "Latency reduced by 45% on enterprise backbone",
+        "Zero network packet loss under peak operational load"
       ]
     }
   }
@@ -77,24 +80,43 @@ const caseStudies = [
 
 const CaseStudies = () => {
   const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeStudy, setActiveStudy] = useState<number | null>(null);
 
   useEffect(() => {
-    // Initial GSAP animation matching Lorolabs style
-    gsap.fromTo(
-      ".cs-header",
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-    );
-    gsap.fromTo(
-      ".cs-card",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.2 }
-    );
+    window.scrollTo(0, 0);
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".cs-header",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      );
+
+      gsap.utils.toArray<HTMLElement>(".cs-card").forEach((card) => {
+        gsap.fromTo(
+          card,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="bg-white min-h-screen pt-28 md:pt-36 pb-28 text-gray-900 font-sans">
+    <div ref={containerRef} className="bg-white min-h-screen pt-28 md:pt-36 pb-28 text-gray-900 font-sans">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header Section (Left Aligned) */}
         <div className="text-left max-w-4xl mb-20 cs-header">
@@ -142,7 +164,7 @@ const CaseStudies = () => {
                       {study.title}
                     </h2>
                     
-                    <div className="w-11 h-11 rounded-full bg-black group-hover:bg-[#e11d48] text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md flex-shrink-0">
+                    <div className="w-11 h-11 rounded-full bg-[#0b1f3f] group-hover:bg-[#122a52] text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md flex-shrink-0">
                       <ArrowUpRight size={20} strokeWidth={2} />
                     </div>
                   </div>

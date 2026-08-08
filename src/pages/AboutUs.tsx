@@ -147,15 +147,16 @@ const AboutUs = () => {
       gsap.utils.toArray<HTMLElement>(".animate-on-scroll").forEach((element) => {
         gsap.fromTo(
           element,
-          { y: 50, opacity: 0 },
+          { y: 60, opacity: 0, scale: 0.95 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
+            scale: 1,
+            duration: 0.75,
+            ease: "power4.out",
             scrollTrigger: {
               trigger: element,
-              start: "top 85%",
+              start: "top 88%",
               toggleActions: "play none none none"
             }
           }
@@ -167,9 +168,9 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pt-20 md:pt-24 pb-12 overflow-x-hidden">
+    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pt-28 md:pt-36 pb-12 overflow-x-hidden">
       {/* 1. HERO HEADER SECTION */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 relative">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-8 md:mb-10">
           <div className="max-w-4xl">
             {/* Category Tag */}
@@ -184,7 +185,7 @@ const AboutUs = () => {
 
             {/* Description Subtitle */}
             <p className="about-hero-text text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed mb-10 font-normal">
-              We started with a simple belief: performance and design shouldn't be a trade-off. Today, True Connect is an enterprise design engineering studio based in Trivandrum, India & UAE. We combine premium aesthetics with blazing-fast performance, delivered from our studio to ambitious brands across Asia-Pacific and the Middle East. Every project is handled in-house, every line of code is ours, and every client gets our full attention.
+              True Connect is an enterprise design engineering studio based in Trivandrum & Dubai. We combine premium aesthetics with blazing-fast performance for ambitious brands across APAC and Middle East — 100% in-house.
             </p>
 
             {/* Dual Action Buttons */}
@@ -306,16 +307,6 @@ const AboutUs = () => {
               );
             })}
           </div>
-
-          {/* Link at Bottom */}
-          <div className="text-center animate-on-scroll">
-            <button
-              onClick={() => navigate("/contact-us")}
-              className="text-xs font-semibold text-gray-600 hover:text-black transition-colors inline-flex items-center gap-1.5"
-            >
-              See all packages & pricing <ArrowUpRight size={14} />
-            </button>
-          </div>
         </div>
       </section>
 
@@ -337,7 +328,7 @@ const AboutUs = () => {
           {/* 2 Studio Workspace Image Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 animate-on-scroll">
             {/* Left Image: Monochrome / Sleek Architecture */}
-            <div className="w-full h-[360px] md:h-[480px] rounded-[1.75rem] overflow-hidden shadow-lg border border-gray-200/80 bg-gray-900 group">
+            <div className="w-full h-[220px] sm:h-[280px] md:h-[480px] rounded-[1.5rem] md:rounded-[1.75rem] overflow-hidden shadow-lg border border-gray-200/80 bg-gray-900 group">
               <img 
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=80" 
                 alt="Studio Workspace Interior"
@@ -346,7 +337,7 @@ const AboutUs = () => {
             </div>
 
             {/* Right Image: Vibrant Colorful Studio Interior */}
-            <div className="w-full h-[360px] md:h-[480px] rounded-[1.75rem] overflow-hidden shadow-lg border border-gray-200/80 bg-gray-900 group">
+            <div className="w-full h-[220px] sm:h-[280px] md:h-[480px] rounded-[1.5rem] md:rounded-[1.75rem] overflow-hidden shadow-lg border border-gray-200/80 bg-gray-900 group">
               <img 
                 src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1000&q=80" 
                 alt="Studio Creative Lounge"

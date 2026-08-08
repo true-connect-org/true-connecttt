@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ContactUs = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -19,16 +23,33 @@ const ContactUs = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    gsap.fromTo(
-      ".contact-header",
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-    );
-    gsap.fromTo(
-      ".contact-elem",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.2 }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".contact-header",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      );
+
+      gsap.utils.toArray<HTMLElement>(".contact-elem").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -58,7 +79,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen text-gray-900 font-sans pt-28 md:pt-36 pb-24">
+    <div ref={containerRef} className="bg-white min-h-screen text-gray-900 font-sans pt-28 md:pt-36 pb-24">
       {/* 1. Header Section */}
       <div className="text-center max-w-4xl mx-auto px-6 mb-16 contact-header">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-[#2d2a26] tracking-tight mb-6 leading-[1.1]">

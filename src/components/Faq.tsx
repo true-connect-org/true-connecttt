@@ -1,224 +1,335 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  Check,
+  Sparkles,
+  Network,
+  Zap,
+  ShieldCheck,
+  CreditCard,
+  Infinity as InfinityIcon,
+  Headphones,
+} from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-interface FAQ {
+interface FAQItem {
+  id: string;
   question: string;
+  badgeText: string;
+  highlightText: string;
   answer: string;
+  bulletPoints: string[];
+  icon: React.ElementType;
+  accentBg: string;
 }
 
-const faqs: FAQ[] = [
+const faqData: FAQItem[] = [
   {
-    question: "What is the advantage of a leased line network?",
+    id: "01",
+    question: "What is the advantage of a leased line over standard broadband?",
+    badgeText: "1:1 Symmetrical Speed",
+    highlightText: "Guaranteed 1:1 Bandwidth",
     answer:
-      "A leased line from True Connect provides a dedicated, high-speed, and symmetrical internet connection exclusively for your business. Unlike shared broadband, our Jio-powered leased line ensures guaranteed bandwidth, zero downtime, and consistent speed, making it ideal for enterprises that rely on stable connectivity for cloud, communication, and operations.",
+      "A True Connect leased line provides an unshared, 1:1 dedicated internet pipe exclusively for your organization. Unlike shared broadband where speeds drop during peak hours, your leased line guarantees identical upload and download speeds with zero contention.",
+    bulletPoints: [
+      "Dedicated 1:1 symmetrical bandwidth",
+      "Reliance Jio Tier-1 optical fiber network",
+      "Zero speed throttling & unshared capacity",
+      "Enterprise SLA with 99.99% uptime guarantee",
+      "Static IP addresses & MPLS routing included"
+    ],
+    icon: Network,
+    accentBg: "from-[#ff2e55] to-[#e01d42]",
   },
   {
-    question: "How can I set up a dedicated leased line?",
+    id: "02",
+    question: "How fast can a True Connect leased line be deployed for my business?",
+    badgeText: "Rapid Onboarding",
+    highlightText: "Fast Turnkey Setup",
     answer:
-      "Setting up a True Connect leased line is quick and seamless. Our experts analyze your connectivity requirements and design a custom Jio internet solution for your business. After a professional site survey, we deploy a dedicated connection with enterprise-grade hardware, ensuring maximum reliability and performance from day one.",
+      "Our engineering team conducts a rapid site feasibility survey and deploys dedicated fiber optic infrastructure to your building. We ensure a seamless setup with zero disruption to your active operations.",
+    bulletPoints: [
+      "Free professional site feasibility assessment",
+      "Dedicated fiber line installation & testing",
+      "Pre-configured hardware router & firewall",
+      "Zero downtime migration from old provider",
+      "Dedicated engineer assigned to your account"
+    ],
+    icon: Zap,
+    accentBg: "from-[#ff2e55] to-[#d61b3d]",
   },
   {
-    question: "What is the leased line connection price?",
+    id: "03",
+    question: "What is the pricing model for dedicated leased lines?",
+    badgeText: "Transparent Billing",
+    highlightText: "Custom Tiered Pricing",
     answer:
-      "The price of a True Connect leased line depends on your chosen speed, required bandwidth, and business scale. We provide flexible, cost-effective plans for startups, SMEs, and large enterprises. Contact our team for a free consultation and get a personalized quote designed to fit your business needs.",
+      "Pricing depends on your selected speed tier (10 Mbps to 1 Gbps+), SLA level, and contract duration. We provide flat-rate monthly billing with no hidden fees, peak surcharges, or usage caps.",
+    bulletPoints: [
+      "Fixed, predictable monthly flat rate",
+      "Flexible plans from 10 Mbps up to 10 Gbps",
+      "No overage fees or peak-hour surcharges",
+      "Custom enterprise SLA packages available",
+      "Free hardware leasing & maintenance options"
+    ],
+    icon: CreditCard,
+    accentBg: "from-[#ff2e55] to-[#e01d42]",
   },
   {
-    question: "Is there a cap on data usage on a leased line?",
+    id: "04",
+    question: "Is there any cap on monthly data usage or speed throttling?",
+    badgeText: "100% Unlimited",
+    highlightText: "Truly Unlimited Data",
     answer:
-      "No, True Connect leased lines offer unlimited data with no speed throttling or hidden caps. Since the connection is entirely dedicated to your organization, you will enjoy uninterrupted, full-speed connectivity at all times, even during high-traffic hours.",
+      "No. True Connect enterprise leased lines feature unmetered data bandwidth. You get unlimited data consumption at maximum speed 24 hours a day, 365 days a year without any Fair Usage Policy (FUP) caps.",
+    bulletPoints: [
+      "Truly unmetered enterprise data throughput",
+      "No Fair Usage Policy (FUP) limits or throttling",
+      "Consistent low latency for cloud & VoIP",
+      "High-speed backup & large file transfers",
+      "Optimized routing for enterprise applications"
+    ],
+    icon: InfinityIcon,
+    accentBg: "from-[#ff2e55] to-[#d61b3d]",
   },
   {
-    question: "Why is True Connect's Business Internet Access ideal for me?",
+    id: "05",
+    question: "What kind of uptime SLA and technical support do you guarantee?",
+    badgeText: "99.99% Uptime SLA",
+    highlightText: "24/7 NOC Monitoring",
     answer:
-      "True Connect's Business Internet Access, powered by Jio's robust nationwide network, delivers enterprise-level reliability, security, and speed. With 24/7 technical support, proactive monitoring, and guaranteed uptime, our leased line ensures your business stays online, productive, and future-ready.",
+      "We back our network with a strict 99.99% uptime Service Level Agreement (SLA). Our Network Operations Center (NOC) monitors your link 24/7/365, with an average Mean Time to Repair (MTTR) of under 2 hours.",
+    bulletPoints: [
+      "Guaranteed 99.99% network uptime SLA",
+      "24/7/365 proactive NOC monitoring",
+      "Sub-2-hour MTTR on-site technical resolution",
+      "Direct line to dedicated support engineers",
+      "Financially backed SLA credit protection"
+    ],
+    icon: ShieldCheck,
+    accentBg: "from-[#ff2e55] to-[#e01d42]",
   },
   {
-    question: "What is the difference between leased lines and broadband?",
+    id: "06",
+    question: "Why choose True Connect powered by Reliance Jio?",
+    badgeText: "Enterprise Backbone",
+    highlightText: "Jio Enterprise Partner",
     answer:
-      "A leased line is a dedicated internet connection offering equal upload and download speeds, while broadband is shared among multiple users and often experiences fluctuations. True Connect leased lines deliver guaranteed bandwidth, zero congestion, and stable connectivity, making them the preferred choice for business-critical applications.",
+      "True Connect combines Reliance Jio's world-class optical fiber backbone with personalized, local enterprise service. You get unmatched network reach paired with direct, responsive human support.",
+    bulletPoints: [
+      "Backed by Reliance Jio's nationwide network",
+      "End-to-end SD-WAN & cyber security options",
+      "Scalable infrastructure designed for business growth",
+      "Single point of contact for billing & support",
+      "Proven reliability across thousands of enterprises"
+    ],
+    icon: Headphones,
+    accentBg: "from-[#ff2e55] to-[#d61b3d]",
   },
 ];
 
-const Faq = () => {
+// Pentatonic piano scale frequencies (C4, D4, E4, G4, A4, C5, E5)
+const PIANO_NOTES = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 659.25];
+
+let audioCtx: AudioContext | null = null;
+
+const playPianoNote = (index: number) => {
+  try {
+    if (!audioCtx) {
+      const AudioContextClass =
+        window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+      audioCtx = new AudioContextClass();
+    }
+
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+
+    const freq = PIANO_NOTES[index % PIANO_NOTES.length];
+    const now = audioCtx.currentTime;
+
+    // Fundamental Sine Oscillator (Soft Warmth)
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = "sine";
+    osc1.frequency.setValueAtTime(freq, now);
+
+    // Harmonic Overtone Oscillator (Piano String Body)
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = "triangle";
+    osc2.frequency.setValueAtTime(freq * 2, now);
+
+    // Envelope Curves (Fast Attack, Smooth Piano Decay)
+    gain1.gain.setValueAtTime(0, now);
+    gain1.gain.linearRampToValueAtTime(0.18, now + 0.015);
+    gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+
+    gain2.gain.setValueAtTime(0, now);
+    gain2.gain.linearRampToValueAtTime(0.05, now + 0.015);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+
+    // Acoustic Low-pass Filter
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(1200, now);
+
+    osc1.connect(gain1);
+    osc2.connect(gain2);
+    gain1.connect(filter);
+    gain2.connect(filter);
+    filter.connect(audioCtx.destination);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + 0.9);
+    osc2.stop(now + 0.9);
+  } catch {
+    // Autoplay fallback silently handled
+  }
+};
+
+const Faq: React.FC = () => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const items = containerRef.current?.querySelectorAll(".faq-item");
+  const handleHover = (index: number) => {
+    if (activeIndex !== index) {
+      setActiveIndex(index);
+      playPianoNote(index);
+    }
+  };
 
-    if (!items) return;
-
-    gsap.fromTo(
-      items,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.75,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-        },
-      }
-    );
-  }, []);
-
-  const toggleFAQ = (index: number) => {
-    setActiveIndex((currentIndex) => (currentIndex === index ? null : index));
+  const toggleItem = (index: number) => {
+    if (activeIndex === index) {
+      setActiveIndex(null);
+    } else {
+      setActiveIndex(index);
+      playPianoNote(index);
+    }
   };
 
   return (
-    <section
-      id="faq"
-      className="relative overflow-hidden bg-gradient-to-b from-[#e8eef9] via-white to-slate-50 py-20 pt-20 text-foreground md:py-24 md:pt-28"
-    >
-      <div className="pointer-events-none absolute inset-0 opacity-60">
-        <div className="absolute left-[-10rem] top-20 h-80 w-80 rounded-full bg-[#0b1f3f]/10 blur-3xl" />
-        <div className="absolute bottom-8 right-[-8rem] h-72 w-72 rounded-full bg-[#2d6aad]/10 blur-3xl" />
-      </div>
+    <section id="faq" className="py-14 md:py-24 bg-[#fafbfc] text-[#0b1f3f] relative overflow-hidden">
+      {/* Background Accent */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[400px] bg-gradient-to-b from-slate-100/60 via-slate-50/20 to-transparent pointer-events-none -z-10" />
 
-      <div ref={containerRef} className="max-w-[1200px] w-full relative z-10 mx-auto px-6 md:px-12">
-        <div className="mb-12 md:mb-16">
-          <div className="mb-5 flex items-center gap-2">
-            <span className="h-px w-8 bg-[#0b1f3f]" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#0b1f3f]/60">
-              Support Center
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+        {/* Header Section */}
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-[#0b1f3f] text-[11px] font-bold uppercase tracking-widest mb-4">
+            <Sparkles className="w-3 h-3 text-[#0b1f3f]" />
+            <span>Support Center</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#0b1f3f] leading-[1.15]">
+                Frequently Asked <br />
+                Questions
+              </h2>
+            </div>
+            <p className="text-slate-500 text-sm md:text-base max-w-md leading-relaxed">
+              Get instant, transparent answers about True Connect's dedicated Jio Leased Line network, deployment, and SLA guarantees.
+            </p>
+          </div>
+
+          {/* Section Divider Line */}
+          <div className="mt-8 flex items-center justify-between border-b border-slate-200 pb-2.5">
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+              BUILD & OPERATE — FAQ
+            </span>
+            <span className="text-[11px] font-semibold text-slate-400 hidden sm:inline">
+              Hover over any question to expand
             </span>
           </div>
-
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
-              <span
-                style={{
-                  background:
-                    "linear-gradient(135deg, #0b1f3f 0%, #1a4480 45%, #2d6aad 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  display: "inline-block",
-                  paddingBottom: "0.1em",
-                  paddingRight: "0.1em",
-                }}
-              >
-                Frequently Asked<br />Questions
-              </span>
-            </h2>
-
-            <div className="flex gap-4 md:max-w-sm">
-              <div className="w-1 flex-shrink-0 rounded-full bg-gradient-to-b from-[#0b1f3f] to-[#2d6aad]" />
-              <p className="text-base leading-relaxed text-slate-500">
-                Get instant answers to the most common queries about True Connect's
-                dedicated Jio Leased Line services.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-8 h-px bg-gradient-to-r from-[#0b1f3f]/20 via-[#2d6aad]/10 to-transparent" />
         </div>
 
-        <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.4fr]">
-          <div className="faq-item mx-auto w-full max-w-md opacity-0 lg:sticky lg:top-28">
-            <svg
-              className="h-auto w-full text-[#0b1f3f]"
-              viewBox="0 0 520 420"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <rect
-                x="96"
-                y="62"
-                width="328"
-                height="230"
-                rx="26"
-                fill="white"
-                stroke="currentColor"
-                strokeWidth="8"
-              />
-              <path
-                d="M153 133h136M153 181h214M153 229h158"
-                stroke="#2d6aad"
-                strokeWidth="14"
-                strokeLinecap="round"
-              />
-              <circle cx="396" cy="314" r="60" fill="#0b1f3f" />
-              <path
-                d="M381 298c0-17 13-29 31-29 17 0 29 10 29 25 0 14-8 21-20 28-9 6-12 10-12 19"
-                stroke="white"
-                strokeWidth="12"
-                strokeLinecap="round"
-              />
-              <circle cx="409" cy="363" r="7" fill="white" />
-              <path
-                d="M136 292l-34 48c-6 8 1 19 11 17l76-17"
-                fill="white"
-                stroke="currentColor"
-                strokeWidth="8"
-                strokeLinejoin="round"
-              />
-              <circle cx="104" cy="106" r="16" fill="#e2c044" />
-              <circle cx="430" cy="82" r="10" fill="#2d6aad" />
-              <circle cx="74" cy="274" r="10" fill="#2d6aad" />
-            </svg>
-          </div>
+        {/* FAQ Accordion List (Lorolabs style) */}
+        <div className="flex flex-col">
+          {faqData.map((item, index) => {
+            const isExpanded = activeIndex === index;
+            const IconComponent = item.icon;
 
-          <dl className="grid gap-4 sm:grid-cols-2">
-            {faqs.map((faq, index) => {
-              const isActive = activeIndex === index;
-
-              return (
-                <div key={faq.question} className="faq-item opacity-0">
+            return (
+              <div
+                key={item.id}
+                onMouseEnter={() => handleHover(index)}
+                className="border-b border-slate-200 transition-colors duration-200"
+              >
+                {/* Collapsed State Header Row */}
+                {!isExpanded ? (
                   <button
                     type="button"
-                    className={`group w-full rounded-lg border-2 bg-white px-5 py-4 text-left text-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#0b1f3f]/35 hover:shadow-lg ${
-                      isActive
-                        ? "border-[#0b1f3f]/40 shadow-lg"
-                        : "border-slate-200"
-                    }`}
-                    onClick={() => toggleFAQ(index)}
-                    aria-expanded={isActive}
-                    aria-controls={`faq-answer-${index}`}
+                    onClick={() => toggleItem(index)}
+                    onMouseEnter={() => handleHover(index)}
+                    className="w-full py-4 md:py-5 flex items-center justify-between gap-4 text-left group hover:bg-slate-50/80 px-3 md:px-5 rounded-xl transition-all duration-200"
                   >
-                    <dt className="flex items-start justify-between gap-4">
-                      <span className="font-semibold leading-snug text-[#0b1f3f]">
-                        {faq.question}
+                    {/* Left: Icon + Question Title */}
+                    <div className="flex items-center gap-3.5 md:gap-4 flex-1 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 shrink-0 group-hover:border-[#0b1f3f]/30 group-hover:bg-white transition-colors">
+                        <IconComponent className="w-3.5 h-3.5 text-[#0b1f3f]" />
+                      </div>
+                      <span className="text-base md:text-lg font-semibold text-[#0b1f3f] group-hover:text-[#0b1f3f] transition-colors truncate sm:whitespace-normal">
+                        {item.question}
                       </span>
-                      <span
-                        className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors ${
-                          isActive
-                            ? "bg-[#0b1f3f] text-white"
-                            : "bg-slate-200 text-[#0b1f3f] group-hover:bg-[#0b1f3f] group-hover:text-white"
-                        }`}
-                      >
-                        {isActive ? (
-                          <ChevronUp className="h-4 w-4" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4" />
-                        )}
-                      </span>
-                    </dt>
+                    </div>
 
-                    <dd
-                      id={`faq-answer-${index}`}
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                        isActive ? "mt-3 max-h-72 opacity-100" : "max-h-0 opacity-0"
-                      }`}
-                    >
-                      <p className="leading-relaxed text-slate-600">
-                        {faq.answer}
-                      </p>
-                    </dd>
+                    {/* Right: Badge + Arrow */}
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="hidden md:inline-block text-xs font-medium text-slate-500">
+                        {item.badgeText}
+                      </span>
+                      <div className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-[#0b1f3f] group-hover:border-[#0b1f3f]/40 group-hover:bg-[#0b1f3f]/10 transition-all">
+                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </div>
+                    </div>
                   </button>
-                </div>
-              );
-            })}
-          </dl>
+                ) : (
+                  /* Expanded Primary Blue Card (Shows Only Question & Answer) */
+                  <div className="my-3">
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="w-full rounded-2xl bg-[#0B1F3F] p-5 sm:p-6 md:p-8 text-white shadow-xl relative overflow-hidden"
+                    >
+                      {/* Top Header Row of Card */}
+                      <div className="flex items-start justify-between gap-4 mb-4 pb-3 border-b border-white/15">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shrink-0">
+                            <IconComponent className="w-4 h-4 text-[#E6E84A]" />
+                          </div>
+                          <h3 className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-white leading-snug">
+                            {item.question}
+                          </h3>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => toggleItem(index)}
+                          className="flex items-center gap-1 text-xs font-medium text-white/80 hover:text-white underline underline-offset-4 shrink-0 transition-opacity"
+                        >
+                          <span>Close</span>
+                          <ArrowUpRight className="w-3.5 h-3.5 rotate-180" />
+                        </button>
+                      </div>
+
+                      {/* Card Content: Only Answer Paragraph */}
+                      <div className="relative z-10">
+                        <p className="text-white/90 text-sm sm:text-base leading-relaxed font-normal">
+                          {item.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -226,3 +337,4 @@ const Faq = () => {
 };
 
 export default Faq;
+

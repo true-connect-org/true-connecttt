@@ -6,13 +6,35 @@ const WaveHero: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // GSAP Entrance animation
-    const tl = gsap.timeline({ delay: 0.1 });
-    tl.from('.hero-title-text', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' })
-      .from('.hero-sub-text', { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
-      .from('.hero-tag-text', { opacity: 0, duration: 0.5 }, '-=0.4')
-      .from('.hero-btns', { y: 15, opacity: 0, duration: 0.5, ease: 'power3.out' }, '-=0.3')
-      .from('.hero-vr-image', { scale: 1.05, opacity: 0, duration: 1, ease: 'power2.out' }, '-=0.8');
+    // GSAP Entrance Text Reveal animation
+    const tl = gsap.timeline({ delay: 0.15 });
+
+    // Enable 3D transform perspective for smooth text rotation reveal
+    gsap.set('.hero-reveal-line', { transformPerspective: 800 });
+
+    tl.fromTo(
+      '.hero-reveal-line',
+      { y: '115%', opacity: 0, rotateX: 12 },
+      { y: '0%', opacity: 1, rotateX: 0, duration: 1.1, stagger: 0.16, ease: 'power4.out' }
+    )
+      .fromTo(
+        '.hero-sub-text',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+        '-=0.6'
+      )
+      .fromTo(
+        '.hero-btns',
+        { y: 20, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.4)' },
+        '-=0.4'
+      )
+      .fromTo(
+        '.hero-vr-image',
+        { scale: 1.4, opacity: 0 },
+        { scale: 1.25, opacity: 1, duration: 1.4, ease: 'power3.out' },
+        '-=1.2'
+      );
   }, []);
 
   return (
@@ -20,42 +42,51 @@ const WaveHero: React.FC = () => {
       {/* Single Unified Hero Container Div */}
       <div className="w-full max-w-[1560px] h-full rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative bg-gradient-to-br from-[#042d5b] via-[#0b1f3f] to-[#031126] border border-white/15 shadow-[0_25px_60px_rgba(4,45,91,0.35)] flex items-center">
         
-        {/* Full Section Background Image inside single div */}
+        {/* Full Section Background Image — 70% 15% mobile focal point, 82% width on desktop */}
         <img
           src="/images/vr-hero-new.png"
           alt="True Connect Blue VR Model"
-          className="hero-vr-image absolute inset-y-0 right-0 w-full lg:w-[85%] h-full object-cover object-center lg:object-right-top scale-150 lg:scale-[1.65] origin-right transition-transform duration-700 hover:scale-[1.75] pointer-events-none"
+          className="hero-vr-image absolute inset-0 w-full h-full lg:inset-y-0 lg:right-0 lg:left-auto lg:w-[82%] lg:h-full object-cover object-[70%_15%] sm:object-[78%_center] lg:object-[85%_top] origin-center lg:origin-right transition-transform duration-700 pointer-events-none"
         />
 
-        {/* Content Overlaid inside single div */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-16 pt-24 pb-10 lg:py-16 flex flex-col justify-center h-full max-w-4xl">
+        {/* Dark overlay for mobile readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f3f]/95 via-[#0b1f3f]/45 to-[#0b1f3f]/10 lg:bg-none pointer-events-none" />
 
-          {/* Headline Text */}
-          <h1 className="hero-title-text font-satoshi text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white leading-[1.1] mb-5">
-            Design engineering <br className="hidden sm:block" /> for ambitious brands.
+        {/* Content Overlaid — vertically centered and left-aligned matching reference image */}
+        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 pt-16 sm:pt-20 lg:py-16 flex flex-col items-start justify-center h-full max-w-4xl text-left">
+
+          {/* Headline Text Reveal (Masked Line-by-Line) */}
+          <h1 className="hero-title-text font-satoshi text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white leading-[1.15] mb-5">
+            <span className="block overflow-hidden py-1">
+              <span className="hero-reveal-line block transform-gpu">
+                Design engineering
+              </span>
+            </span>
+            <span className="block overflow-hidden py-1">
+              <span className="hero-reveal-line block transform-gpu text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+                for ambitious brands.
+              </span>
+            </span>
           </h1>
 
-          {/* Description Paragraph */}
-          <p className="hero-sub-text font-satoshi text-white/80 text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg mb-6 font-normal">
-            We design and build custom websites, portals, and apps with uncompromised performance. High-speed connectivity & IT solutions tailored for your growth.
-          </p>
-
-          {/* Subtitle Tagline */}
-          <div className="hero-tag-text font-satoshi text-[11px] sm:text-xs font-medium tracking-[0.2em] text-white/60 uppercase mb-6 sm:mb-8">
-            TECH CRAFTED WITH EMPATHY · PURPOSE IN EVERY PIXEL
+          {/* Description Paragraph Reveal */}
+          <div className="overflow-hidden mb-8">
+            <p className="hero-sub-text font-satoshi text-white/75 text-sm sm:text-base lg:text-lg leading-relaxed max-w-md lg:max-w-lg font-normal">
+              We design and build custom websites, portals, and apps with uncompromised performance. High-speed connectivity & IT solutions tailored for your growth.
+            </p>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hero-btns flex flex-wrap items-center gap-4 font-satoshi">
+          {/* CTA Buttons — Left aligned compact pills */}
+          <div className="hero-btns flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 font-satoshi w-auto">
             <button
               onClick={() => navigate('/services')}
-              className="bg-white hover:bg-white/90 text-[#0b1f3f] font-bold px-8 py-4 rounded-full text-sm sm:text-base shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi"
+              className="bg-white hover:bg-white/90 text-[#0b1f3f] font-bold px-7 py-3.5 rounded-full text-xs sm:text-base shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi w-auto"
             >
               View Packages
             </button>
             <button
               onClick={() => navigate('/case-studies')}
-              className="bg-black/40 hover:bg-black/70 text-white font-bold px-8 py-4 rounded-full text-sm sm:text-base border border-white/25 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi"
+              className="bg-black/40 hover:bg-black/70 text-white font-bold px-7 py-3.5 rounded-full text-xs sm:text-base border border-white/25 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi w-auto"
             >
               See Our Work
             </button>
@@ -68,5 +99,6 @@ const WaveHero: React.FC = () => {
 };
 
 export default WaveHero;
+
 
 

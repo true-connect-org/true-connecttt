@@ -1,144 +1,389 @@
-import { useEffect } from "react";
-import { ArrowRight, ShieldCheck, Server } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import {
+  ArrowUpRight,
+  ShieldCheck,
+  Wifi,
+  Gauge,
+  Clock,
+  HeadphonesIcon,
+  Server,
+  ArrowRight,
+  Zap,
+  Globe,
+  Lock,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ────────────────────────────────
+   PROBLEM / SOLUTION DATA
+   ──────────────────────────────── */
+const challenges = [
+  {
+    problem: "Slow uploads kill productivity",
+    solution:
+      "Symmetric bandwidth means your team uploads files, backs up data, and collaborates in seconds — not hours.",
+    icon: Gauge,
+  },
+  {
+    problem: "Shared bandwidth = unpredictability",
+    solution:
+      "Your own dedicated pipe. Your speed never depends on what your neighbor is doing. Always peak performance.",
+    icon: Wifi,
+  },
+  {
+    problem: "Internet outages = revenue loss",
+    solution:
+      "99.9% uptime SLA with enterprise redundancy options. We keep your business running, guaranteed.",
+    icon: Clock,
+  },
+];
+
+/* ────────────────────────────────
+   KEY FEATURES
+   ──────────────────────────────── */
+const keyFeatures = [
+  {
+    title: "Guaranteed Uptime",
+    desc: "99.99% SLA-backed uptime with redundant failover architecture for mission-critical operations.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Dedicated Bandwidth",
+    desc: "No sharing, no throttling. Your own symmetric pipe with guaranteed speeds at all times.",
+    icon: Zap,
+  },
+  {
+    title: "Global Reach",
+    desc: "Enterprise-grade connectivity powered by Reliance Jio's nationwide tier-1 infrastructure.",
+    icon: Globe,
+  },
+  {
+    title: "Enterprise Security",
+    desc: "Hardware firewall installation, static IP, MPLS routing, and advanced DDoS protection.",
+    icon: Lock,
+  },
+  {
+    title: "24/7 Support",
+    desc: "Dedicated account engineering team with priority zero-downtime support around the clock.",
+    icon: HeadphonesIcon,
+  },
+  {
+    title: "Scalable Plans",
+    desc: "From 10 Mbps to multi-Gbps. Bandwidth configurations designed to grow with your business.",
+    icon: Server,
+  },
+];
+
+/* ────────────────────────────────
+   BANDWIDTH TIERS
+   ──────────────────────────────── */
+const bandwidthTiers = [
+  { label: "10 – 100 Mbps", tag: "Starter" },
+  { label: "100 – 500 Mbps", tag: "Growth" },
+  { label: "500 Mbps – 1 Gbps", tag: "Enterprise" },
+  { label: "Custom Multi-Gbps", tag: "Custom" },
+];
+
+/* ────────────────────────────────
+   INCLUDED ITEMS
+   ──────────────────────────────── */
+const includedItems = [
+  "Installation & Setup",
+  "Network Configuration",
+  "Dedicated Account Manager",
+  "Priority Support",
+  "Performance Monitoring",
+  "Hardware Router & Firewall",
+];
+
+/* ────────────────────────────────
+   INTERNET SERVICES PAGE
+   ──────────────────────────────── */
 const InternetServices = () => {
   const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    gsap.fromTo(
-      ".page-animate",
-      { opacity: 0, y: 30, scale: 0.98 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power4.out" }
-    );
-    
-    gsap.utils.toArray(".bento-card").forEach((element: Element) => {
+    const ctx = gsap.context(() => {
+      // Hero entrance stagger
       gsap.fromTo(
-        element,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        }
+        ".ill-hero-el",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power3.out" }
       );
-    });
+
+      // Scroll fade-in
+      gsap.utils.toArray<HTMLElement>(".ill-scroll-in").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="bg-tc-lightgray min-h-screen text-tc-navy pt-40 pb-24 overflow-hidden relative page-animate">
-      
-      {/* Background ambient light */}
-      <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-white rounded-full blur-[150px] pointer-events-none z-0" />
-      <div className="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-white rounded-full blur-[150px] pointer-events-none z-0" />
+    <div
+      ref={containerRef}
+      className="bg-white min-h-screen text-[#2d2a26] font-sans pt-28 md:pt-36 pb-0 overflow-x-hidden"
+    >
+      {/* ─── 1. HERO HEADER ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16 md:mb-24">
+        <div className="max-w-4xl">
+          <span className="ill-hero-el text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
+            ENTERPRISE CONNECTIVITY
+          </span>
 
-      {/* Premium ILL Hero */}
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8 mb-32 relative z-10">
-        <div className="bg-tc-navy p-10 md:p-20 rounded-[2.5rem] relative overflow-hidden shadow-2xl flex flex-col md:flex-row gap-16 items-center">
-          
-          <div className="absolute top-0 right-0 w-full h-full opacity-50 pointer-events-none">
-            <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[80%] bg-white/5 blur-[120px] rounded-full" />
+          <h1 className="ill-hero-el text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
+            Enterprise Internet That Never Stops.
+          </h1>
+
+          <p className="ill-hero-el text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed mb-10">
+            Dedicated, symmetric, lightning-fast. Experience unparalleled
+            connectivity with our premium enterprise internet solutions powered
+            by Reliance Jio's nationwide tier-1 infrastructure.
+          </p>
+
+          <div className="ill-hero-el flex flex-wrap items-center gap-4">
+            <button
+              onClick={() => navigate("/contact-us")}
+              className="bg-[#0b1f3f] hover:bg-[#122a52] text-white font-semibold text-sm px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2"
+            >
+              Get Connected <ArrowUpRight size={16} />
+            </button>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://wa.me/918848817833?text=Hi!%20I%20want%20to%20know%20about%20your%20enterprise%20internet%20services.",
+                  "_blank"
+                )
+              }
+              className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300"
+            >
+              WhatsApp us
+            </button>
           </div>
-          
-          <div className="relative z-10 flex-1">
-            <h2 className="text-white/60 text-xs font-bold tracking-[0.2em] uppercase mb-6 flex items-center gap-3">
-              <span className="w-8 h-[1px] bg-white/60" />
-              Dedicated, Symmetric, Lightning-Fast
-            </h2>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 leading-[1.1] text-white">Enterprise Internet<br/>That Never Stops.</h3>
-            <ul className="space-y-5 mb-10 text-white/80 text-lg">
-              {["Guaranteed uptime with SLA backing", "Dedicated bandwidth (no sharing, no throttling)", "Symmetric speed for uploads and downloads", "Reliance Jio's nationwide infrastructure", "24/7 monitoring and support"].map((text, i) => (
-                <li key={i} className="flex items-center">
-                  <ShieldCheck className="text-white mr-4 flex-shrink-0" size={24}/> {text}
-                </li>
+        </div>
+      </section>
+
+      {/* ─── 2. HERO IMAGE BANNER ─── */}
+      <section className="ill-scroll-in w-full px-4 md:px-8 mb-24 md:mb-32">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="w-full h-[320px] sm:h-[400px] md:h-[520px] rounded-[2.5rem] overflow-hidden shadow-2xl relative bg-[#0b1f3f]">
+            <img
+              src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80"
+              alt="Enterprise Network Infrastructure"
+              className="w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f3f]/90 via-[#0b1f3f]/30 to-transparent" />
+
+            {/* Overlay Stats */}
+            <div className="absolute bottom-8 left-8 right-8 md:bottom-12 md:left-12 md:right-12 flex flex-wrap gap-8 md:gap-16">
+              {[
+                { value: "99.99%", label: "Uptime SLA" },
+                { value: "< 10ms", label: "Latency" },
+                { value: "24/7", label: "Monitoring" },
+                { value: "1:1", label: "Dedicated Pipe" },
+              ].map((stat, i) => (
+                <div key={i}>
+                  <div className="text-white text-2xl md:text-4xl font-bold tracking-tight">
+                    {stat.value}
+                  </div>
+                  <div className="text-white/60 text-xs md:text-sm font-medium mt-1">
+                    {stat.label}
+                  </div>
+                </div>
               ))}
-            </ul>
-            <Button onClick={() => navigate('/contact-us')} className="bg-white text-tc-navy hover:bg-gray-100 font-bold uppercase tracking-widest px-10 py-7 rounded-full shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all hover:scale-105">
-              Get Connected
-            </Button>
-          </div>
-          
-          <div className="relative z-10 flex-1 flex justify-center opacity-40 md:opacity-100">
-            <Server size={300} className="text-white mix-blend-overlay" strokeWidth={0.5} />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Premium ILL Problems & Solutions */}
-      <div className="py-24 bg-white relative z-10">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-          <h3 className="text-3xl md:text-5xl font-black text-tc-navy mb-16 text-center tracking-tight">Why Switch to Leased Line?</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div className="bento-card bg-white p-10 rounded-3xl border border-gray-200 hover:border-tc-navy/20 transition-all duration-300 group shadow-lg hover:shadow-xl relative overflow-hidden">
-              <div className="text-red-500 font-bold mb-6 uppercase text-xs tracking-widest flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500"/> The Problem</div>
-              <h4 className="text-2xl font-bold text-tc-navy mb-8">Slow uploads kill productivity</h4>
-              <div className="w-full h-[1px] bg-gray-100 mb-8" />
-              <div className="text-tc-navy font-bold mb-4 uppercase text-xs tracking-widest flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-tc-navy"/> The Solution</div>
-              <p className="text-gray-600 leading-relaxed">Symmetric bandwidth means your team uploads files, backs up data, and collaborates in seconds—not hours.</p>
-            </div>
+      {/* ─── 3. CHALLENGES & SOLUTIONS ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24 md:mb-32">
+        <div className="ill-scroll-in max-w-3xl mb-12 md:mb-16">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
+            WHY LEASED LINE
+          </span>
+          <h2 className="text-4xl md:text-6xl font-medium text-[#2d2a26] tracking-tight mb-6">
+            Why switch to a leased line?
+          </h2>
+          <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+            Traditional broadband wasn't designed for enterprise workloads.
+            Here's why dedicated infrastructure changes everything.
+          </p>
+        </div>
 
-            <div className="bento-card bg-white p-10 rounded-3xl border border-gray-200 hover:border-tc-navy/20 transition-all duration-300 group shadow-lg hover:shadow-xl relative overflow-hidden" style={{ transitionDelay: '50ms' }}>
-              <div className="text-red-500 font-bold mb-6 uppercase text-xs tracking-widest flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500"/> The Problem</div>
-              <h4 className="text-2xl font-bold text-tc-navy mb-8">Shared bandwidth = unpredictability</h4>
-              <div className="w-full h-[1px] bg-gray-100 mb-8" />
-              <div className="text-tc-navy font-bold mb-4 uppercase text-xs tracking-widest flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-tc-navy"/> The Solution</div>
-              <p className="text-gray-600 leading-relaxed">Your own dedicated pipe. Your speed never depends on what your neighbor is doing. Always peak performance.</p>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {challenges.map((item, idx) => {
+            const ChallengeIcon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="ill-scroll-in bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group"
+              >
+                {/* Icon */}
+                <div className="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mb-8">
+                  <ChallengeIcon size={22} strokeWidth={1.75} />
+                </div>
 
-            <div className="bento-card bg-white p-10 rounded-3xl border border-gray-200 hover:border-tc-navy/20 transition-all duration-300 group shadow-lg hover:shadow-xl relative overflow-hidden" style={{ transitionDelay: '100ms' }}>
-              <div className="text-red-500 font-bold mb-6 uppercase text-xs tracking-widest flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500"/> The Problem</div>
-              <h4 className="text-2xl font-bold text-tc-navy mb-8">Internet outages = revenue loss</h4>
-              <div className="w-full h-[1px] bg-gray-100 mb-8" />
-              <div className="text-tc-navy font-bold mb-4 uppercase text-xs tracking-widest flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-tc-navy"/> The Solution</div>
-              <p className="text-gray-600 leading-relaxed">99.9% uptime SLA with enterprise redundancy options. We keep your business running, guaranteed.</p>
-            </div>
+                {/* Problem */}
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">
+                  THE PROBLEM
+                </div>
+                <h3 className="text-xl font-semibold text-[#2d2a26] mb-6">
+                  {item.problem}
+                </h3>
 
+                {/* Divider */}
+                <div className="w-full h-[1px] bg-gray-100 mb-6" />
+
+                {/* Solution */}
+                <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#0b1f3f] mb-2">
+                  THE SOLUTION
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {item.solution}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ─── 4. KEY FEATURES GRID ─── */}
+      <section className="bg-gray-50/50 py-20 md:py-28 mb-24 md:mb-32">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <div className="ill-scroll-in max-w-3xl mb-12 md:mb-16">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
+              WHAT YOU GET
+            </span>
+            <h2 className="text-4xl md:text-6xl font-medium text-[#2d2a26] tracking-tight mb-6">
+              Enterprise-grade, end to end.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {keyFeatures.map((feature, idx) => {
+              const FeatureIcon = feature.icon;
+              return (
+                <div
+                  key={idx}
+                  className="ill-scroll-in bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#0b1f3f] text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md">
+                    <FeatureIcon size={20} strokeWidth={1.75} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-[#2d2a26] mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">
+                    {feature.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Premium ILL Plans */}
-      <div className="py-24 max-w-[1200px] mx-auto px-6 md:px-8 text-center bg-tc-lightgray relative z-10">
-        <h3 className="text-4xl md:text-5xl font-black mb-6">Built For Your Bandwidth</h3>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-16 font-light">
-          Bandwidth needs aren't one-size-fits-all. Let our team understand your business, traffic patterns, and growth plans—then recommend the perfect fit.
-        </p>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-          {["10 Mbps - 100 Mbps", "100 Mbps - 500 Mbps", "500 Mbps - 1 Gbps", "Custom Enterprise"].map((plan, i) => (
-            <div key={i} className="bento-card bg-white shadow-md py-10 px-4 rounded-2xl border border-gray-200 font-bold text-tc-navy text-lg md:text-xl hover:bg-tc-navy hover:text-white hover:border-tc-navy transition-all duration-300 cursor-pointer">
-              {plan}
+      {/* ─── 5. BANDWIDTH PLANS ─── */}
+      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24 md:mb-32">
+        <div className="ill-scroll-in max-w-3xl mb-12 md:mb-16">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
+            BANDWIDTH OPTIONS
+          </span>
+          <h2 className="text-4xl md:text-6xl font-medium text-[#2d2a26] tracking-tight mb-6">
+            Built for your bandwidth.
+          </h2>
+          <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+            Bandwidth needs aren't one-size-fits-all. Let our team understand
+            your business, traffic patterns, and growth plans — then recommend
+            the perfect fit.
+          </p>
+        </div>
+
+        {/* Tier Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+          {bandwidthTiers.map((tier, i) => (
+            <div
+              key={i}
+              className="ill-scroll-in bg-white border border-gray-200 hover:border-[#0b1f3f]/30 p-6 md:p-8 rounded-[1.5rem] transition-all duration-300 hover:shadow-lg cursor-pointer group text-center"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0b1f3f]/50 mb-3 block">
+                {tier.tag}
+              </span>
+              <span className="text-lg md:text-xl font-semibold text-[#2d2a26] group-hover:text-[#0b1f3f] transition-colors">
+                {tier.label}
+              </span>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
-          {["Installation & Setup", "Network Configuration", "Dedicated Account Manager", "Priority Support", "Performance Monitoring"].map((badge, i) => (
-            <span key={i} className="bg-white shadow-sm border border-gray-200 text-tc-navy text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-gray-50 transition-colors">
-              + {badge}
+        {/* Included Badges */}
+        <div className="ill-scroll-in flex flex-wrap justify-center gap-3">
+          {includedItems.map((item, i) => (
+            <span
+              key={i}
+              className="bg-gray-50 border border-gray-200 text-gray-700 text-xs font-medium px-5 py-2.5 rounded-full hover:bg-white hover:shadow-sm transition-all"
+            >
+              + {item}
             </span>
           ))}
         </div>
+      </section>
 
-        <Button onClick={() => navigate('/contact-us')} className="bg-tc-navy text-white hover:bg-tc-deepblue font-bold uppercase tracking-widest px-10 py-7 rounded-full shadow-xl hover:scale-105 transition-all">
-          Talk to Our Experts <ArrowRight size={18} className="ml-3"/>
-        </Button>
-      </div>
+      {/* ─── 6. BOTTOM CTA ─── */}
+      <section className="border-t border-gray-100">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32 text-center">
+          <div className="ill-scroll-in max-w-3xl mx-auto">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
+              READY TO CONNECT
+            </span>
+            <h2 className="text-4xl md:text-6xl font-medium text-[#2d2a26] tracking-tight mb-6">
+              Talk to our experts.
+            </h2>
+            <p className="text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed mb-10">
+              Share your bandwidth needs, office locations, and growth plans. Our
+              team will recommend the perfect connectivity solution.
+            </p>
 
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <button
+                onClick={() => navigate("/contact-us")}
+                className="bg-[#0b1f3f] hover:bg-[#122a52] text-white font-semibold text-sm px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              >
+                Talk to the studio <ArrowUpRight size={16} />
+              </button>
+              <button
+                onClick={() => navigate("/services")}
+                className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300"
+              >
+                View all services
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
