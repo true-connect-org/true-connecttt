@@ -185,7 +185,7 @@ const Careers = () => {
       className="bg-white min-h-screen text-[#121212] font-sans pt-28 md:pt-36 pb-0 overflow-x-hidden"
     >
       {/* ─── 1. AWWWARDS HERO (Oversized Typography & Editorial Layout) ─── */}
-      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-20 md:mb-28">
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-10 md:mb-14">
         {/* Top Meta Header Bar */}
         <div className="aww-hero-el flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-6 mb-12">
           <div className="flex items-center gap-6 text-xs font-medium text-gray-500">
@@ -222,7 +222,7 @@ const Careers = () => {
       </section>
 
       {/* ─── 2. STUDIO ATMOSPHERE (Asymmetric Editorial Layout) ─── */}
-      <section className="aww-scroll-el max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-20 md:mb-28">
+      <section className="aww-scroll-el max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-10 md:mb-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Text & Stat Badge */}
           <div className="lg:col-span-5 space-y-6">
@@ -248,7 +248,7 @@ const Careers = () => {
       </section>
 
       {/* ─── 3. CULTURE MANIFESTO — EDITORIAL ROWS (Not Bento Cards) ─── */}
-      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-28 md:mb-36">
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-12 md:mb-16">
         <div className="aww-scroll-el max-w-3xl mb-16">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
             HOW WE WORK · THE MANIFESTO

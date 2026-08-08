@@ -231,7 +231,7 @@ const Services = () => {
       className="bg-white min-h-screen text-[#2d2a26] font-sans pt-28 md:pt-36 pb-0 overflow-x-hidden"
     >
       {/* ─── 1. HERO HEADER ─── */}
-      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-20 md:mb-28">
+      <section className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 mb-10 md:mb-14">
         <div className="max-w-4xl">
           <span className="svc-hero-el text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
             WHAT WE BUILD
@@ -261,9 +261,9 @@ const Services = () => {
       </section>
 
       {/* ─── 2. SERVICES — ALTERNATING EDITORIAL ROWS ─── */}
-      <section className="mb-16 md:mb-24">
+      <section className="mb-10 md:mb-12">
         {/* Section divider line */}
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-10">
           <div className="svc-scroll-in flex items-center justify-between border-b border-gray-200 pb-3">
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
               OUR SERVICES · 06
@@ -370,7 +370,7 @@ const Services = () => {
       </section>
 
       {/* ─── 3. NAVY FEATURE BANNER ─── */}
-      <section className="svc-scroll-in mx-3 sm:mx-6 md:mx-8 mb-12 md:mb-32">
+      <section className="svc-scroll-in mx-3 sm:mx-6 md:mx-8 mb-10 md:mb-14">
         <div className="max-w-[1400px] mx-auto bg-[#0b1f3f] rounded-[1.75rem] md:rounded-[2.5rem] p-6 sm:p-10 md:p-16 lg:p-20 relative overflow-hidden">
           <div className="absolute top-[-30%] right-[-10%] w-[50%] h-[80%] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
           <div className="absolute bottom-[-20%] left-[-5%] w-[30%] h-[60%] bg-white/3 blur-[100px] rounded-full pointer-events-none" />

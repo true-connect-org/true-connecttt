@@ -147,7 +147,7 @@ const InternetServices = () => {
       className="bg-white min-h-screen text-[#2d2a26] font-sans pt-28 md:pt-36 pb-0 overflow-x-hidden"
     >
       {/* ─── 1. HERO HEADER ─── */}
-      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16 md:mb-24">
+      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-10 md:mb-14">
         <div className="max-w-4xl">
           <span className="ill-hero-el text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
             ENTERPRISE CONNECTIVITY
@@ -186,7 +186,7 @@ const InternetServices = () => {
       </section>
 
       {/* ─── 2. HERO IMAGE BANNER ─── */}
-      <section className="ill-scroll-in w-full px-4 md:px-8 mb-24 md:mb-32">
+      <section className="ill-scroll-in w-full px-4 md:px-8 mb-10 md:mb-14">
         <div className="max-w-[1400px] mx-auto">
           <div className="w-full h-[320px] sm:h-[400px] md:h-[520px] rounded-[2.5rem] overflow-hidden shadow-2xl relative bg-[#0b1f3f]">
             <img
@@ -219,7 +219,7 @@ const InternetServices = () => {
       </section>
 
       {/* ─── 3. CHALLENGES & SOLUTIONS ─── */}
-      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24 md:mb-32">
+      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-10 md:mb-14">
         <div className="ill-scroll-in max-w-3xl mb-12 md:mb-16">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
             WHY LEASED LINE
@@ -271,7 +271,7 @@ const InternetServices = () => {
       </section>
 
       {/* ─── 4. KEY FEATURES GRID ─── */}
-      <section className="bg-gray-50/50 py-20 md:py-28 mb-24 md:mb-32">
+      <section className="bg-gray-50/50 py-10 md:py-14 mb-10 md:mb-14">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="ill-scroll-in max-w-3xl mb-12 md:mb-16">
             <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
@@ -307,7 +307,7 @@ const InternetServices = () => {
       </section>
 
       {/* ─── 5. BANDWIDTH PLANS ─── */}
-      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-24 md:mb-32">
+      <section className="max-w-[1400px] mx-auto px-6 md:px-12 mb-10 md:mb-14">
         <div className="ill-scroll-in max-w-3xl mb-12 md:mb-16">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
             BANDWIDTH OPTIONS
@@ -354,7 +354,7 @@ const InternetServices = () => {
 
       {/* ─── 6. BOTTOM CTA ─── */}
       <section className="border-t border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32 text-center">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-16 text-center">
           <div className="ill-scroll-in max-w-3xl mx-auto">
             <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
               READY TO CONNECT

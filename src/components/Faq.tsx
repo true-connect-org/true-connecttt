@@ -212,7 +212,7 @@ const Faq: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-14 md:py-24 bg-[#fafbfc] text-[#0b1f3f] relative overflow-hidden">
+    <section id="faq" className="py-10 md:py-14 bg-[#fafbfc] text-[#0b1f3f] relative overflow-hidden">
       {/* Background Accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[400px] bg-gradient-to-b from-slate-100/60 via-slate-50/20 to-transparent pointer-events-none -z-10" />
 

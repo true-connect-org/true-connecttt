@@ -91,7 +91,7 @@ const Index = () => {
         <ServicesCarousel />
 
         {/* 3. BENTO VIDEO FEATURE SECTION */}
-        <section className="py-16 md:py-24 relative bg-white">
+        <section className="py-10 md:py-14 relative bg-white">
           <div className="max-w-[1300px] mx-auto px-5 sm:px-8 md:px-12 relative z-10">
             {/* Title & Description Header */}
             <div className="mb-14 md:mb-16 text-center max-w-3xl mx-auto bento-item space-y-4">
