@@ -90,7 +90,12 @@
   }
 
   body {
-    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family:
+      "Satoshi",
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      sans-serif;
     @apply bg-background text-foreground overflow-x-hidden;
   }
 
@@ -100,7 +105,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'Satoshi', 'Space Grotesk', sans-serif;
+    font-family: "Satoshi", "Space Grotesk", sans-serif;
   }
 }
 
