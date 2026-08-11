@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
+import LandingPageTC from '@/assets/images/LandingPageTC.png';
 
 const WaveHero: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const WaveHero: React.FC = () => {
         
         {/* Full Section Background Image — 70% 15% mobile focal point, 82% width on desktop */}
         <img
-          src="/images/vr-hero-new.png"
+          src={LandingPageTC}
           alt="True Connect Blue VR Model"
           className="hero-vr-image absolute inset-0 w-full h-full lg:inset-y-0 lg:right-0 lg:left-auto lg:w-[82%] lg:h-full object-cover object-[70%_15%] sm:object-[78%_center] lg:object-[85%_top] origin-center lg:origin-right transition-transform duration-700 pointer-events-none"
         />
