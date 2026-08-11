@@ -22,10 +22,6 @@ import WaveHero from "@/components/WaveHero";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import Faq from "@/components/Faq";
 
-import fasterVideo from "@/assets/videos/FASTER.mp4";
-import scaleVideo from "@/assets/videos/SCALE.mp4";
-import searchVideo from "@/assets/videos/SEARCH.mp4";
-import securityVideo from "@/assets/videos/SECURITY.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,7 +152,7 @@ const Index = () => {
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
-                    src={fasterVideo}
+                    src="/videos/FASTER.mp4"
                     autoPlay
                     loop
                     muted
@@ -184,7 +180,7 @@ const Index = () => {
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
-                    src={searchVideo}
+                    src="/videos/SEARCH.mp4"
                     autoPlay
                     loop
                     muted
@@ -212,7 +208,7 @@ const Index = () => {
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
-                    src={scaleVideo}
+                    src="/videos/SCALE.mp4"
                     autoPlay
                     loop
                     muted
@@ -240,7 +236,7 @@ const Index = () => {
                 {/* Top Video Media */}
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[280px] bg-black overflow-hidden flex items-center justify-center">
                   <video
-                    src={securityVideo}
+                    src="/videos/SECURITY.mp4"
                     autoPlay
                     loop
                     muted
