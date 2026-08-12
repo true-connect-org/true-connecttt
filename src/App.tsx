@@ -11,6 +11,8 @@ import CaseStudies from "./pages/CaseStudies";
 import ContactUs from "./pages/ContactUs";
 import Careers from "./pages/Careers";
 import Services from "./pages/Services";
+import PartnerProgram from "./pages/PartnerProgram";
+import ApplyPartner from "./pages/ApplyPartner";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -32,6 +34,8 @@ const App = () => (
               <Route path="/internet-services" element={<InternetServices />} />
               <Route path="/enterprise-services" element={<Services />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/partner-program" element={<PartnerProgram />} />
+              <Route path="/apply-partner" element={<ApplyPartner />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/careers" element={<Careers />} />

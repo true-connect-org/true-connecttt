@@ -7,6 +7,7 @@ import logo from "../assets/logo/nav-logo.png";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobilePartnersOpen, setMobilePartnersOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const Navbar = () => {
   const handleNavClick = (path: string) => {
     setIsOpen(false);
     setMobileServicesOpen(false);
+    setMobilePartnersOpen(false);
     navigate(path);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -128,6 +130,35 @@ const Navbar = () => {
                     className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
                   >
                     Enterprise Services
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Partners Dropdown */}
+            <div className="relative group">
+              <button
+                className={`flex items-center gap-1 text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
+                  location.pathname.includes("partner")
+                    ? "bg-white/25 text-white shadow-sm"
+                    : "text-white/80 hover:text-white hover:bg-white/15"
+                }`}
+              >
+                Partners <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform duration-300" />
+              </button>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-50">
+                <div className="bg-[#0B1F3F] backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-2 flex flex-col w-56 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <button
+                    onClick={() => handleNavClick("/partner-program")}
+                    className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
+                  >
+                    Partner Program
+                  </button>
+                  <button
+                    onClick={() => handleNavClick("/apply-partner")}
+                    className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
+                  >
+                    Apply as a Partner
                   </button>
                 </div>
               </div>
@@ -245,6 +276,36 @@ const Navbar = () => {
                     className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
                   >
                     Enterprise Services
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Partners Accordion */}
+            <div className="flex flex-col">
+              <button
+                onClick={() => setMobilePartnersOpen(!mobilePartnersOpen)}
+                className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all flex items-center justify-between ${
+                  location.pathname.includes("partner") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                <span>Partners</span>
+                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobilePartnersOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {mobilePartnersOpen && (
+                <div className="pl-6 pt-2 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-200">
+                  <button
+                    onClick={() => handleNavClick("/partner-program")}
+                    className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
+                  >
+                    Partner Program
+                  </button>
+                  <button
+                    onClick={() => handleNavClick("/apply-partner")}
+                    className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
+                  >
+                    Apply as a Partner
                   </button>
                 </div>
               )}
