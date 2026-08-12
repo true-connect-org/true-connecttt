@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import {
@@ -244,29 +245,57 @@ const ServicesCarousel = () => {
       <div className="max-w-[1560px] mx-auto px-6 md:px-12">
         {/* Carousel Header / Navigation */}
         <div className="flex flex-col items-center text-center mb-16 relative">
-          <span className="uppercase tracking-[0.3em] text-xs font-semibold text-gray-400 mb-6 block">
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="uppercase tracking-[0.3em] text-xs font-semibold text-gray-400 mb-6 block"
+          >
             OUR SERVICES
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-[#2d2a26] tracking-tight mb-8 max-w-4xl">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl md:text-5xl lg:text-6xl font-medium text-[#2d2a26] tracking-tight mb-8 max-w-4xl"
+          >
             Premium Digital & Infrastructure Solutions
-          </h2>
-          <p className="text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+            className="text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed"
+          >
             End-to-end digital engineering and robust network solutions that
             elevate your brand and ensure your operations perform flawlessly.
-          </p>
+          </motion.p>
         </div>
 
         {/* Embla Carousel Viewport */}
         <div className="embla" ref={emblaRef}>
           <div className="embla__container flex gap-6 md:gap-8 cursor-grab active:cursor-grabbing">
-            {services.map((service) => {
+            {services.map((service, index) => {
               const Icon = service.icon;
+              const isEven = index % 2 === 0;
+
               return (
                 <div
                   key={service.id}
                   className="embla__slide flex-[0_0_95%] sm:flex-[0_0_75%] md:flex-[0_0_60%] lg:flex-[0_0_50%] xl:flex-[0_0_40%] min-w-0"
                 >
-                  <div
+                  <motion.div
+                    initial={{ opacity: 0, x: isEven ? -140 : 140, y: 15 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{
+                      duration: 0.85,
+                      delay: index * 0.1,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
                     onClick={() => setSelectedService(service)}
                     className={`relative w-full aspect-[4/3] md:h-[380px] md:aspect-auto rounded-[2rem] overflow-hidden p-8 flex flex-col justify-between group ${service.bgGradient} transition-transform duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer`}
                   >
@@ -279,27 +308,66 @@ const ServicesCarousel = () => {
 
                     {/* Top Row: Icon and Badge */}
                     <div className="hidden md:flex items-start justify-between z-10 relative">
-                      <div className="w-12 h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-lg">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.5,
+                          delay: index * 0.1 + 0.2,
+                          ease: "backOut",
+                        }}
+                        className="w-12 h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-lg"
+                      >
                         <Icon size={24} strokeWidth={1.5} />
-                      </div>
+                      </motion.div>
 
-                      <div className="px-5 py-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs font-bold tracking-[0.2em] shadow-lg">
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.5,
+                          delay: index * 0.1 + 0.25,
+                          ease: "easeOut",
+                        }}
+                        className="px-5 py-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs font-bold tracking-[0.2em] shadow-lg"
+                      >
                         {service.id} / 06
-                      </div>
+                      </motion.div>
                     </div>
 
                     {/* Bottom Content */}
                     <div className="z-10 relative mt-auto flex flex-col justify-end">
-                      {/* Title */}
-                      <h3 className="text-3xl md:text-4xl font-semibold text-white leading-tight tracking-tight mb-0 group-hover:mb-3 transition-all duration-300">
+                      {/* Title with entrance animation */}
+                      <motion.h3
+                        initial={{ opacity: 0, y: 25 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.6,
+                          delay: index * 0.1 + 0.25,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
+                        className="text-3xl md:text-4xl font-semibold text-white leading-tight tracking-tight mb-0 group-hover:mb-3 transition-all duration-300"
+                      >
                         {service.title}
-                      </h3>
+                      </motion.h3>
 
                       {/* Revealed Description & Arrow Button on Hover */}
                       <div className="flex items-end justify-between gap-4 overflow-hidden max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 ease-out">
-                        <p className="text-white/80 text-xs md:text-sm leading-relaxed max-w-[80%] font-normal">
+                        <motion.p
+                          initial={{ opacity: 0, y: 15 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{
+                            duration: 0.5,
+                            delay: index * 0.1 + 0.35,
+                          }}
+                          className="text-white/80 text-xs md:text-sm leading-relaxed max-w-[80%] font-normal"
+                        >
                           {service.description}
-                        </p>
+                        </motion.p>
 
                         <button
                           onClick={(e) => {
@@ -316,7 +384,7 @@ const ServicesCarousel = () => {
 
                     {/* Subtle Overlay for better text readability */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 pointer-events-none" />
-                  </div>
+                  </motion.div>
                 </div>
               );
             })}
@@ -478,7 +546,7 @@ const ServicesCarousel = () => {
               )}
             </div>
 
-            {/* Form Fields (Matching ContactUs Page) */}
+            {/* Form Fields */}
             <form onSubmit={handleContactSubmit} className="space-y-4">
               {/* Row 1: Name & Company */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

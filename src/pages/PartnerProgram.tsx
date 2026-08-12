@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "@/animations/gsap.config";
 import { ScrollTrigger } from "@/animations/gsap.config";
 import {
@@ -15,6 +16,8 @@ import {
   ShieldCheck,
   Zap,
   ArrowUpRight,
+  Sparkles,
+  HelpCircle,
 } from "lucide-react";
 
 /* ────────────────────────────────
@@ -120,38 +123,65 @@ const PartnerProgram = () => {
 
   const faqs = [
     {
+      id: "01",
+      badge: "ELIGIBILITY",
+      icon: Users,
       q: "Who can become a TRUE CONNECT Partner?",
       a: "Our program is open to IT companies, system integrators, business consultants, entrepreneurs, sales professionals, content creators, and individuals with strong business networks.",
     },
     {
+      id: "02",
+      badge: "REQUIREMENTS",
+      icon: Briefcase,
       q: "Do I need to be a telecom company?",
       a: "No. You need access to businesses that may benefit from enterprise connectivity solutions. Our team handles all technical and commercial aspects.",
     },
     {
+      id: "03",
+      badge: "TECHNICAL SKILLS",
+      icon: ShieldCheck,
       q: "Do I need technical knowledge?",
       a: "No technical knowledge is required. You create the introduction — our experts handle everything from technical assessment to solution design.",
     },
     {
+      id: "04",
+      badge: "REFERRAL PROCESS",
+      icon: ArrowRight,
       q: "How do I refer a business?",
       a: "Once approved, you receive dedicated partner onboarding and clear referral guidelines through our partner documentation.",
     },
     {
+      id: "05",
+      badge: "CLIENT MANAGEMENT",
+      icon: Handshake,
       q: "Who handles the customer?",
       a: "You make the introduction. TRUE CONNECT manages qualification, quotation, technical coordination, and customer closure.",
     },
     {
+      id: "06",
+      badge: "COMMISSIONS",
+      icon: Lock,
       q: "How does the partner incentive work?",
       a: "Detailed commercial structures are provided confidentially upon partner approval. We do not publish commission rates on this public page.",
     },
     {
+      id: "07",
+      badge: "VOLUME",
+      icon: Zap,
       q: "Can I refer multiple businesses?",
       a: "Yes. Many partners have multiple relationships across their networks. A single partnership can generate multiple qualified opportunities.",
     },
     {
+      id: "08",
+      badge: "NO FEES",
+      icon: CheckCircle2,
       q: "Is there a fee to become a partner?",
       a: "No. There are no fees associated with joining the TRUE CONNECT Partner Program.",
     },
     {
+      id: "09",
+      badge: "ONBOARDING",
+      icon: Network,
       q: "What happens after I apply?",
       a: "Our team reviews your application, then contacts you to discuss your profile and the next steps toward partner onboarding.",
     },
@@ -542,68 +572,6 @@ const PartnerProgram = () => {
         </div>
       </section>
 
-      {/* ─── 5. WHAT YOU DO vs WHAT WE DO — Two column editorial ─── */}
-      <section className="bg-gray-50 py-16 md:py-20 px-5 sm:px-8 md:px-12 pp-scroll-el">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="max-w-3xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
-              CLEAR RESPONSIBILITIES
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-medium tracking-tight text-[#121212] leading-[1.2]">
-              One Partnership. Two Clear Roles.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-gray-200 rounded-2xl overflow-hidden shadow-sm">
-            {/* YOU Column */}
-            <div className="bg-white p-10 md:p-14">
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-3xl md:text-4xl font-medium text-[#121212]">You</h3>
-              </div>
-              <p className="text-[#0b1f3f] font-semibold text-base mb-10">Create the opportunity.</p>
-              <div className="space-y-5">
-                {[
-                  "Identify potential businesses",
-                  "Make the introduction",
-                  "Share basic customer information",
-                  "Submit qualified opportunities",
-                  "Maintain the relationship where appropriate",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 pb-5 border-b border-gray-50 last:border-0 last:pb-0">
-                    <span className="text-xs font-bold text-gray-300 mt-0.5 w-5 shrink-0">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="text-gray-700 text-sm font-medium leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* TRUE CONNECT Column */}
-            <div className="bg-[#0b1f3f] p-10 md:p-14">
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-3xl md:text-4xl font-medium text-white">TRUE CONNECT</h3>
-              </div>
-              <p className="text-white/90 font-semibold text-base mb-10">We take it forward.</p>
-              <div className="space-y-5">
-                {[
-                  "Understand the requirement",
-                  "Qualify the opportunity",
-                  "Prepare the solution",
-                  "Handle quotation",
-                  "Coordinate technical requirements",
-                  "Manage customer closure",
-                  "Coordinate service activation",
-                  "Process partner incentive",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 pb-5 border-b border-white/5 last:border-0 last:pb-0">
-                    <span className="text-xs font-bold text-white/20 mt-0.5 w-5 shrink-0">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="text-white/75 text-sm font-medium leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ─── 6. WHY PARTNER — Benefits grid, same style as Careers culture section ─── */}
       <section className="py-16 md:py-20 px-5 sm:px-8 md:px-12">
@@ -697,47 +665,60 @@ const PartnerProgram = () => {
         </div>
       </section>
 
-      {/* ─── 8. FAQ — Accordion, same style as other pages ─── */}
-      <section className="py-20 md:py-28 px-5 sm:px-8 md:px-12">
+      {/* ─── 8. FAQ — Simple 2-Column Accordion ─── */}
+      <section className="py-20 md:py-28 px-5 sm:px-8 md:px-12 bg-white border-t border-gray-100">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-4 pp-scroll-el">
-              <span className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-5 block">
-                FAQ
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#121212] leading-[1.1]">
-                Common questions.
-              </h2>
-            </div>
+          {/* Section Header */}
+          <div className="mb-12 md:mb-16 pp-scroll-el">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-4 block">
+              FAQ
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#121212] leading-[1.15]">
+              Frequently Asked Questions.
+            </h2>
+          </div>
 
-            <div className="lg:col-span-8">
-              <div className="divide-y divide-gray-100 pp-stagger-parent">
-                {faqs.map((faq, i) => (
-                  <div key={i} className="pp-stagger-child py-6">
-                    <button
-                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                      className="w-full flex items-start justify-between gap-6 text-left group"
-                    >
-                      <span className="text-base font-medium text-[#121212] group-hover:text-[#0b1f3f] transition-colors leading-snug">
-                        {faq.q}
-                      </span>
-                      <ChevronDown
-                        size={18}
-                        className={`shrink-0 text-gray-400 transition-transform duration-300 mt-0.5 ${openFaq === i ? "rotate-180 text-[#0b1f3f]" : ""}`}
-                      />
-                    </button>
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === i ? "max-h-96 mt-4 opacity-100" : "max-h-0 opacity-0"}`}
-                    >
-                      <p className="text-gray-500 text-sm leading-relaxed">{faq.a}</p>
-                    </div>
+          {/* 2-Column FAQ Accordion Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-6 md:gap-y-8 items-start pp-stagger-parent">
+            {faqs.map((faq, i) => {
+              const isOpen = openFaq === i;
+
+              return (
+                <div
+                  key={i}
+                  className="pp-stagger-child border-b border-gray-200 pb-6 transition-colors"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    className="w-full flex items-start justify-between gap-4 text-left group"
+                  >
+                    <span className="text-base sm:text-lg font-medium text-[#121212] group-hover:text-[#0b1f3f] transition-colors leading-snug">
+                      {faq.q}
+                    </span>
+                    <ChevronDown
+                      size={20}
+                      className={`shrink-0 text-gray-400 transition-transform duration-300 mt-1 group-hover:text-[#0b1f3f] ${
+                        isOpen ? "rotate-180 text-[#0b1f3f]" : ""
+                      }`}
+                    />
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen ? "max-h-96 mt-3 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <p className="text-gray-500 text-sm leading-relaxed font-normal">
+                      {faq.a}
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
+
 
       {/* ─── 9. FINAL CTA — Dark navy, same style as site ─── */}
       <section className="relative bg-white px-5 sm:px-8 md:px-12 pb-10">
