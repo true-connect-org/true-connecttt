@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2 } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 
 const ContactUs = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,10 +22,26 @@ const ContactUs = () => {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".contact-header",
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      // Hero header — masked line reveal
+      const heroTl = gsap.timeline({ delay: 0.1 });
+      gsap.set(".ct-reveal-line", { transformPerspective: 800 });
+      heroTl.fromTo(
+        ".ct-reveal-line",
+        { y: "110%", opacity: 0, rotateX: 8 },
+        {
+          y: "0%",
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.12,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
+        }
+      ).fromTo(
+        ".contact-header-sub",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+        "-=0.5"
       );
 
       gsap.utils.toArray<HTMLElement>(".contact-elem").forEach((el) => {
@@ -37,7 +51,7 @@ const ContactUs = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.6,
+            duration: 0.65,
             ease: "power4.out",
             scrollTrigger: {
               trigger: el,
@@ -81,11 +95,16 @@ const ContactUs = () => {
   return (
     <div ref={containerRef} className="bg-white min-h-screen text-gray-900 font-sans pt-28 md:pt-36 pb-24">
       {/* 1. Header Section */}
-      <div className="text-center max-w-4xl mx-auto px-6 mb-16 contact-header">
+      <div className="text-center max-w-4xl mx-auto px-6 mb-16">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-[#2d2a26] tracking-tight mb-6 leading-[1.1]">
-          Let's build something amazing together.
+          <span className="block overflow-hidden py-0.5">
+            <span className="ct-reveal-line block transform-gpu">Let's build something</span>
+          </span>
+          <span className="block overflow-hidden py-0.5">
+            <span className="ct-reveal-line block transform-gpu">amazing together.</span>
+          </span>
         </h1>
-        <p className="text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p className="contact-header-sub text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">
           Tell us about your project. No pressure, just a conversation about what's possible.
         </p>
       </div>

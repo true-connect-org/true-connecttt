@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 import {
   ArrowRight,
   CheckCircle2,
@@ -16,8 +16,6 @@ import {
   Zap,
   ArrowUpRight,
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ────────────────────────────────
    WHO CAN PARTNER DATA
@@ -194,7 +192,15 @@ const PartnerProgram = () => {
       tl.fromTo(
         ".pp-reveal-line",
         { y: "110%", opacity: 0, rotateX: 10 },
-        { y: "0%", opacity: 1, rotateX: 0, duration: 1.0, stagger: 0.14, ease: "power4.out" }
+        {
+          y: "0%",
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.14,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
+        }
       )
         .fromTo(
           ".pp-hero-sub",
@@ -249,6 +255,25 @@ const PartnerProgram = () => {
           }
         );
       });
+
+      // Process step connecting line animation
+      const processLine = document.querySelector(".pp-process-line");
+      if (processLine) {
+        gsap.fromTo(
+          processLine,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#how-it-works",
+              start: "top 70%",
+              end: "bottom 80%",
+              scrub: 1,
+            },
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -260,8 +285,8 @@ const PartnerProgram = () => {
       className="bg-white min-h-screen text-[#121212] font-sans overflow-x-hidden"
     >
       {/* ─── HERO SECTION (dark navy, matches WaveHero aesthetic) ─── */}
-      <section className="relative w-full h-screen bg-white p-1.5 sm:p-2.5 md:p-3 flex items-center justify-center overflow-hidden font-satoshi">
-        <div className="w-full max-w-[1560px] h-full rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative bg-gradient-to-br from-[#042d5b] via-[#0b1f3f] to-[#031126] border border-white/15 shadow-[0_25px_60px_rgba(4,45,91,0.35)] flex items-center px-6 sm:px-12 lg:px-16 pt-16 sm:pt-20 lg:py-16">
+      <section className="relative w-full bg-white p-1.5 sm:p-2.5 md:p-3 overflow-hidden font-satoshi">
+        <div className="w-full max-w-[1560px] mx-auto rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative bg-gradient-to-br from-[#042d5b] via-[#0b1f3f] to-[#031126] border border-white/15 shadow-[0_25px_60px_rgba(4,45,91,0.35)] min-h-[500px] sm:min-h-[560px] lg:min-h-[620px] flex items-center justify-center">
           
           {/* Subtle Network Grid Background */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.07]">
@@ -291,16 +316,16 @@ const PartnerProgram = () => {
           <div className="absolute bottom-[-15%] right-[-10%] w-[50%] h-[50%] bg-[#122052] rounded-full blur-[120px] pointer-events-none opacity-60" />
 
           {/* Hero Content */}
-          <div className="relative z-10 w-full flex flex-col items-start justify-center h-full max-w-4xl text-left">
+          <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 flex flex-col items-center justify-center max-w-5xl text-center mx-auto">
             {/* Eyebrow */}
-            <div className="pp-hero-sub mb-5">
-              <span className="text-white/60 text-xs font-bold uppercase tracking-[0.25em]">
+            <div className="pp-hero-sub mb-5 text-center">
+              <span className="text-white/60 text-xs font-bold uppercase tracking-[0.25em] block text-center">
                 TRUE CONNECT PARTNER PROGRAM
               </span>
             </div>
 
             {/* Headline — masked line-by-line reveal like WaveHero */}
-            <h1 className="font-satoshi text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white leading-[1.15] mb-5">
+            <h1 className="font-satoshi text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white leading-[1.15] mb-5 text-center">
               <span className="block overflow-hidden py-1">
                 <span className="pp-reveal-line block transform-gpu">
                   Grow Your Network.
@@ -314,22 +339,22 @@ const PartnerProgram = () => {
             </h1>
 
             {/* Sub text */}
-            <div className="overflow-hidden mb-4">
-              <p className="pp-hero-sub font-satoshi text-white/75 text-sm sm:text-base lg:text-lg leading-relaxed max-w-md lg:max-w-lg font-normal">
+            <div className="overflow-hidden mb-4 w-full">
+              <p className="pp-hero-sub font-satoshi text-white/75 text-xs sm:text-base lg:text-lg leading-relaxed max-w-2xl lg:max-w-3xl font-normal text-center mx-auto">
                 Become a TRUE CONNECT Partner and create new business opportunities through your network.
               </p>
             </div>
-            <div className="overflow-hidden mb-8">
-              <p className="pp-hero-sub font-satoshi text-white/55 text-xs sm:text-sm leading-relaxed max-w-lg font-normal">
+            <div className="overflow-hidden mb-8 w-full">
+              <p className="pp-hero-sub font-satoshi text-white/55 text-xs sm:text-sm leading-relaxed max-w-2xl lg:max-w-3xl font-normal text-center mx-auto">
                 Whether you're a company, entrepreneur, sales professional, consultant, content creator or business connector — if you have access to businesses that may need enterprise connectivity, we'd like to hear from you.
               </p>
             </div>
 
             {/* CTAs */}
-            <div className="pp-hero-cta flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 font-satoshi w-auto">
+            <div className="pp-hero-cta flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 font-satoshi w-full sm:w-auto mx-auto">
               <button
                 onClick={() => navigate("/apply-partner")}
-                className="bg-white hover:bg-white/90 text-[#0b1f3f] font-bold px-7 py-3.5 rounded-full text-xs sm:text-base shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi w-auto flex items-center gap-2"
+                className="bg-white hover:bg-white/90 text-[#0b1f3f] font-bold px-7 py-3.5 rounded-full text-xs sm:text-base shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi w-full sm:w-auto flex items-center justify-center gap-2"
               >
                 Apply as a Partner <ArrowRight size={16} />
               </button>
@@ -337,7 +362,7 @@ const PartnerProgram = () => {
                 onClick={() =>
                   document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="bg-black/40 hover:bg-black/70 text-white font-bold px-7 py-3.5 rounded-full text-xs sm:text-base border border-white/25 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi w-auto flex items-center gap-2"
+                className="bg-black/40 hover:bg-black/70 text-white font-bold px-7 py-3.5 rounded-full text-xs sm:text-base border border-white/25 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer font-satoshi w-full sm:w-auto flex items-center justify-center gap-2"
               >
                 How It Works <ChevronDown size={16} />
               </button>
@@ -434,8 +459,8 @@ const PartnerProgram = () => {
           </div>
 
           {/* Formula Box */}
-          <div className="mt-20 border-t border-gray-200/50 pt-16 text-center">
-            <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-5 px-6 sm:px-8 py-4 sm:py-5 bg-white border border-gray-200/60 rounded-full font-satoshi text-xs sm:text-sm tracking-wider uppercase text-[#0b1f3f] shadow-sm">
+          <div className="mt-16 sm:mt-20 border-t border-gray-200/50 pt-12 sm:pt-16 text-center">
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-3.5 sm:py-5 bg-white border border-gray-200/60 rounded-2xl sm:rounded-full font-satoshi text-[11px] sm:text-xs md:text-sm tracking-wider uppercase text-[#0b1f3f] shadow-sm">
               <span className="font-semibold">YOUR NETWORK</span>
               <span className="text-gray-300 font-light">+</span>
               <span className="font-semibold">TRUE CONNECT</span>
@@ -492,7 +517,7 @@ const PartnerProgram = () => {
 
           <div className="relative pp-stagger-parent">
             {/* Vertical connecting line on desktop */}
-            <div className="hidden lg:block absolute left-[2.5rem] top-0 bottom-0 w-px bg-gray-100" />
+            <div className="pp-process-line hidden lg:block absolute left-[2.5rem] top-0 bottom-0 w-px bg-[#0b1f3f]/20 origin-top" />
 
             <div className="space-y-0 divide-y divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden">
               {steps.map((step, i) => (
@@ -642,7 +667,7 @@ const PartnerProgram = () => {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
                   <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">Public Website</h4>
                   <div className="space-y-2.5">
@@ -702,7 +727,7 @@ const PartnerProgram = () => {
                       />
                     </button>
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === i ? "max-h-40 mt-4 opacity-100" : "max-h-0 opacity-0"}`}
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === i ? "max-h-96 mt-4 opacity-100" : "max-h-0 opacity-0"}`}
                     >
                       <p className="text-gray-500 text-sm leading-relaxed">{faq.a}</p>
                     </div>
@@ -735,16 +760,16 @@ const PartnerProgram = () => {
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-4 shrink-0">
+            <div className="relative z-10 flex flex-col gap-4 shrink-0 w-full sm:w-auto">
               <button
                 onClick={() => navigate("/apply-partner")}
-                className="bg-white hover:bg-white/90 text-[#0b1f3f] font-bold px-10 py-5 rounded-full text-base shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 whitespace-nowrap"
+                className="bg-white hover:bg-white/90 text-[#0b1f3f] font-bold px-8 sm:px-10 py-4 sm:py-5 rounded-full text-sm sm:text-base shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto"
               >
                 Apply as a Partner <ArrowRight size={18} />
               </button>
               <a
                 href="/contact-us"
-                className="text-white/60 hover:text-white text-sm font-medium text-center transition-colors duration-200 underline underline-offset-4 decoration-white/20"
+                className="text-white/60 hover:text-white text-xs sm:text-sm font-medium text-center transition-colors duration-200 underline underline-offset-4 decoration-white/20"
               >
                 Questions? Contact our Partner Team
               </a>

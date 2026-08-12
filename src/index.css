@@ -210,3 +210,97 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ─── GSAP Animation Utility Classes ─────────────────────────────────────── */
+
+/* Line mask container — wrap text lines inside this for reveal animations */
+.anim-line-mask {
+  display: block;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+/* Initial hidden state for clip-path image reveals */
+.anim-clip-hidden {
+  clip-path: inset(100% 0 0 0);
+}
+
+/* GPU acceleration hint for animated elements */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Stagger child initial state — set by JS, defined here for no-JS fallback */
+.stagger-child-init {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Timeline connector line */
+.timeline-line {
+  transform-origin: top center;
+}
+
+/* ─── Micro Interaction: Arrow icon on CTA hover ─────────────────────────── */
+.cta-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.25s ease;
+}
+.cta-arrow-btn:hover {
+  gap: 1rem;
+}
+.cta-arrow-btn .arrow-icon {
+  transition: transform 0.25s ease;
+}
+.cta-arrow-btn:hover .arrow-icon {
+  transform: translateX(6px);
+}
+
+/* ─── Micro Interaction: Card scale on hover ─────────────────────────────── */
+.hover-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+/* ─── Step Transition: Apply/Partner form slide ──────────────────────────── */
+.form-step {
+  transition: opacity 0.3s ease;
+}
+
+/* ─── Prefers Reduced Motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all CSS transitions and animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reset GSAP initial states so content is visible without animations */
+  .anim-clip-hidden {
+    clip-path: none;
+  }
+  .stagger-child-init {
+    opacity: 1;
+    transform: none;
+  }
+  .cta-arrow-btn:hover {
+    gap: 0.5rem;
+  }
+  .cta-arrow-btn:hover .arrow-icon {
+    transform: none;
+  }
+  .hover-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

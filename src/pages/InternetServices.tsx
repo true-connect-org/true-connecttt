@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 import {
   ArrowUpRight,
   ShieldCheck,
@@ -15,8 +15,6 @@ import {
   Globe,
   Lock,
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ────────────────────────────────
    PROBLEM / SOLUTION DATA
@@ -111,11 +109,26 @@ const InternetServices = () => {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // Hero entrance stagger
-      gsap.fromTo(
+      // Hero header — masked line reveal for headline
+      const heroTl = gsap.timeline({ delay: 0.1 });
+      gsap.set(".ill-reveal-line", { transformPerspective: 800 });
+      heroTl.fromTo(
+        ".ill-reveal-line",
+        { y: "110%", opacity: 0, rotateX: 8 },
+        {
+          y: "0%",
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.12,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
+        }
+      ).fromTo(
         ".ill-hero-el",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power3.out" }
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power3.out" },
+        "-=0.5"
       );
 
       // Scroll fade-in
@@ -153,8 +166,13 @@ const InternetServices = () => {
             ENTERPRISE CONNECTIVITY
           </span>
 
-          <h1 className="ill-hero-el text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
-            Enterprise Internet That Never Stops.
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
+            <span className="block overflow-hidden py-0.5">
+              <span className="ill-reveal-line block transform-gpu">Enterprise Internet</span>
+            </span>
+            <span className="block overflow-hidden py-0.5">
+              <span className="ill-reveal-line block transform-gpu">That Never Stops.</span>
+            </span>
           </h1>
 
           <p className="ill-hero-el text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed mb-10">

@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, CheckCircle2, X, Star } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 
 // 4 Case Studies with tags & Unsplash images matching the reference screenshot aesthetic
 const caseStudies = [
@@ -87,12 +85,29 @@ const CaseStudies = () => {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".cs-header",
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      // Hero header — masked line reveal for headline
+      const heroTl = gsap.timeline({ delay: 0.1 });
+      gsap.set(".cs-reveal-line", { transformPerspective: 800 });
+      heroTl.fromTo(
+        ".cs-reveal-line",
+        { y: "110%", opacity: 0, rotateX: 8 },
+        {
+          y: "0%",
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.12,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
+        }
+      ).fromTo(
+        ".cs-header-sub",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+        "-=0.5"
       );
 
+      // Cards stagger on scroll
       gsap.utils.toArray<HTMLElement>(".cs-card").forEach((card) => {
         gsap.fromTo(
           card,
@@ -100,7 +115,7 @@ const CaseStudies = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 0.6,
+            duration: 0.65,
             ease: "power4.out",
             scrollTrigger: {
               trigger: card,
@@ -119,16 +134,21 @@ const CaseStudies = () => {
     <div ref={containerRef} className="bg-white min-h-screen pt-28 md:pt-36 pb-28 text-gray-900 font-sans">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header Section (Left Aligned) */}
-        <div className="text-left max-w-4xl mb-20 cs-header">
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
+        <div className="text-left max-w-4xl mb-20">
+          <span className="cs-header-sub text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
             SELECTED WORK · IN DEPTH
           </span>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-[#2d2a26] tracking-tight mb-8 leading-[1.1]">
-            Four products. Four very different kinds of ambition.
+            <span className="block overflow-hidden py-0.5">
+              <span className="cs-reveal-line block transform-gpu">Four products. Four very</span>
+            </span>
+            <span className="block overflow-hidden py-0.5">
+              <span className="cs-reveal-line block transform-gpu">different kinds of ambition.</span>
+            </span>
           </h1>
           
-          <p className="text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">
+          <p className="cs-header-sub text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">
             The surface matters. So does everything underneath it. Explore the strategy, design, engineering, and operating systems behind work built to earn attention and keep it.
           </p>
         </div>

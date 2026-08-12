@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -15,8 +15,6 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "sonner";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ────────────────────────────────
    AWWWARDS-STYLE POSITIONS DATA
@@ -130,11 +128,26 @@ const Careers = () => {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // Big Hero Text Entrance
-      gsap.fromTo(
+      // Big Hero Text Entrance — masked line reveal
+      const heroTl = gsap.timeline({ delay: 0.1 });
+      gsap.set(".aww-reveal-line", { transformPerspective: 800 });
+      heroTl.fromTo(
+        ".aww-reveal-line",
+        { y: "110%", opacity: 0, rotateX: 8 },
+        {
+          y: "0%",
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.12,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
+        }
+      ).fromTo(
         ".aww-hero-el",
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power4.out" }
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power3.out" },
+        "-=0.5"
       );
 
       // Section Scroll Trigger
@@ -198,8 +211,13 @@ const Careers = () => {
         {/* Main Display Headline */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
           <div className="lg:col-span-8">
-            <h1 className="aww-hero-el text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#121212] leading-[1.1]">
-              Join the minds engineering digital infrastructure.
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#121212] leading-[1.1]">
+              <span className="block overflow-hidden py-0.5">
+                <span className="aww-reveal-line block transform-gpu">Join the minds engineering</span>
+              </span>
+              <span className="block overflow-hidden py-0.5">
+                <span className="aww-reveal-line block transform-gpu">digital infrastructure.</span>
+              </span>
             </h1>
           </div>
 

@@ -18,11 +18,9 @@ import {
   Mail,
   Phone
 } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 import { useNavigate } from "react-router-dom";
-
-gsap.registerPlugin(ScrollTrigger);
 
 // 6 Values Data (Screenshot 1)
 const values = [
@@ -108,27 +106,33 @@ const AboutUs = () => {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      // Hero Header Text Stagger
-      gsap.fromTo(
-        ".about-hero-text",
-        { y: 40, opacity: 0 },
+      // Hero header — masked line reveal for headline
+      gsap.set(".about-hero-text", { transformPerspective: 800 });
+      const heroTl = gsap.timeline({ delay: 0.1 });
+      heroTl.fromTo(
+        ".about-hero-line",
+        { y: "110%", opacity: 0, rotateX: 8 },
         {
-          y: 0,
+          y: "0%",
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out"
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.12,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
         }
+      ).fromTo(
+        ".about-hero-text",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.75, stagger: 0.08, ease: "power3.out" },
+        "-=0.6"
       );
 
-      // Hero Image Card Scroll Scale Animation (Grows as user scrolls)
+      // Hero Image Card Scroll Scale Animation
       if (imageCardRef.current && imageContainerRef.current) {
         gsap.fromTo(
           imageCardRef.current,
-          {
-            scale: 0.82,
-            borderRadius: "2.5rem",
-          },
+          { scale: 0.82, borderRadius: "2.5rem" },
           {
             scale: 1,
             borderRadius: "1.5rem",
@@ -143,15 +147,36 @@ const AboutUs = () => {
         );
       }
 
+      // Values grid — staggered card entrance
+      const valuesGrid = document.querySelector(".values-stagger-grid");
+      if (valuesGrid) {
+        const cards = valuesGrid.querySelectorAll(".value-card");
+        gsap.fromTo(
+          cards,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.65,
+            stagger: 0.09,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: valuesGrid,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
       // Scroll Fade-in for Content Sections
       gsap.utils.toArray<HTMLElement>(".animate-on-scroll").forEach((element) => {
         gsap.fromTo(
           element,
-          { y: 60, opacity: 0, scale: 0.95 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            scale: 1,
             duration: 0.75,
             ease: "power4.out",
             scrollTrigger: {
@@ -178,9 +203,17 @@ const AboutUs = () => {
               ABOUT US
             </span>
 
-            {/* Main Headline */}
-            <h1 className="about-hero-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
-              We design and engineer custom websites for ambitious brands.
+            {/* Main Headline — masked line reveal */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
+              <span className="block overflow-hidden py-0.5">
+                <span className="about-hero-line block transform-gpu">We design and engineer</span>
+              </span>
+              <span className="block overflow-hidden py-0.5">
+                <span className="about-hero-line block transform-gpu">custom websites for</span>
+              </span>
+              <span className="block overflow-hidden py-0.5">
+                <span className="about-hero-line block transform-gpu">ambitious brands.</span>
+              </span>
             </h1>
 
             {/* Description Subtitle */}
@@ -242,13 +275,13 @@ const AboutUs = () => {
           </div>
 
           {/* 6 Values Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="values-stagger-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {values.map((val, idx) => {
               const Icon = val.icon;
               return (
                 <div
                   key={idx}
-                  className="animate-on-scroll bg-white p-8 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                  className="value-card hover-card bg-white p-8 md:p-10 rounded-[1.5rem] border border-gray-100 shadow-sm flex flex-col justify-between"
                 >
                   <div>
                     <div className={`w-12 h-12 rounded-full ${val.bgColor} flex items-center justify-center mb-8 shadow-sm`}>

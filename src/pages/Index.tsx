@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -15,103 +15,114 @@ import {
   Search,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/animations/gsap.config";
 import { Button } from "@/components/ui/button";
 import WaveHero from "@/components/WaveHero";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import Faq from "@/components/Faq";
 
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Index = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Snappy Hero Animations
-    gsap.fromTo(
-      ".hero-stagger",
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power3.out" },
-    );
+    const ctx = gsap.context(() => {
+      // Hero stagger — handled inside WaveHero with its own context
 
-    // Service-style Left & Right 3D Reveal Animations for Bento Grid
-    gsap.utils.toArray<HTMLElement>(".bento-left").forEach((el) => {
+      // Bento grid header reveal
       gsap.fromTo(
-        el,
-        { x: -100, y: 30, opacity: 0, scale: 0.95 },
+        ".bento-header",
+        { y: 40, opacity: 0 },
         {
-          x: 0,
           y: 0,
           opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          ease: "power4.out",
+          duration: 0.8,
+          ease: "power3.out",
           scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
+            trigger: ".bento-header",
+            start: "top 82%",
             toggleActions: "play none none none",
           },
         }
       );
-    });
 
-    gsap.utils.toArray<HTMLElement>(".bento-right").forEach((el) => {
-      gsap.fromTo(
-        el,
-        { x: 100, y: 30, opacity: 0, scale: 0.95 },
-        {
-          x: 0,
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          delay: 0.1,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-
-    // General Scroll Animations for Header & Bento items
-    gsap.utils.toArray<HTMLElement>(".bento-item").forEach((element) => {
-      gsap.fromTo(
-        element,
-        { y: 50, opacity: 0, scale: 0.96 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-
-    // Parallax background elements
-    gsap.utils.toArray(".parallax-bg").forEach((element: Element) => {
-      gsap.to(element, {
-        yPercent: 30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: element.parentElement,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.5,
-        },
+      // Bento cards — left entrance (slide from left)
+      gsap.utils.toArray<HTMLElement>(".bento-left").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { x: -60, y: 20, opacity: 0 },
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
       });
-    });
+
+      // Bento cards — right entrance (slide from right)
+      gsap.utils.toArray<HTMLElement>(".bento-right").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { x: 60, y: 20, opacity: 0 },
+          {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: 0.08,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+
+      // Bento items — simple fade up for any remaining cards
+      gsap.utils.toArray<HTMLElement>(".bento-item").forEach((element) => {
+        gsap.fromTo(
+          element,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+
+      // Subtle parallax on background decorative elements
+      gsap.utils.toArray<HTMLElement>(".parallax-bg").forEach((element) => {
+        gsap.to(element, {
+          yPercent: 25,
+          ease: "none",
+          scrollTrigger: {
+            trigger: element.parentElement ?? element,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.5,
+          },
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -133,7 +144,7 @@ const Index = () => {
         <section className="py-10 md:py-14 relative bg-white">
           <div className="max-w-[1300px] mx-auto px-5 sm:px-8 md:px-12 relative z-10">
             {/* Title & Description Header */}
-            <div className="mb-14 md:mb-16 text-center max-w-3xl mx-auto bento-item space-y-4">
+            <div className="mb-14 md:mb-16 text-center max-w-3xl mx-auto bento-header space-y-4">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0b1f3f] bg-blue-50 px-3.5 py-1.5 rounded-full inline-block">
                 OUR ENGINEERING PHILOSOPHY
               </span>

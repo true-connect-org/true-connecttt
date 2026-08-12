@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/animations/gsap.config";
+import { ScrollTrigger } from "@/animations/gsap.config";
 import {
   ArrowUpRight,
   Network,
@@ -17,8 +17,6 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ────────────────────────────────
    SERVICE DATA
@@ -143,10 +141,26 @@ const Services = () => {
     window.scrollTo(0, 0);
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
+      // Hero header — masked line reveal for headline
+      const heroTl = gsap.timeline({ delay: 0.1 });
+      gsap.set(".svc-reveal-line", { transformPerspective: 800 });
+      heroTl.fromTo(
+        ".svc-reveal-line",
+        { y: "110%", opacity: 0, rotateX: 8 },
+        {
+          y: "0%",
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.0,
+          stagger: 0.12,
+          ease: "power4.out",
+          clearProps: "rotateX,transformPerspective",
+        }
+      ).fromTo(
         ".svc-hero-el",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power3.out" }
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power3.out" },
+        "-=0.5"
       );
 
       // Cinematic Left/Right Reveal Animations for Service Cards
@@ -157,13 +171,12 @@ const Services = () => {
         if (leftEl) {
           gsap.fromTo(
             leftEl,
-            { x: -100, y: 30, opacity: 0, scale: 0.95 },
+            { x: -80, y: 24, opacity: 0 },
             {
               x: 0,
               y: 0,
               opacity: 1,
-              scale: 1,
-              duration: 0.7,
+              duration: 0.75,
               ease: "power4.out",
               scrollTrigger: {
                 trigger: row,
@@ -177,14 +190,13 @@ const Services = () => {
         if (rightEl) {
           gsap.fromTo(
             rightEl,
-            { x: 100, y: 30, opacity: 0, scale: 0.95 },
+            { x: 80, y: 24, opacity: 0 },
             {
               x: 0,
               y: 0,
               opacity: 1,
-              scale: 1,
-              duration: 0.7,
-              delay: 0.1,
+              duration: 0.75,
+              delay: 0.08,
               ease: "power4.out",
               scrollTrigger: {
                 trigger: row,
@@ -200,11 +212,10 @@ const Services = () => {
       gsap.utils.toArray<HTMLElement>(".svc-scroll-in").forEach((el) => {
         gsap.fromTo(
           el,
-          { y: 50, opacity: 0, scale: 0.96 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            scale: 1,
             duration: 0.7,
             ease: "power4.out",
             scrollTrigger: {
@@ -215,11 +226,6 @@ const Services = () => {
           }
         );
       });
-
-      // Force recalculate scroll trigger positions
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
     }, containerRef);
 
     return () => ctx.revert();
@@ -236,8 +242,13 @@ const Services = () => {
           <span className="svc-hero-el text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">
             WHAT WE BUILD
           </span>
-          <h1 className="svc-hero-el text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
-            Enterprise services designed for ambitious growth.
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-8">
+            <span className="block overflow-hidden py-0.5">
+              <span className="svc-reveal-line block transform-gpu">Enterprise services designed</span>
+            </span>
+            <span className="block overflow-hidden py-0.5">
+              <span className="svc-reveal-line block transform-gpu">for ambitious growth.</span>
+            </span>
           </h1>
           <p className="svc-hero-el text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed mb-10">
             From dedicated connectivity to custom software and AI — we deliver
