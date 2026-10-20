@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 
 export default {
 	darkMode: ["class"],
@@ -20,10 +21,12 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'satoshi': ['Satoshi', 'sans-serif'],
-				'space-grotesk': ['Satoshi', 'Space Grotesk', 'sans-serif'],
-				'inter': ['Satoshi', 'Inter', 'sans-serif'],
-				'sans': ['Satoshi', 'sans-serif'],
+				// All three legacy names now point at the body font; headings use `display`.
+				'display': ['var(--font-display)'],
+				'satoshi': ['var(--font-body)'],
+				'space-grotesk': ['var(--font-body)'],
+				'inter': ['var(--font-body)'],
+				'sans': ['var(--font-body)'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -89,6 +92,18 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
+				'tc-dash': {
+					from: { strokeDashoffset: '0' },
+					to: { strokeDashoffset: '-196' }
+				},
+				'tc-marquee': {
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(-50%)' }
+				},
+				'tc-line': {
+					from: { left: '-35%' },
+					to: { left: '100%' }
+				},
 				'accordion-down': {
 					from: {
 						height: '0'
@@ -112,5 +127,5 @@ export default {
 			}
 		}
 	},
-	plugins: [tailwindcssAnimate],
+	plugins: [tailwindcssAnimate, typography],
 } satisfies Config;

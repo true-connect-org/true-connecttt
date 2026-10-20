@@ -1,0 +1,59 @@
+# True Connect on Hostinger (Apache). Uploaded with the contents of dist/.
+
+# No trailing-slash redirects (pages are served from .html files)
+DirectorySlash Off
+DirectoryIndex index.html
+
+# Unknown URLs return a real 404 status (not a blank 200 page)
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. One canonical host: non-www
+  RewriteCond %{HTTP_HOST} ^www\.true-connect\.in$ [NC]
+  RewriteRule ^ https://true-connect.in%{REQUEST_URI} [L,R=301]
+
+  # 3. Old URLs -> new URLs (permanent, keeps any existing rankings)
+  RewriteRule ^about-us/?$            /about         [L,R=301]
+  RewriteRule ^contact-us/?$          /contact       [L,R=301]
+  RewriteRule ^internet-services/?$   /connectivity  [L,R=301]
+  RewriteRule ^enterprise-services/?$ /services      [L,R=301]
+  RewriteRule ^partner-program/?$     /partners      [L,R=301]
+  RewriteRule ^apply-partner/?$       /partners      [L,R=301]
+  RewriteRule ^case-studies/?$        /              [L,R=301]
+  RewriteRule ^careers/?$             /about         [L,R=301]
+
+  # 4. Serve pre-rendered pages: /about -> /about.html, /insights/x -> /insights/x.html
+  RewriteBase /
+  RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+?)/?$ /$1.html [L]
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Browser caching: hashed assets for a year, HTML always revalidated
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -1,217 +1,105 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import { ArrowUpRight, Phone, Menu, X, ChevronDown } from "lucide-react";
-import logo from "../assets/logo/nav-logo.png";
+import { Phone, Menu, X, ArrowUpRight, Mail } from "lucide-react";
+import SocialIcons from "@/components/site/SocialIcons";
+import logo from "../assets/logo/nav-logo.webp";
+import { nav, business } from "@/content/site";
+import { isPrerender } from "@/lib/env";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobilePartnersOpen, setMobilePartnersOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    gsap.fromTo(
-      ".nav-pill-container",
-      { y: -80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-    );
+    if (!isPrerender) {
+      gsap.fromTo(
+        ".nav-pill-container",
+        { y: -80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      );
+    }
 
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY <= 20) {
-        setVisible(true);
-      } else if (currentScrollY > lastScrollY.current) {
-        setVisible(false);
-      } else if (currentScrollY < lastScrollY.current) {
-        setVisible(true);
-      }
-      lastScrollY.current = currentScrollY;
+      const y = window.scrollY;
+      if (y <= 20) setVisible(true);
+      else if (y > lastScrollY.current) setVisible(false);
+      else setVisible(true);
+      lastScrollY.current = y;
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Close the drawer on route change
+  useEffect(() => setIsOpen(false), [location.pathname]);
+
+  // Lock body scroll when the mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
-  const handleNavClick = (path: string) => {
-    setIsOpen(false);
-    setMobileServicesOpen(false);
-    setMobilePartnersOpen(false);
-    navigate(path);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const isNavbarVisible = visible || isOpen;
-  const isLinkActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path;
+  const show = visible || isOpen;
 
   return (
     <>
       <header
-        className={`fixed top-3 md:top-6 left-0 w-full z-50 flex justify-center px-3 sm:px-4 pointer-events-none transition-all duration-500 ease-in-out transform ${
-          isNavbarVisible
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-24 opacity-0"
+        className={`fixed top-3 md:top-6 left-0 w-full z-50 flex justify-center px-5 sm:px-8 lg:px-10 pointer-events-none transition-all duration-500 ease-in-out transform ${
+          show ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
         }`}
       >
-        <div className="nav-pill-container pointer-events-auto w-full max-w-[95vw] sm:max-w-xl md:max-w-3xl lg:max-w-5xl rounded-full bg-[#0b1f3f]/95 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(11,31,63,0.4)] px-3 sm:px-4 md:px-5 py-2 flex items-center justify-between transition-all duration-300">
-          {/* Left Logo */}
-          <Link
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center group px-1 flex-shrink-0"
-          >
+        <div className="nav-pill-container pointer-events-auto w-full max-w-[940px] rounded-full bg-[#0b1f3f]/95 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(11,31,63,0.4)] px-3 sm:px-4 md:px-5 py-2 flex items-center justify-between">
+          <Link to="/" className="flex items-center group px-1 flex-shrink-0" aria-label="True Connect home">
             <img
               src={logo}
               alt="True Connect"
+              width={120}
+              height={32}
               className="h-6 sm:h-7 md:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
-          {/* Center Desktop Navigation Links (Visible on Large screens 1024px+) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-            <button
-              onClick={() => handleNavClick("/")}
-              className={`text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                isLinkActive("/")
-                  ? "bg-white/25 text-white shadow-sm"
-                  : "text-white/80 hover:text-white hover:bg-white/15"
-              }`}
-            >
-              Home
-            </button>
-
-            <button
-              onClick={() => handleNavClick("/about-us")}
-              className={`text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                isLinkActive("/about-us")
-                  ? "bg-white/25 text-white shadow-sm"
-                  : "text-white/80 hover:text-white hover:bg-white/15"
-              }`}
-            >
-              About
-            </button>
-
-            {/* Services Dropdown */}
-            <div className="relative group">
-              <button
-                className={`flex items-center gap-1 text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                  location.pathname.includes("services")
-                    ? "bg-white/25 text-white shadow-sm"
-                    : "text-white/80 hover:text-white hover:bg-white/15"
+          <nav aria-label="Main" className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {nav.links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className={`text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
+                  isActive(l.to) ? "bg-white/25 text-white shadow-sm" : "text-white/80 hover:text-white hover:bg-white/15"
                 }`}
               >
-                Services <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform duration-300" />
-              </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-50">
-                <div className="bg-[#0B1F3F] backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-2 flex flex-col w-56 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <button
-                    onClick={() => handleNavClick("/internet-services")}
-                    className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
-                  >
-                    Internet Services
-                  </button>
-                  <button
-                    onClick={() => handleNavClick("/enterprise-services")}
-                    className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
-                  >
-                    Enterprise Services
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Partners Dropdown */}
-            <div className="relative group">
-              <button
-                className={`flex items-center gap-1 text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                  location.pathname.includes("partner")
-                    ? "bg-white/25 text-white shadow-sm"
-                    : "text-white/80 hover:text-white hover:bg-white/15"
-                }`}
-              >
-                Partners <ChevronDown className="w-3.5 h-3.5 opacity-80 group-hover:rotate-180 transition-transform duration-300" />
-              </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 z-50">
-                <div className="bg-[#0B1F3F] backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-2 flex flex-col w-56 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <button
-                    onClick={() => handleNavClick("/partner-program")}
-                    className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
-                  >
-                    Partner Program
-                  </button>
-                  <button
-                    onClick={() => handleNavClick("/apply-partner")}
-                    className="text-left text-xs font-semibold px-4 py-2.5 rounded-xl text-white/90 hover:bg-white/20 hover:text-white transition-all"
-                  >
-                    Apply as a Partner
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => handleNavClick("/case-studies")}
-              className={`text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                isLinkActive("/case-studies")
-                  ? "bg-white/25 text-white shadow-sm"
-                  : "text-white/80 hover:text-white hover:bg-white/15"
-              }`}
-            >
-              Case Studies
-            </button>
-
-            <button
-              onClick={() => handleNavClick("/contact-us")}
-              className={`text-xs xl:text-sm font-semibold px-3 xl:px-4 py-1.5 rounded-full transition-all duration-200 ${
-                isLinkActive("/contact-us")
-                  ? "bg-white/25 text-white shadow-sm"
-                  : "text-white/80 hover:text-white hover:bg-white/15"
-              }`}
-            >
-              Contact
-            </button>
+                {l.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* Right Action Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Action 1: Careers Arrow link (Desktop) */}
-            <button
-              onClick={() => handleNavClick("/careers")}
-              className="hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/20 items-center justify-center transition-all duration-200 hover:scale-110 shadow-md cursor-pointer"
-              title="Careers & Opportunities"
+            <Link
+              to="/contact#contact-form"
+              aria-label="Start a project: go to the enquiry form"
+              title="Start a project"
+              className="group/cta w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-[#16305c] ring-1 ring-white/20 text-white hover:bg-tc-yellow hover:text-tc-navy hover:-translate-y-0.5 flex items-center justify-center transition-all duration-200 "
             >
-              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </button>
-
-            {/* Action 2: Direct Call */}
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover/cta:rotate-45" />
+            </Link>
             <a
-              href="tel:+918848817833"
-              className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/20 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-md cursor-pointer"
-              title="Call Us Now"
+              href={`tel:${business.phoneTel}`}
+              aria-label={`Call ${business.phoneDisplay}`}
+              className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-[#16305c] ring-1 ring-white/20 text-white hover:bg-tc-yellow hover:text-tc-navy hover:-translate-y-0.5 flex items-center justify-center transition-all duration-200 "
             >
               <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </a>
-
-            {/* Action 3: Menu Toggle Button (Visible on Mobile & Tablet < 1024px) */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/20 flex lg:hidden items-center justify-center transition-all duration-200 hover:scale-110 shadow-md cursor-pointer"
-              title="Toggle Menu"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-[#16305c] ring-1 ring-white/20 text-white hover:bg-tc-yellow hover:text-tc-navy hover:-translate-y-0.5 flex lg:hidden items-center justify-center transition-all duration-200"
             >
               {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -219,133 +107,42 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile / Tablet Fullscreen Drawer Overlay */}
       {isOpen && (
-        <div className="pointer-events-auto fixed inset-0 bg-[#0b1f3f] z-[999] px-6 pt-24 pb-12 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-300">
-          {/* Top Close Button inside overlay */}
-          <div className="absolute top-5 right-6 flex items-center gap-3">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center shadow-lg border border-white/20 cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+        <div data-lenis-prevent className="fixed inset-0 bg-[#0b1f3f] z-[999] px-6 pt-24 pb-12 flex flex-col overflow-y-auto animate-in fade-in duration-300">
+          <button
+            onClick={() => setIsOpen(false)}
+            aria-label="Close menu"
+            className="absolute top-5 right-6 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/20"
+          >
+            <X className="w-5 h-5" />
+          </button>
 
-          <div className="flex flex-col gap-3 max-w-sm mx-auto w-full">
-            <button
-              onClick={() => handleNavClick("/")}
-              className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all ${
-                isLinkActive("/") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              Home
-            </button>
-
-            <button
-              onClick={() => handleNavClick("/about-us")}
-              className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all ${
-                isLinkActive("/about-us") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              About Us
-            </button>
-
-            {/* Mobile Services Accordion */}
-            <div className="flex flex-col">
-              <button
-                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all flex items-center justify-between ${
-                  location.pathname.includes("services") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-                }`}
+          <nav aria-label="Mobile" className="flex flex-col gap-3 max-w-sm mx-auto w-full">
+            {nav.links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className={`text-xl font-bold py-3.5 px-5 rounded-2xl ${isActive(l.to) ? "bg-white/25 text-white" : "text-white/85 hover:bg-white/10"}`}
               >
-                <span>Services</span>
-                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobileServicesOpen ? "rotate-180" : ""}`} />
-              </button>
+                {l.label}
+              </Link>
+            ))}
+          </nav>
 
-              {mobileServicesOpen && (
-                <div className="pl-6 pt-2 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-200">
-                  <button
-                    onClick={() => handleNavClick("/internet-services")}
-                    className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
-                  >
-                    Internet Services
-                  </button>
-                  <button
-                    onClick={() => handleNavClick("/enterprise-services")}
-                    className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
-                  >
-                    Enterprise Services
-                  </button>
-                </div>
-              )}
+          {/* Contact details and social links */}
+          <div className="mx-auto mt-10 w-full max-w-sm border-t border-white/15 pt-8">
+            <p className="mb-4 px-5 text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">Get in touch</p>
+            <div className="space-y-3 px-5">
+              <a href={`tel:${business.phoneTel}`} className="flex items-center gap-3 text-white/90 hover:text-[#E6E84A]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#16305c] ring-1 ring-white/20"><Phone className="h-4 w-4" /></span>
+                <span className="text-base font-semibold">{business.phoneDisplay}</span>
+              </a>
+              <a href={`mailto:${business.email}`} className="flex items-center gap-3 text-white/90 hover:text-[#E6E84A]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#16305c] ring-1 ring-white/20"><Mail className="h-4 w-4" /></span>
+                <span className="break-all text-base font-semibold">{business.email}</span>
+              </a>
             </div>
-
-            {/* Mobile Partners Accordion */}
-            <div className="flex flex-col">
-              <button
-                onClick={() => setMobilePartnersOpen(!mobilePartnersOpen)}
-                className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all flex items-center justify-between ${
-                  location.pathname.includes("partner") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                <span>Partners</span>
-                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobilePartnersOpen ? "rotate-180" : ""}`} />
-              </button>
-
-              {mobilePartnersOpen && (
-                <div className="pl-6 pt-2 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-200">
-                  <button
-                    onClick={() => handleNavClick("/partner-program")}
-                    className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
-                  >
-                    Partner Program
-                  </button>
-                  <button
-                    onClick={() => handleNavClick("/apply-partner")}
-                    className="text-left text-base font-semibold py-2.5 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/10"
-                  >
-                    Apply as a Partner
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={() => handleNavClick("/case-studies")}
-              className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all ${
-                isLinkActive("/case-studies") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              Case Studies
-            </button>
-
-            <button
-              onClick={() => handleNavClick("/contact-us")}
-              className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all ${
-                isLinkActive("/contact-us") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              Contact Us
-            </button>
-
-            <button
-              onClick={() => handleNavClick("/careers")}
-              className={`text-left text-xl font-bold py-3.5 px-5 rounded-2xl transition-all ${
-                isLinkActive("/careers") ? "bg-white/25 text-white shadow-md" : "text-white/85 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              Careers
-            </button>
-          </div>
-
-          <div className="max-w-sm mx-auto w-full pt-8 border-t border-white/20 flex flex-col items-center gap-4">
-            <button
-              onClick={() => handleNavClick("/contact-us")}
-              className="w-full py-4 bg-white text-[#0b1f3f] font-bold rounded-full text-base shadow-xl hover:bg-gray-100 transition-colors text-center"
-            >
-              Talk to the Studio
-            </button>
+            <SocialIcons tone="dark" className="mt-6 px-5" />
           </div>
         </div>
       )}
@@ -354,4 +151,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

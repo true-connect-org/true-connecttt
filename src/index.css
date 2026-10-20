@@ -1,5 +1,7 @@
-@import url("https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300,100&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+/* Brand font: Montserrat, as set in the True Connect brand guidelines.
+   Headlines ExtraBold (800), sub-headings SemiBold (600), body Regular (400), captions Light (300).
+   Self-hosted variable font, so every weight comes from one small file per script. */
+@import "@fontsource-variable/montserrat";
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +11,11 @@
 
 @layer base {
   :root {
+    /* ── Website fonts. To switch to a licensed brand font later, change these two lines
+       (and add the font files to public/fonts with an @font-face). Nothing else needs editing. ── */
+    --font-display: "Montserrat Variable", "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Montserrat Variable", "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
     /* True Connect Brand Colors - Updated with Logo Colors */
     --background: 0 0% 100%; /* White background */
     --foreground: 0 0% 0%; /* Black text */
@@ -90,12 +97,8 @@
   }
 
   body {
-    font-family:
-      "Satoshi",
-      "Inter",
-      -apple-system,
-      BlinkMacSystemFont,
-      sans-serif;
+    font-family: var(--font-body);
+    font-synthesis: none;
     @apply bg-background text-foreground overflow-x-hidden;
   }
 
@@ -105,11 +108,65 @@
   h4,
   h5,
   h6 {
-    font-family: "Satoshi", "Space Grotesk", sans-serif;
+    font-family: var(--font-display);
   }
 }
 
 @layer components {
+  /* Card hover: lifts, with a brand-colour edge glow. `card-lift` for light cards, `card-lift-dark` for dark ones. */
+  .card-lift,
+  .card-lift-dark {
+    transition:
+      transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.45s ease,
+      border-color 0.45s ease;
+    will-change: transform;
+  }
+  .card-lift:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 24px 48px -18px rgba(11, 31, 63, 0.35),
+      0 0 0 1px rgba(11, 31, 63, 0.22),
+      0 0 34px -8px rgba(26, 68, 128, 0.35);
+  }
+  .card-lift-dark:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 30px 60px -20px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.22),
+      0 0 44px -10px rgba(26, 68, 128, 0.6);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-lift:hover,
+    .card-lift-dark:hover {
+      transform: none;
+    }
+  }
+
+  /* ── True Connect layout and type system ──
+     One content width and one type scale used by every page. */
+  .container-tc {
+    @apply w-full max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-10;
+  }
+  .section-y {
+    @apply py-14 md:py-20;
+  }
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.2em] text-gray-500;
+  }
+  .h1-tc {
+    @apply text-[2rem] sm:text-4xl lg:text-[3rem] font-semibold tracking-tight leading-[1.12];
+  }
+  .h2-tc {
+    @apply text-2xl sm:text-[1.75rem] lg:text-[2rem] font-semibold tracking-tight leading-[1.2] text-[#0b1f3f];
+  }
+  .h3-tc {
+    @apply text-lg md:text-xl font-semibold tracking-tight leading-snug;
+  }
+  .lead-tc {
+    @apply text-base md:text-lg leading-relaxed text-gray-600;
+  }
+
   /* Hero Button Variants - Updated with Logo Colors */
   .btn-hero {
     @apply bg-primary hover:bg-transparent hover:border-2 hover:border-primary hover:text-primary text-primary-foreground px-6 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto shadow-lg hover:shadow-primary;
@@ -303,4 +360,64 @@
     transform: none;
     box-shadow: none;
   }
+}
+
+/* Gentle floating motion for the WhatsApp capsule */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+.animate-floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty {
+    animation: none;
+  }
+}
+
+
+/* Brand typography rules (Montserrat guideline weights). !important is deliberate: components set
+   their own weights with utility classes, and the brand weights must win everywhere. */
+h1,
+h2 {
+  font-weight: 800 !important;
+}
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600 !important;
+}
+
+/* Home landing headline is set one step lighter than the other headlines (SemiBold) */
+.hero-h1 {
+  font-weight: 600 !important;
+}
+
+/* Page banners and section headings use a lighter, centred look (SemiBold) so long titles stay calm */
+.pb-el.h1-light,
+section h1.pb-el {
+  font-weight: 700 !important;
+}
+
+/* Site-wide scroll reveal (see ScrollReveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+.reveal.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }

@@ -1,240 +1,99 @@
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Twitter,
-  Globe,
-  Star,
-  MapPin,
-  Phone,
-  Mail,
-  Sparkles,
-} from "lucide-react";
-import footerLogo from "../assets/logo/nav-logo.png";
+import { Link } from "react-router-dom";
+import { MapPin, Phone, Mail } from "lucide-react";
+import SocialIcons from "@/components/site/SocialIcons";
+import footerLogo from "../assets/logo/nav-logo.webp";
+import { business, footer, fullAddress } from "@/content/site";
 
 const Footer = () => {
-  const navigate = useNavigate();
-
   return (
-    <footer className="bg-white text-[#eae7e3] pt-8 pb-8 px-4 md:px-8 font-sans">
-      {/* Main Navy Card Container */}
-      <div className="max-w-[1440px] mx-auto bg-[#0B1F3F] rounded-[2.5rem] p-8 md:p-16 border border-white/10 shadow-2xl">
+    <footer className="bg-white text-[#eae7e3] px-1.5 sm:px-2.5 md:px-3 pb-1.5 sm:pb-2.5 md:pb-3 pt-4 font-sans">
+      {/* Navy card: same size and shape as the landing page hero card. Content lines up with the navbar. */}
+      <div className="max-w-[1560px] mx-auto bg-[#0B1F3F] rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/10 shadow-2xl py-12 md:py-16">
+      <div className="container-tc">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Column 1: Brand & Intro */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
-              {/* Logo */}
-              <Link to="/" className="inline-block mb-6">
-                <img
-                  src={footerLogo}
-                  alt="True Connect"
-                  className="h-10 w-auto object-contain"
-                />
+              <Link to="/" className="inline-block mb-6" aria-label="True Connect home">
+                <img src={footerLogo} alt="True Connect" width={160} height={43} loading="lazy" className="h-10 w-auto object-contain" />
               </Link>
-
-              {/* Tagline */}
-              <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">
-                We build websites that convert, apps that scale, and connections people remember.
-              </p>
+              <p className="text-white text-base font-semibold mb-2">{footer.tagline}</p>
+              <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">{footer.description}</p>
             </div>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-4 text-gray-400">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={18} />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter size={18} />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={18} />
-              </a>
-              <span className="text-gray-600">|</span>
-              <a
-                href="#"
-                className="hover:text-white transition-colors"
-                aria-label="Rating"
-              >
-                <Star size={18} />
-              </a>
-              <a
-                href="#"
-                className="hover:text-white transition-colors"
-                aria-label="Global"
-              >
-                <Globe size={18} />
-              </a>
-            </div>
+            <SocialIcons tone="dark" />
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">
-              QUICK LINKS
-            </h4>
+          {/* Column 2: Company */}
+          <nav aria-label="Company" className="lg:col-span-2 flex flex-col gap-4">
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">COMPANY</h4>
             <ul className="space-y-3 text-sm font-medium text-gray-300">
               <li>
-                <Link to="/" className="hover:text-white transition-colors">
-                  Home
-                </Link>
+                <Link to="/" className="hover:text-white transition-colors">Home</Link>
               </li>
-              <li>
-                <Link to="/about-us" className="hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link to="/case-studies" className="hover:text-white transition-colors">
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link to="/case-studies" className="hover:text-white transition-colors">
-                  Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link to="/careers" className="hover:text-white transition-colors">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact-us" className="hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
+              {footer.company.map((l) => (
+                <li key={l.label}>
+                  <Link to={l.to} className="hover:text-white transition-colors">{l.label}</Link>
+                </li>
+              ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Column 3: Services */}
-          <div className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">
-              SERVICES
-            </h4>
+          <nav aria-label="Services" className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">SERVICES</h4>
             <ul className="space-y-3 text-sm font-medium text-gray-300">
-              <li>
-                <Link to="/enterprise-services" className="hover:text-white transition-colors">
-                  Website Development
-                </Link>
-              </li>
-              <li>
-                <Link to="/enterprise-services" className="hover:text-white transition-colors">
-                  App Development
-                </Link>
-              </li>
-              <li>
-                <Link to="/enterprise-services" className="hover:text-white transition-colors">
-                  Systems & Platforms
-                </Link>
-              </li>
-              <li>
-                <Link to="/enterprise-services" className="hover:text-white transition-colors">
-                  AI Media & Content
-                </Link>
-              </li>
-              <li>
-                <Link to="/internet-services" className="hover:text-white transition-colors">
-                  Internet Leased Line
-                </Link>
-              </li>
+              {footer.services.map((l) => (
+                <li key={l.label}>
+                  <Link to={l.to} className="hover:text-white transition-colors">{l.label}</Link>
+                </li>
+              ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Column 4: Studio & Contact */}
+          {/* Column 4: Contact */}
           <div className="lg:col-span-3 flex flex-col justify-between gap-6">
             <div>
-              <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">
-                STUDIO & CONTACT
-              </h4>
-              <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold mb-6">
-                TRUE CONNECT TECHNOLOGIES
-              </p>
+              <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">CONTACT</h4>
+              <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold mb-6">{business.legalName.toUpperCase()}</p>
 
-              <div className="space-y-4 text-xs text-gray-300 leading-relaxed">
+              <address className="not-italic space-y-4 text-xs text-gray-300 leading-relaxed">
                 <div className="flex items-start gap-3">
                   <MapPin size={16} className="text-gray-400 flex-shrink-0 mt-0.5" />
-                  <span>
-                    Technopark Campus, Trivandrum, Kerala 695581, India
-                  </span>
+                  <span>{fullAddress}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={16} className="text-gray-400 flex-shrink-0" />
-                  <a
-                    href="tel:+918848817833"
-                    className="hover:text-white transition-colors"
-                  >
-                    +91 88488 17833
-                  </a>
+                  <a href={`tel:${business.phoneTel}`} className="hover:text-white transition-colors">{business.phoneDisplay}</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-gray-400 flex-shrink-0" />
-                  <a
-                    href="mailto:info@trueconnect.in"
-                    className="hover:text-white transition-colors"
-                  >
-                    info@trueconnect.in
-                  </a>
+                  <a href={`mailto:${business.email}`} className="hover:text-white transition-colors break-all">{business.email}</a>
                 </div>
-              </div>
+              </address>
             </div>
 
-            {/* GET QUOTE Button */}
             <div>
-              <button
-                onClick={() => navigate("/contact-us")}
-                className="bg-tc-yellow hover:bg-tc-mutedyellow text-tc-navy font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+              <Link
+                to="/contact"
+                className="inline-block bg-tc-yellow hover:bg-tc-mutedyellow text-tc-navy font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
               >
                 GET QUOTE
-              </button>
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Divider */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-          <p>© {new Date().getFullYear()} True Connect. All rights reserved.</p>
-
-          <p className="italic text-gray-400 font-serif text-center md:text-left">
-            "We build with empathy, creativity, and purpose."
-          </p>
-
+          <p>© {new Date().getFullYear()} {footer.bottom}. All rights reserved.</p>
+          <p className="text-gray-400 font-display font-medium text-center md:text-left">{footer.tagline}</p>
           <div className="flex items-center gap-6">
-            <Link to="#" className="hover:text-gray-300 transition-colors">
-              Privacy
-            </Link>
-            <Link to="#" className="hover:text-gray-300 transition-colors">
-              Terms
-            </Link>
+            <Link to="/privacy" className="hover:text-gray-300 transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-gray-300 transition-colors">Terms</Link>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
