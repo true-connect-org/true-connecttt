@@ -43,9 +43,20 @@ const candidates = [
   "/usr/bin/chromium",
 ].filter(Boolean);
 const executablePath = candidates.find((p) => existsSync(p));
-
-const browser = await puppeteer.launch({ headless: true, executablePath, args: ["--no-sandbox"] });
 const outPath = (route) => (route === "/" ? join(DIST, "index.html") : join(DIST, `${route.slice(1)}.html`));
+
+// Pre-rendering needs a working Chrome. Hosts like Vercel do not provide one, so if Chrome
+// cannot start (or SKIP_PRERENDER=1 is set) we keep the normal single-page build instead of failing.
+let browser = null;
+if (process.env.SKIP_PRERENDER === "1") {
+  console.warn("SKIP_PRERENDER=1: skipping pre-rendering");
+} else {
+  try {
+    browser = await puppeteer.launch({ headless: true, executablePath, args: ["--no-sandbox", "--disable-dev-shm-usage"] });
+  } catch (err) {
+    console.warn(`Pre-rendering skipped: Chrome could not start (${err.message.split("\n")[0]})`);
+  }
+}
 
 async function render(route, file) {
   const page = await browser.newPage();
@@ -61,12 +72,16 @@ async function render(route, file) {
   console.log("prerendered", route);
 }
 
-// Render the 404 and the non-home pages first, home last (it overwrites the SPA shell index.html)
-await render("/this-page-does-not-exist", join(DIST, "404.html"));
-for (const r of routes.filter((r) => r !== "/")) await render(r, outPath(r));
-await render("/", outPath("/"));
-
-await browser.close();
+if (browser) {
+  // Render the 404 and the non-home pages first, home last (it overwrites the SPA shell index.html)
+  await render("/this-page-does-not-exist", join(DIST, "404.html"));
+  for (const r of routes.filter((r) => r !== "/")) await render(r, outPath(r));
+  await render("/", outPath("/"));
+  await browser.close();
+} else {
+  // Without pre-rendering, unknown URLs still load the app (which shows its own 404 page)
+  writeFileSync(join(DIST, "404.html"), readFileSync(join(DIST, "index.html")));
+}
 server.close();
 
 // sitemap.xml
