@@ -407,7 +407,7 @@ const Index = () => {
               <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
                 <div className="text-center lg:col-span-7 lg:text-left">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55">Enterprise internet</p>
-                  <h3 className="mt-4 text-2xl font-extrabold leading-[1.1] tracking-tight sm:text-3xl md:text-[2.6rem]">True Connect Leased Lines</h3>
+                  <h3 className="mt-4 text-[1.4rem] font-extrabold leading-[1.1] tracking-tight sm:text-3xl md:text-[2.6rem]">True Connect Internet</h3>
                   <p className="mx-auto mt-4 max-w-xl text-[13px] leading-relaxed text-white/70 sm:text-base lg:mx-0 lg:max-w-2xl">{home.connectivityStrip.text}</p>
                   <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#0b1f3f] transition-colors duration-300 group-hover:bg-[#E6E84A]">
                     {home.connectivityStrip.link.label}

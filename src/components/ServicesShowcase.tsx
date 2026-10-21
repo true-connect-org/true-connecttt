@@ -97,9 +97,9 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
                       alt={`${s.title} in Trivandrum`}
                       loading="lazy"
                       draggable={false}
-                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-105 group-hover:blur-[6px] pointer-events-none ${natural ? "opacity-100" : "mix-blend-overlay opacity-60 group-hover:opacity-70"}`}
+                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-[1.03] group-hover:blur-[2px] pointer-events-none ${natural ? "opacity-100" : "mix-blend-overlay opacity-60 group-hover:opacity-70"}`}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 group-hover:from-black/85 group-hover:via-black/45 transition-colors duration-500 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 group-hover:from-black/80 group-hover:via-black/30 transition-colors duration-500 pointer-events-none" />
 
                     {/* Top: icon and counter */}
                     <div className="relative z-10 flex items-start justify-between">
@@ -113,19 +113,19 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
 
                     {/* Bottom: label and title; the subtitle appears on hover (tablet and larger) */}
                     <div className="relative z-10 mt-auto flex flex-col justify-end">
-                      <p className="mb-2 md:mb-3 truncate whitespace-nowrap text-[9px] md:text-[11px] font-semibold uppercase tracking-[0.22em] md:tracking-[0.32em] text-white/70">{s.label}</p>
+                      <p className="mb-1.5 md:mb-3 truncate whitespace-nowrap text-[9px] md:text-[11px] font-semibold uppercase tracking-[0.14em] md:tracking-[0.32em] text-white/75">{s.label}</p>
 
-                      <div className="flex items-end justify-between gap-3">
-                        <h3 className="text-xl sm:text-2xl md:text-[1.85rem] font-medium text-white leading-[1.1] tracking-tight transition-all duration-300 md:group-hover:mb-1">
+                      <div className="relative pr-11 sm:pr-0">
+                        <h3 className="whitespace-nowrap text-[1.05rem] sm:text-xl lg:text-[1.75rem] font-medium text-white leading-[1.1] tracking-tight transition-all duration-300">
                           {s.title}
                         </h3>
                         {/* phones: small arrow beside the title, as in the reference */}
-                        <span className="sm:hidden mb-0.5 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shrink-0">
+                        <span className="sm:hidden absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shrink-0">
                           <ArrowUpRight size={16} />
                         </span>
                       </div>
 
-                      <div className="hidden sm:flex items-center justify-between gap-3 overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-out group-hover:max-h-16 group-hover:opacity-100 group-hover:pt-4 [@media(hover:none)]:max-h-16 [@media(hover:none)]:opacity-100 [@media(hover:none)]:pt-3">
+                      <div className="hidden sm:flex items-center justify-between gap-3 overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-out group-hover:max-h-16 group-hover:opacity-100 group-hover:pt-3 [@media(hover:none)]:max-h-16 [@media(hover:none)]:opacity-100 [@media(hover:none)]:pt-3">
                         <p className="min-w-0 flex-1 truncate whitespace-nowrap text-xs md:text-sm text-white/90 font-normal">{s.tagline}</p>
                         <span className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shrink-0 transition-all duration-300 group-hover:bg-white group-hover:text-black shadow-lg">
                           <ArrowUpRight size={16} />

@@ -403,7 +403,7 @@ h6 {
 /* Page banners and section headings use a lighter, centred look (SemiBold) so long titles stay calm */
 .pb-el.h1-light,
 section h1.pb-el {
-  font-weight: 700 !important;
+  font-weight: 600 !important;
 }
 
 /* Site-wide scroll reveal (see ScrollReveal.tsx) */

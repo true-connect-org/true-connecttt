@@ -73,9 +73,11 @@ const Services = () => {
     <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-hidden">
       {/* ─── 1. HERO BANNER ─── */}
       <PageBanner
+        variant="services"
         visual={<ServicesVisual />}
         eyebrow="What we do"
-        title={servicesPage.hero.headline}
+        title="Built to grow"
+        accent="your business."
         sub={servicesPage.hero.sub}
         crumbs={[{ label: "Home", to: "/" }, { label: "Services" }]}
       />

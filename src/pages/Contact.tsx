@@ -87,9 +87,11 @@ const ContactUs = () => {
     <div ref={containerRef} className="bg-white min-h-screen text-gray-900 font-sans pb-0">
       {/* 1. HERO BANNER */}
       <PageBanner
+        variant="contact"
         visual={<ContactVisual />}
         eyebrow="Contact"
-        title={contact.headline}
+        title="Let's talk about"
+        accent="your business."
         sub={contact.sub}
         crumbs={[{ label: "Home", to: "/" }, { label: "Contact" }]}
       />

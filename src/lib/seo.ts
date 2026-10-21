@@ -9,11 +9,14 @@ interface SeoOptions {
   noindex?: boolean;
   image?: string;
   type?: "website" | "article";
+  /** Title and description used only for link previews (WhatsApp, LinkedIn, Facebook, X). Default to title/description. */
+  shareTitle?: string;
+  shareDescription?: string;
   /** One or more schema.org objects, serialised as JSON-LD. */
   jsonLd?: object | object[];
 }
 
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 function setMeta(attr: "name" | "property", key: string, value: string) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -36,7 +39,7 @@ function setLink(rel: string, href: string) {
 }
 
 /** Sets title, description, canonical, Open Graph, Twitter and JSON-LD for the current page. */
-export function useSeo({ title, description, path, noindex, image, type = "website", jsonLd }: SeoOptions) {
+export function useSeo({ title, description, path, noindex, image, type = "website", jsonLd, shareTitle, shareDescription }: SeoOptions) {
   const jsonKey = jsonLd ? JSON.stringify(jsonLd) : "";
 
   useEffect(() => {
@@ -51,13 +54,18 @@ export function useSeo({ title, description, path, noindex, image, type = "websi
     setMeta("property", "og:type", type);
     setMeta("property", "og:site_name", "True Connect");
     setMeta("property", "og:locale", "en_IN");
-    setMeta("property", "og:title", title);
-    setMeta("property", "og:description", description);
+    const ogTitle = shareTitle ?? title;
+    const ogDesc = shareDescription ?? description;
+    setMeta("property", "og:title", ogTitle);
+    setMeta("property", "og:description", ogDesc);
     setMeta("property", "og:url", url || SITE_URL);
     setMeta("property", "og:image", img);
+    setMeta("property", "og:image:width", "1200");
+    setMeta("property", "og:image:height", "630");
+    setMeta("property", "og:image:alt", "True Connect - Your Vision. Our Execution.");
     setMeta("name", "twitter:card", "summary_large_image");
-    setMeta("name", "twitter:title", title);
-    setMeta("name", "twitter:description", description);
+    setMeta("name", "twitter:title", ogTitle);
+    setMeta("name", "twitter:description", ogDesc);
     setMeta("name", "twitter:image", img);
 
     // Replace any JSON-LD left by the previous page

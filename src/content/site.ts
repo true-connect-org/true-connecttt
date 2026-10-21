@@ -203,7 +203,7 @@ export const home = {
     button: { label: "Read Insights", to: "/insights" },
   },
   connectivityStrip: {
-    text: "Dedicated bandwidth, a 99% uptime SLA and on-site support within 60 minutes, from an authorized Jio channel partner.",
+    text: "Jio-powered leased lines with a 99% uptime SLA and on-site support in 60 minutes.",
     link: { label: "Enterprise connectivity", to: "/connectivity" },
   },
   faq: {
@@ -245,8 +245,8 @@ export const home = {
     ],
   },
   cta: {
-    heading: "Ready to take your business from 0 to 100?",
-    body: "Tell us where you are today and where you want to be. Our team will come back with clear next steps.",
+    heading: "Big plans? Let's talk.",
+    body: "One conversation with our team is all it takes to get started.",
     primary: { label: "Start a project", to: "/contact" },
     whatsappLabel: "Chat on WhatsApp",
   },
@@ -496,7 +496,7 @@ export const homeServiceCards = services;
 export const servicesPage = {
   hero: {
     headline: "Built to grow your business.",
-    sub: "Six services, one accountable team. Start with one, or let us run them all.",
+    sub: "Six services. One accountable team.",
   },
   includesLabel: "Includes",
   connectivityCard: {
@@ -618,12 +618,12 @@ export const connectivity = {
 export const about = {
   hero: {
     headline: ["Your Vision.", "Our Execution."],
-    sub: "The integrated growth partner for Kerala businesses, built at Technopark.",
+    sub: "Seen. Built. Connected.",
   },
   overview: {
     label: "Who we are",
     heading: "Growth, without the juggling.",
-    paragraphs: ["One partner for your brand, technology and connectivity, so you can focus on running the business."],
+    paragraphs: ["One partner for brand, technology and connectivity."],
   },
   vision: {
     label: "Our vision",
@@ -716,7 +716,7 @@ export const about = {
 export const insights = {
   hero: {
     headline: "Marketing, decoded.",
-    sub: "How the world's best brands win attention, and what a Kerala business can learn from them.",
+    sub: "Big-brand thinking for Kerala businesses.",
   },
   categories: ["All", "Brand Positioning", "Experiential Marketing", "Content Marketing"],
   empty: "New breakdowns every month. Follow us on Instagram for the latest.",
@@ -727,7 +727,7 @@ export const insights = {
 
 export const contact = {
   headline: "Let's talk about your business.",
-  sub: "Tell us where your business is headed. We will help you get there.",
+  sub: "One conversation. A clear plan.",
   needs: ["Social media marketing", "Web development", "Branding", "Custom software", "AI & automation", "Enterprise internet", "Not sure"],
   budgets: ["Under ₹25,000", "₹25,000–1,00,000", "₹1,00,000+", "Not sure"],
   button: "Send enquiry",
@@ -762,6 +762,8 @@ export interface PageSeo {
   path: string;
   title: string;
   description: string;
+  shareTitle?: string;
+  shareDescription?: string;
 }
 
 export const seo: Record<string, PageSeo> = {
@@ -769,6 +771,8 @@ export const seo: Record<string, PageSeo> = {
     path: "/",
     title: "Digital Marketing & Software Company in Kerala | True Connect",
     description: "Social media marketing, websites and apps, branding, custom software, AI automation and enterprise internet for Kerala businesses. One Technopark team.",
+    shareTitle: "True Connect | Your Vision. Our Execution.",
+    shareDescription: "Marketing, websites, software, AI automation and Jio-powered business internet, delivered by one accountable team at Technopark, Kerala.",
   },
   services: {
     path: "/services",

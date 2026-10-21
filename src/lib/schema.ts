@@ -13,7 +13,7 @@ export const localBusinessSchema = {
   slogan: TAGLINE,
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
-  image: `${SITE_URL}/og-image.png`,
+  image: `${SITE_URL}/og-image.jpg`,
   description:
     "Branding, social media, SEO, websites, mobile apps and AI automation for Kerala businesses, from one Technopark team in Trivandrum.",
   telephone: business.phoneTel,

@@ -58,7 +58,7 @@ const HomeEnquiry = () => {
             {/* Left: message and details */}
             <div className="lg:col-span-5 text-white flex flex-col">
               <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/50 mb-4">GET IN TOUCH</span>
-              <h2 className="text-3xl md:text-4xl font-medium tracking-tight leading-[1.15] mb-4">{home.cta.heading}</h2>
+              <h2 className="whitespace-nowrap text-[1.6rem] sm:text-3xl md:text-4xl font-medium tracking-tight leading-[1.15] mb-4">{home.cta.heading}</h2>
               <p className="text-white/70 text-[13px] sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-md">{home.cta.body}</p>
 
               <ul className="space-y-4 mb-8">

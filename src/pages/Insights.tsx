@@ -34,9 +34,11 @@ const Insights = () => {
   return (
     <div className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-hidden">
       <PageBanner
+        variant="insights"
         visual={<InsightsVisual />}
         eyebrow="Insights"
-        title={insights.hero.headline}
+        title="Marketing,"
+        accent="decoded."
         sub={insights.hero.sub}
         crumbs={[{ label: "Home", to: "/" }, { label: "Insights" }]}
       />

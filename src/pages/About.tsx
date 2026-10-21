@@ -53,20 +53,22 @@ const AboutUs = () => {
     <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-hidden">
       {/* 1. HERO BANNER */}
       <PageBanner
+        variant="about"
         visual={<AboutVisual />}
         eyebrow="About True Connect"
-        title={about.hero.headline.join(" ")}
+        title={about.hero.headline[0]}
+        accent={about.hero.headline[1]}
         sub={about.hero.sub}
         crumbs={[{ label: "Home", to: "/" }, { label: "About" }]}
       />
 
       {/* 2. WHO WE ARE */}
       <section className="py-14 md:py-20 bg-[#f6f7f9]">
-        <div className={`${wrap} text-center`}>
-          <div className="animate-on-scroll max-w-3xl mx-auto">
+        <div className={`${wrap} text-left md:text-center`}>
+          <div className="animate-on-scroll max-w-3xl md:mx-auto">
             <span className={eyebrow}>{about.overview.label.toUpperCase()}</span>
-            <h2 className={h2}>{about.overview.heading}</h2>
-            <div className="mt-6 space-y-5 text-gray-600 text-sm md:text-lg leading-relaxed">
+            <h2 className="whitespace-nowrap text-[clamp(1rem,5.6vw,1.875rem)] md:text-5xl font-medium text-[#2d2a26] tracking-tight">{about.overview.heading}</h2>
+            <div className="mt-4 space-y-5 text-gray-600 text-sm md:mt-6 md:text-lg leading-relaxed">
               {about.overview.paragraphs.map((p) => (
                 <p key={p}>{p}</p>
               ))}
@@ -78,25 +80,29 @@ const AboutUs = () => {
       {/* 3. VISION AND MISSION */}
       <section id="vision-mission" className="py-12 md:py-20 scroll-mt-24">
         <div className={`${wrap} grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8`}>
-          <div className="animate-on-scroll relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-[#0b1f3f] text-white p-8 md:p-12">
+          <div className="animate-on-scroll relative overflow-hidden rounded-[1.75rem] md:rounded-[2rem] bg-[#0b1f3f] text-white p-7 md:p-10">
             <div className="absolute top-[-30%] right-[-20%] w-[70%] h-[80%] bg-white/5 blur-[110px] rounded-full pointer-events-none" />
             <div className="relative z-10">
-              <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-8">
-                <Eye size={22} strokeWidth={1.5} />
+              <div className="mb-5 flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10">
+                  <Eye size={18} strokeWidth={1.6} />
+                </span>
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">{about.vision.label}</span>
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/50 mb-4 block">{about.vision.label.toUpperCase()}</span>
-              <h2 className="text-2xl md:text-4xl font-medium tracking-tight leading-[1.2] mb-5">{about.vision.heading}</h2>
-              <p className="text-white/75 text-base md:text-lg leading-relaxed">{about.vision.text}</p>
+              <h2 className="text-xl md:text-2xl font-medium tracking-tight leading-[1.25] mb-3">{about.vision.heading}</h2>
+              <p className="text-white/75 text-sm md:text-base leading-relaxed">{about.vision.text}</p>
             </div>
           </div>
 
-          <div className="animate-on-scroll rounded-[2rem] md:rounded-[2.5rem] border border-gray-200 bg-white p-8 md:p-12 shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-[#0b1f3f] text-white flex items-center justify-center mb-8 shadow-md">
-              <Target size={22} strokeWidth={1.5} />
+          <div className="animate-on-scroll rounded-[1.75rem] md:rounded-[2rem] border border-gray-200 bg-white p-7 md:p-10 shadow-sm">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b1f3f] text-white shadow-md">
+                <Target size={18} strokeWidth={1.6} />
+              </span>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#0b1f3f]">{about.mission.label}</span>
             </div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-4 block">{about.mission.label.toUpperCase()}</span>
-            <h2 className="text-2xl md:text-4xl font-medium tracking-tight leading-[1.2] text-[#2d2a26] mb-5">{about.mission.heading}</h2>
-            <p className="text-gray-500 text-base md:text-lg leading-relaxed">{about.mission.text}</p>
+            <h2 className="text-xl md:text-2xl font-medium tracking-tight leading-[1.25] text-[#0b1f3f] mb-3">{about.mission.heading}</h2>
+            <p className="text-gray-500 text-sm md:text-base leading-relaxed">{about.mission.text}</p>
           </div>
         </div>
       </section>
