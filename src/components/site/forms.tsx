@@ -21,7 +21,7 @@ const Honeypot = () => (
   <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
     <label>
       Leave this empty
-      <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+      <input type="text" name="tc_hp_check" tabIndex={-1} autoComplete="new-password" data-lpignore="true" data-1p-ignore="true" defaultValue="" />
     </label>
   </div>
 );
@@ -35,7 +35,7 @@ function useEnquiry(build: (data: FormData) => EnquiryInput) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    if (data.get("website")) return; // bot
+    if (data.get("tc_hp_check")) return; // bot
     setSending(true);
     try {
       await sendEnquiry(build(data));

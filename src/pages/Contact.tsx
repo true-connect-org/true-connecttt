@@ -59,7 +59,7 @@ const ContactUs = () => {
     e.preventDefault();
     const form = e.currentTarget;
     const d = new FormData(form);
-    if (d.get("website")) return; // honeypot
+    if (d.get("tc_hp_check")) return; // honeypot
     setSending(true);
     setFailed(false);
     try {
@@ -144,7 +144,7 @@ const ContactUs = () => {
                   <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                     <label>
                       Leave this empty
-                      <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                      <input type="text" name="tc_hp_check" tabIndex={-1} autoComplete="new-password" data-lpignore="true" data-1p-ignore="true" defaultValue="" />
                     </label>
                   </div>
 
