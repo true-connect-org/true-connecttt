@@ -5,7 +5,6 @@ import {
   Layers,
   BadgeCheck,
   Code2,
-  Check,
   Eye,
   Target,
 } from "lucide-react";
@@ -108,22 +107,23 @@ const AboutUs = () => {
           <div className="animate-on-scroll max-w-3xl mx-auto text-center mb-10 md:mb-14">
             <span className={eyebrow}>{about.strengths.label.toUpperCase()}</span>
             <h2 className={`${h2} mb-5`}>{about.strengths.heading}</h2>
-            <p className="text-gray-500 text-base md:text-lg leading-relaxed">{about.strengths.intro}</p>
+            <p className="text-gray-500 text-[13px] sm:text-base md:text-lg leading-relaxed">{about.strengths.intro}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {/* One panel, three rows (stacked on phones, side by side on larger screens) */}
+          <div className="animate-on-scroll mx-auto grid max-w-5xl grid-cols-1 divide-y divide-gray-100 overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white shadow-sm md:grid-cols-3 md:divide-x md:divide-y-0 md:rounded-[1.75rem]">
             {about.strengths.items.map((item, i) => {
               const Icon = strengthIcons[i];
               return (
-                <div key={item.title} className="animate-on-scroll card-lift flex flex-col rounded-[1.5rem] border border-gray-100 bg-white p-7 shadow-sm">
-                  <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-[#0b1f3f] text-white shadow-md">
-                    <Icon size={19} strokeWidth={1.75} />
-                  </span>
-                  <h3 className="text-lg leading-snug text-[#0b1f3f]">{item.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-500">{item.text}</p>
-                  <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-xs font-semibold text-[#0b1f3f]">
-                    <Check size={12} strokeWidth={3} /> {item.highlight}
-                  </span>
+                <div key={item.title} className="group p-5 transition-colors duration-300 hover:bg-[#f9fafb] md:p-8">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b1f3f] text-white transition-colors duration-300 group-hover:bg-[#E6E84A] group-hover:text-[#0b1f3f]">
+                      <Icon size={18} strokeWidth={1.75} />
+                    </span>
+                    <h3 className="text-base leading-snug text-[#0b1f3f] md:text-lg">{item.title}</h3>
+                  </div>
+                  <p className="mt-3 text-[13px] leading-relaxed text-gray-500 md:text-sm">{item.text}</p>
+                  <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0b1f3f]/60 md:mt-4">{item.highlight}</p>
                 </div>
               );
             })}
@@ -134,7 +134,7 @@ const AboutUs = () => {
       {/* 5. OUR STORY: dark band with a connected timeline */}
       <section className="py-14 md:py-20 bg-white">
         <div className={wrap}>
-          <div className="animate-on-scroll relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black px-6 py-12 text-white sm:px-10 md:px-16 md:py-20">
+          <div className="animate-on-scroll relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] px-6 py-12 text-white sm:px-10 md:px-16 md:py-20">
             <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#1a4480]/30 blur-3xl" />
             <div className="relative mx-auto mb-12 max-w-3xl text-center md:mb-16">
               <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.25em] text-white/55">OUR JOURNEY</span>
@@ -175,7 +175,7 @@ const AboutUs = () => {
             ))}
           </ol>
 
-          <div className="animate-on-scroll relative mt-6 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black px-6 py-10 text-center text-white md:mt-8 md:rounded-[2.5rem] md:px-12 md:py-14">
+          <div className="animate-on-scroll relative mt-6 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] px-6 py-10 text-center text-white md:mt-8 md:rounded-[2.5rem] md:px-12 md:py-14">
             <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#1a4480]/30 blur-3xl" />
             <h3 className="relative mx-auto max-w-2xl text-xl leading-snug md:text-3xl">{about.process.closing.heading}</h3>
             <p className="relative mx-auto mt-3 max-w-2xl text-[13px] leading-relaxed text-white/70 md:text-base">{about.process.closing.text}</p>
@@ -195,7 +195,7 @@ const AboutUs = () => {
       {/* 8. CLOSING CONTACT */}
       <section className="pb-14 md:pb-20 bg-white">
         <div className="container-tc">
-          <div className="animate-on-scroll relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black px-6 py-12 text-center text-white md:rounded-[2.5rem] md:px-12 md:py-16">
+          <div className="animate-on-scroll relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] px-6 py-12 text-center text-white md:rounded-[2.5rem] md:px-12 md:py-16">
             <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#1a4480]/35 blur-3xl" />
             <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[#1a4480]/25 blur-3xl" />
             <div className="relative mx-auto max-w-2xl">

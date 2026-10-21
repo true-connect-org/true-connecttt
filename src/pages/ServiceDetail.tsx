@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { gsap } from "@/animations/gsap.config";
-import { ArrowUpRight, ArrowRight, Check, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
+import PageBanner from "@/components/site/PageBanner";
 import { isPrerender } from "@/lib/env";
 import { useSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -9,8 +11,8 @@ import { SITE_URL, services, whatsappHref } from "@/content/site";
 import { serviceVisuals } from "@/components/site/serviceVisuals";
 import NotFound from "./NotFound";
 
-const eyebrow = "text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block";
-const h2 = "text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight";
+const eyebrow = "text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400 mb-3 block";
+const h2 = "text-2xl md:text-4xl font-medium text-[#0b1f3f] tracking-tight";
 
 const ServiceDetail = () => {
   const { slug = "" } = useParams();
@@ -44,9 +46,7 @@ const ServiceDetail = () => {
   useEffect(() => {
     if (isPrerender || !service) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.1 });
-      tl.fromTo(".sd-hero-el", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power3.out" });
-      gsap.utils.toArray<HTMLElement>(".sd-scroll").forEach((el) => {
+            gsap.utils.toArray<HTMLElement>(".sd-scroll").forEach((el) => {
         gsap.fromTo(el, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" } });
       });
     }, containerRef);
@@ -62,161 +62,151 @@ const ServiceDetail = () => {
   const others = services.filter((s) => s.id !== service.id);
 
   return (
-    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pt-28 md:pt-36 pb-0 overflow-x-hidden">
-      {/* Hero */}
-      <section className="container-tc mb-10 md:mb-14">
-        <nav aria-label="Breadcrumb" className="sd-hero-el flex items-center gap-1.5 text-xs text-gray-400 mb-8">
-          <Link to="/" className="hover:text-[#0b1f3f]">Home</Link>
-          <ChevronRight size={12} />
-          <Link to="/services" className="hover:text-[#0b1f3f]">Services</Link>
-          <ChevronRight size={12} />
-          <span className="text-gray-600">{service.title}</span>
-        </nav>
-
-        <div className="max-w-4xl">
-          <div className="sd-hero-el flex items-center gap-3 mb-6">
-            <div className="w-11 h-11 rounded-full bg-[#0b1f3f] text-white flex items-center justify-center shadow-md">
-              <Icon size={20} strokeWidth={1.75} />
-            </div>
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">OUR SERVICES</span>
+    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-hidden">
+      {/* 1. BANNER: same navy hero as the other pages, with the service illustration */}
+      <PageBanner
+        title={service.title}
+        sub={service.short}
+        crumbs={[{ label: "Home", to: "/" }, { label: "Services", to: "/services" }, { label: service.title }]}
+        visual={
+          <div className="w-full max-w-[420px] overflow-hidden rounded-[1.5rem] border border-white/15 shadow-2xl">
+            <img src={image(800)} srcSet={`${image(800)} 800w, ${image(1600)} 1600w`} sizes="420px" alt={`${service.title} by True Connect`} className="h-[260px] w-full object-cover" />
           </div>
-          <h1 className="sd-hero-el text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[#2d2a26] leading-[1.1] mb-6">{service.title}</h1>
-          <p className="sd-hero-el text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed mb-10">{service.short}</p>
-          <div className="sd-hero-el flex flex-wrap items-center gap-4">
-            <Link to="/contact" className="bg-[#0b1f3f] hover:bg-[#122a52] text-white font-semibold text-sm px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2">
-              Start a project <ArrowUpRight size={16} />
-            </Link>
-            <a
-              href={whatsappHref(`Hi True Connect, I would like to know more about ${service.title}.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300"
-            >
-              WhatsApp us
-            </a>
-          </div>
-        </div>
-      </section>
+        }
+      >
+        <Link to="/contact#contact-form" className="inline-flex items-center gap-2 rounded-full bg-tc-yellow px-6 py-3 text-sm font-semibold text-tc-navy transition-colors hover:bg-white">
+          Start a project <ArrowUpRight size={15} />
+        </Link>
+        <a
+          href={whatsappHref(`Hi True Connect, I would like to know more about ${service.title}.`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-tc-navy"
+        >
+          <FaWhatsapp size={16} /> WhatsApp us
+        </a>
+      </PageBanner>
 
-      {/* Image banner */}
-      <section className="sd-scroll container-tc mb-12 md:mb-16">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="w-full h-[240px] sm:h-[340px] md:h-[440px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl relative bg-[#0b1f3f]">
-            <img src={image(1600)} alt={`${service.title} in Trivandrum`} className="w-full h-full object-cover opacity-90" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f3f]/50 via-transparent to-transparent" />
-          </div>
-        </div>
-      </section>
-
-      {/* Overview + includes */}
-      <section className="container-tc mb-12 md:mb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      {/* 2. OVERVIEW + WHAT'S INCLUDED */}
+      <section className="py-14 md:py-20">
+        <div className="container-tc grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="sd-scroll lg:col-span-7">
             <span className={eyebrow}>OVERVIEW</span>
-            <div className="space-y-5 text-gray-600 text-base md:text-lg leading-relaxed">
+            <h2 className={`${h2} mb-5`}>Why it matters</h2>
+            <div className="space-y-4 text-[15px] leading-relaxed text-gray-600 md:text-base">
               {d.intro.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
           </div>
-          <aside className="sd-scroll lg:col-span-5 bg-[#0b1f3f] text-white rounded-[2rem] p-8 md:p-10">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 mb-5 block">WHAT'S INCLUDED</span>
-            <ul className="space-y-3">
-              {service.includes.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm md:text-base text-white/85">
-                  <span className="mt-1 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                    <Check size={11} strokeWidth={3} />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <aside className="sd-scroll relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f3f] to-[#153460] p-7 text-white shadow-[0_30px_60px_-30px_rgba(11,31,63,0.6)] md:p-9 lg:col-span-5">
+            <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/5 blur-3xl" />
+            <div className="relative">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E6E84A] text-[#0b1f3f]">
+                  <Icon size={18} strokeWidth={1.75} />
+                </span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">What's included</span>
+              </div>
+              <ul className="divide-y divide-white/10">
+                {service.includes.map((item) => (
+                  <li key={item} className="flex items-start gap-3 py-3 text-sm text-white/90 md:text-[15px]">
+                    <Check size={16} strokeWidth={2.5} className="mt-0.5 shrink-0 text-[#E6E84A]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </aside>
         </div>
       </section>
 
-      {/* Story */}
+      {/* 3. STORY (optional) */}
       {d.story && (
-        <section className="sd-scroll container-tc mb-12 md:mb-16">
-          <div className="max-w-[1400px] mx-auto bg-[#0b1f3f] rounded-[1.75rem] md:rounded-[2.5rem] p-6 sm:p-10 md:p-16 relative overflow-hidden">
-            <div className="absolute top-[-30%] right-[-10%] w-[50%] h-[80%] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
-            <div className="relative z-10 max-w-3xl">
-              <span className="text-white/50 text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] mb-4 block">{d.story.label.toUpperCase()}</span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.15] mb-6 md:mb-8">{d.story.heading}</h2>
-              <div className="space-y-4 text-white/75 text-sm sm:text-base md:text-lg leading-relaxed">
-                {d.story.paragraphs.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
+        <section className="sd-scroll pb-14 md:pb-20">
+          <div className="container-tc">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] p-7 text-white sm:p-10 md:rounded-[2.5rem] md:p-14">
+              <div aria-hidden className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-[#1a4480]/35 blur-3xl" />
+              <div className="relative max-w-3xl">
+                <span className="mb-3 block text-[11px] font-bold uppercase tracking-[0.25em] text-[#E6E84A]">{d.story.label}</span>
+                <h2 className="mb-5 text-2xl font-medium leading-[1.2] tracking-tight md:text-4xl">{d.story.heading}</h2>
+                <div className="space-y-4 text-sm leading-relaxed text-white/75 md:text-base">
+                  {d.story.paragraphs.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Deliverables */}
-      <section className="bg-gray-50/50 py-12 md:py-16 border-y border-gray-100 mb-12 md:mb-16">
+      {/* 4. DELIVERABLES */}
+      <section className="bg-[#f6f7f9] py-14 md:py-20">
         <div className="container-tc">
-          <div className="sd-scroll max-w-3xl mb-10 md:mb-12">
+          <div className="sd-scroll mx-auto mb-10 max-w-2xl text-center md:mb-12">
             <span className={eyebrow}>WHAT YOU GET</span>
             <h2 className={h2}>How we help</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
             {d.deliverables.map((item, i) => (
-              <div key={item.title} className="sd-scroll bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <span className="text-xs font-bold tracking-[0.2em] text-gray-400 block mb-5">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="text-lg font-semibold text-[#2d2a26] mb-3">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.text}</p>
+              <div key={item.title} className="sd-scroll group card-lift relative overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white p-6 shadow-sm md:p-7">
+                <span aria-hidden className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-[#E6E84A] transition-transform duration-500 group-hover:scale-x-100" />
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0b1f3f] text-xs font-bold text-white transition-colors duration-300 group-hover:bg-[#E6E84A] group-hover:text-[#0b1f3f]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-base leading-snug text-[#0b1f3f] md:text-lg">{item.title}</h3>
+                </div>
+                <p className="text-sm leading-relaxed text-gray-500">{item.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Approach */}
-      <section className="container-tc mb-12 md:mb-16">
-        <div className="sd-scroll max-w-3xl mb-10 md:mb-14">
-          <span className={eyebrow}>HOW WE WORK</span>
-          <h2 className={h2}>Our approach</h2>
-        </div>
-        <div className="sd-scroll relative">
-          <div className="lg:hidden absolute top-[28px] bottom-[28px] left-[27px] w-[2px] bg-gray-200 z-0" />
-          <div className="hidden lg:block absolute top-[28px] left-[8%] right-[8%] h-[2px] bg-gray-200 z-0" />
-          <div className="flex flex-col lg:grid lg:grid-cols-4 gap-8 md:gap-10 relative z-10">
-            {d.approach.map((step, i) => (
-              <div key={step.title} className="flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center gap-5 lg:gap-0">
-                <div className="w-14 h-14 rounded-full bg-[#0b1f3f] text-white flex items-center justify-center shadow-lg lg:mb-6 border-4 border-white shrink-0 z-10 font-bold">
-                  {i + 1}
-                </div>
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold text-[#2d2a26] mb-1.5">{step.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed lg:max-w-[220px]">{step.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Other services */}
-      <section className="py-12 md:py-16 bg-gray-50/50 border-t border-gray-100">
+      {/* 5. APPROACH */}
+      <section className="py-14 md:py-20">
         <div className="container-tc">
-          <div className="sd-scroll max-w-3xl mb-8 md:mb-10">
+          <div className="sd-scroll mx-auto mb-10 max-w-2xl text-center md:mb-14">
+            <span className={eyebrow}>HOW WE WORK</span>
+            <h2 className={h2}>Our approach</h2>
+          </div>
+          <ol className="sd-scroll grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
+            {d.approach.map((step, i) => (
+              <li key={step.title} className="relative rounded-[1.5rem] border border-gray-100 bg-white p-6 shadow-sm">
+                <span className="text-4xl font-extrabold leading-none text-[#0b1f3f]/10">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mt-4 text-base text-[#0b1f3f] md:text-lg">{step.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-gray-500">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 6. OTHER SERVICES: image cards, like the home page */}
+      <section className="bg-[#f6f7f9] py-14 md:py-20">
+        <div className="container-tc">
+          <div className="sd-scroll mx-auto mb-10 max-w-2xl text-center">
             <span className={eyebrow}>MORE SERVICES</span>
             <h2 className={h2}>Explore what else we do</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
             {others.map((o) => {
-              const OIcon = serviceVisuals[o.id].icon;
+              const v = serviceVisuals[o.id];
               return (
-                <Link key={o.id} to={o.to} className="sd-scroll group bg-white border border-gray-200/60 hover:border-gray-300 p-6 rounded-[1.25rem] transition-all duration-300 hover:shadow-md flex flex-col">
-                  <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-200/80 flex items-center justify-center text-gray-700 mb-5 group-hover:scale-110 transition-transform">
-                    <OIcon size={18} strokeWidth={1.5} />
+                <Link key={o.id} to={o.to} className="sd-scroll group card-lift-dark relative flex h-[220px] flex-col justify-end overflow-hidden rounded-[1.5rem] p-6 text-white">
+                  <img src={v.image(800)} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
+                  <div className="relative flex items-end justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">{o.label}</p>
+                      <h3 className="mt-1 text-xl leading-tight text-white">{o.title}</h3>
+                    </div>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 backdrop-blur-md transition-colors group-hover:bg-white group-hover:text-[#0b1f3f]">
+                      <ArrowUpRight size={15} />
+                    </span>
                   </div>
-                  <h3 className="text-base font-semibold text-[#2d2a26] mb-2">{o.title}</h3>
-                  <p className="text-gray-400 text-xs leading-relaxed flex-1">{o.short}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#0b1f3f]">
-                    Learn more <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                  </span>
                 </Link>
               );
             })}
@@ -224,26 +214,26 @@ const ServiceDetail = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-gray-100">
-        <div className="container-tc py-14 md:py-20 sd-scroll">
-          <div className="max-w-3xl mx-auto text-center">
-          <h2 className={`${h2} mb-6`}>{d.cta}</h2>
-          <p className="text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed mb-8">
-            Tell us where you are today and where you want to be. Our team will come back with clear next steps.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/contact"
-              className="border-2 border-tc-navy hover:border-tc-deepblue bg-white hover:bg-tc-navy text-tc-navy hover:text-white font-bold text-xs tracking-[0.2em] uppercase px-10 py-5 rounded-full shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-105"
-            >
-              START A PROJECT
-            </Link>
-            <Link to="/services" className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold text-sm px-8 py-4 rounded-full transition-all duration-300">
-              All services
-            </Link>
+      {/* 7. CTA */}
+      <section className="py-14 md:py-20">
+        <div className="container-tc">
+          <div className="sd-scroll relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] px-6 py-12 text-center text-white md:rounded-[2.5rem] md:px-12 md:py-16">
+            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#1a4480]/35 blur-3xl" />
+            <div className="relative mx-auto max-w-2xl">
+              <h2 className="text-balance text-2xl font-medium leading-[1.2] tracking-tight md:text-4xl">{d.cta}</h2>
+              <p className="mx-auto mt-4 max-w-xl text-[13px] leading-relaxed text-white/70 sm:text-base">
+                Tell us where you are today and where you want to be. Our team will come back with clear next steps.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <Link to="/contact#contact-form" className="inline-flex items-center gap-2 rounded-full bg-tc-yellow px-7 py-3.5 text-sm font-semibold text-tc-navy transition-colors hover:bg-white">
+                  Start a project <ArrowUpRight size={15} />
+                </Link>
+                <Link to="/services" className="inline-flex items-center rounded-full border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-tc-navy">
+                  All services
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
         </div>
       </section>
     </div>

@@ -48,7 +48,7 @@ const HomeEnquiry = () => {
   return (
     <section id="enquiry" className="py-12 md:py-20 bg-white scroll-mt-20">
       <div className="container-tc">
-        <div className="home-fade relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black border border-white/10">
+        <div className="home-fade relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] border border-white/10">
           <div className="absolute top-[-25%] left-[-10%] w-[55%] h-[70%] bg-[#0b1f3f]/70 blur-[110px] rounded-full pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 p-7 sm:p-10 md:p-14">

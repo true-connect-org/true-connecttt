@@ -73,33 +73,37 @@ const Insights = () => {
               {/* Featured article */}
               <Link
                 to={`/insights/${featured.slug}`}
-                className="group card-lift mb-6 md:mb-8 grid grid-cols-1 overflow-hidden rounded-[1.75rem] border border-gray-100 bg-white shadow-sm lg:grid-cols-2"
+                className="group card-lift mb-6 grid grid-cols-1 overflow-hidden rounded-[1.75rem] border border-gray-100 bg-white shadow-sm md:mb-8 lg:grid-cols-2"
               >
                 <PostCover brand={featured.brand} category={featured.category} large />
                 <div className="flex flex-col justify-center p-7 md:p-10">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-400">Latest article</span>
-                  <h2 className="mt-3 text-2xl md:text-[1.75rem] leading-snug text-[#0b1f3f] tracking-tight">{featured.title}</h2>
-                  <p className="mt-3 text-sm md:text-base leading-relaxed text-gray-500">{featured.summary}</p>
-                  <div className="mt-6 flex items-center justify-between text-xs text-gray-400">
-                    <span>{formatDate(featured.date)}{featured.readTime ? ` · ${featured.readTime}` : ""}</span>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0b1f3f]">
-                      Read article <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
-                  </div>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-400">
+                    Latest · {formatDate(featured.date)}{featured.readTime ? ` · ${featured.readTime}` : ""}
+                  </span>
+                  <h2 className="mt-3 text-2xl leading-snug tracking-tight text-[#0b1f3f] md:text-[1.6rem]">{featured.title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-500 md:text-base">{featured.summary}</p>
+                  <span className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-[#0b1f3f] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 group-hover:bg-tc-yellow group-hover:text-tc-navy">
+                    Read article <ArrowUpRight size={15} />
+                  </span>
                 </div>
               </Link>
 
               {rest.length > 0 && (
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
                   {rest.map((p) => (
-                    <Link key={p.slug} to={`/insights/${p.slug}`} className="group card-lift flex flex-col overflow-hidden rounded-[1.75rem] border border-gray-100 bg-white shadow-sm">
+                    <Link key={p.slug} to={`/insights/${p.slug}`} className="group card-lift flex flex-col overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white shadow-sm">
                       <PostCover brand={p.brand} category={p.category} />
-                      <div className="flex flex-1 flex-col p-6 md:p-7">
-                        <h3 className="text-lg leading-snug text-[#0b1f3f]">{p.title}</h3>
-                        <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-500">{p.summary}</p>
-                        <div className="mt-5 flex items-center justify-between text-xs text-gray-400">
-                          <span>{formatDate(p.date)}{p.readTime ? ` · ${p.readTime}` : ""}</span>
-                          <ArrowUpRight size={16} className="text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0b1f3f]" />
+                      <div className="flex flex-1 flex-col p-6">
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">
+                          {formatDate(p.date)}{p.readTime ? ` · ${p.readTime}` : ""}
+                        </span>
+                        <h3 className="mt-2 line-clamp-2 text-lg leading-snug text-[#0b1f3f]">{p.title}</h3>
+                        <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-gray-500">{p.summary}</p>
+                        <div className="mt-5 flex items-center justify-between border-t border-gray-100 pt-4">
+                          <span className="text-sm font-semibold text-[#0b1f3f]">Read article</span>
+                          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-[#0b1f3f] transition-all duration-300 group-hover:border-[#0b1f3f] group-hover:bg-[#0b1f3f] group-hover:text-white">
+                            <ArrowUpRight size={15} />
+                          </span>
                         </div>
                       </div>
                     </Link>
@@ -114,8 +118,8 @@ const Insights = () => {
       {/* Call to action */}
       <section className="py-14 md:py-20 bg-white">
         <div className="container-tc">
-          <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black p-8 text-center text-white sm:p-12 md:p-16">
-            <h2 className="mx-auto max-w-2xl text-2xl md:text-4xl leading-tight tracking-tight">Want a campaign like these for your business?</h2>
+          <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] p-8 text-center text-white sm:p-12 md:p-16">
+            <h2 className="mx-auto max-w-2xl text-2xl md:text-3xl leading-tight tracking-tight">Want a campaign like these for your business?</h2>
             <p className="mx-auto mt-4 max-w-xl text-[13px] sm:text-base leading-relaxed text-white/70">Tell us your goal. Our team will come back with clear next steps.</p>
             <Link to="/contact" className="mt-8 inline-flex items-center justify-center rounded-full bg-tc-yellow px-8 py-3.5 text-sm font-semibold text-tc-navy transition-colors hover:bg-white">
               Start a project

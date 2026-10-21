@@ -85,7 +85,7 @@ const WaveHero: React.FC = () => {
     <section
       ref={sectionRef}
       data-no-reveal
-      className="relative w-full min-h-[100svh] bg-white p-1.5 sm:p-2.5 md:p-3 flex items-center justify-center overflow-hidden font-satoshi"
+      className="relative w-full min-h-[100svh] bg-white p-1.5 sm:p-2.5 md:p-4 flex items-center justify-center overflow-hidden font-satoshi"
     >
       <div className="w-full max-w-[1560px] min-h-[calc(100svh-1.5rem)] rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative bg-gradient-to-br from-[#042d5b] via-[#0b1f3f] to-[#031126] border border-white/15 shadow-[0_25px_60px_rgba(4,45,91,0.35)] flex flex-col">
         <picture>
@@ -102,8 +102,8 @@ const WaveHero: React.FC = () => {
         </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f3f] via-[#0b1f3f]/85 via-45% to-transparent lg:bg-gradient-to-r lg:from-[#0b1f3f]/90 lg:via-[#0b1f3f]/30 lg:to-transparent pointer-events-none" />
         <div className="relative z-10 flex-1 flex flex-col justify-end lg:justify-center pt-24 sm:pt-32 pb-28 sm:pb-10">
-          {/* Phones get extra side space for breathing room; larger screens line up with the navbar edge */}
-          <div className="container-tc !px-[1.6rem] sm:!px-[1.3rem] md:!px-[1.2rem] lg:!px-[1.65rem] min-[1200px]:!px-10">
+          {/* Text starts from the left of the hero card (not the centred content column), like an editorial hero */}
+          <div className="w-full px-[1.6rem] sm:px-10 md:px-12 lg:px-16 xl:px-20">
             <div className="max-w-xl pr-2 sm:pr-0 lg:max-w-3xl">
               <p className="hero-eyebrow text-xs sm:text-sm font-medium tracking-[0.18em] text-white/70 mb-4">
                 {hero.eyebrow}

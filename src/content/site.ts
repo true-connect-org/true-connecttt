@@ -46,6 +46,15 @@ export const business = {
 
 };
 
+/** Registered office (shown on the Contact page). */
+export const registeredOffice = {
+  name: "True Connect Ltd, Varkala",
+  address: "True Connect Ltd, Co-Operative Service Bank Building, P.O, Varkala, Kerala 695312",
+  phoneDisplay: "+91 79076 85595",
+  phoneTel: "+917907685595",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Co-Operative+Service+Bank+Building+Varkala+Kerala+695312",
+};
+
 export const fullAddress = `${business.address.line1}, ${business.address.line2}, ${business.address.locality}, ${business.address.region} ${business.address.postalCode}`;
 
 export const whatsappHref = (message: string = business.whatsappMessage) =>

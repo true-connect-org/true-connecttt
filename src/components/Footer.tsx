@@ -6,7 +6,7 @@ import { business, footer, fullAddress } from "@/content/site";
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-[#eae7e3] px-1.5 sm:px-2.5 md:px-3 pb-1.5 sm:pb-2.5 md:pb-3 pt-4 font-sans">
+    <footer className="bg-white text-[#eae7e3] px-1.5 sm:px-2.5 md:px-4 pb-1.5 sm:pb-2.5 md:pb-4 pt-4 font-sans">
       {/* Navy card: same size and shape as the landing page hero card. Content lines up with the navbar. */}
       <div className="max-w-[1560px] mx-auto bg-[#0B1F3F] rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/10 shadow-2xl py-12 md:py-16">
       <div className="container-tc">
@@ -55,12 +55,12 @@ const Footer = () => {
           <div className="lg:col-span-3 flex flex-col justify-between gap-6">
             <div>
               <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">CONTACT</h4>
-              <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold mb-6">{business.legalName.toUpperCase()}</p>
+              <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold mb-6">TRUE CONNECT TRIVANDRUM</p>
 
               <address className="not-italic space-y-4 text-xs text-gray-300 leading-relaxed">
                 <div className="flex items-start gap-3">
                   <MapPin size={16} className="text-gray-400 flex-shrink-0 mt-0.5" />
-                  <span>{fullAddress}</span>
+                  <span>{fullAddress.replace(/^True Connect Ltd,\s*/, "")}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={16} className="text-gray-400 flex-shrink-0" />

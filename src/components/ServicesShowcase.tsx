@@ -63,26 +63,37 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
           <h2 className="text-balance text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight mb-5 max-w-4xl">{headline ?? sec.headline}</h2>
           <p className="text-balance text-[13px] sm:text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">{sub ?? sec.sub}</p>
         </div>
+      </div>
 
-        {/* Row */}
-        {/* Overflow stays visible: the first card lines up with the navbar, the row runs on to the screen edge */}
+      {/* Arrow controls above the row, on the right (tablet and larger; on phones the row is swiped) */}
+      <div className="mb-5 hidden items-center justify-end gap-3 md:flex md:pr-16 lg:pr-20 xl:pr-24">
+        <button type="button" aria-label="Previous services" onClick={() => emblaApi?.scrollPrev()} disabled={!canPrev} className={arrow}>
+          <ArrowLeft size={18} />
+        </button>
+        <button type="button" aria-label="Next services" onClick={() => emblaApi?.scrollNext()} disabled={!canNext} className={arrow}>
+          <ArrowRight size={18} />
+        </button>
+      </div>
+
+      {/* Row: first card lines up with the hero heading (hero card edge + hero text padding) and runs on to the screen edge */}
+      <div className="pl-[1.975rem] sm:pl-[3.125rem] md:pl-16 lg:pl-20 xl:pl-24">
         <div className="embla overflow-visible" ref={emblaRef}>
-          <div className="embla__container flex gap-4 md:gap-6 cursor-grab active:cursor-grabbing select-none">
+          <div className="embla__container flex gap-3 md:gap-5 cursor-grab active:cursor-grabbing select-none">
             {homeServiceCards.map((s, i) => {
               const { icon: Icon, image, natural } = serviceVisuals[s.id];
               return (
-                <div key={s.id} className="embla__slide flex-[0_0_86%] sm:flex-[0_0_64%] md:flex-[0_0_52%] lg:flex-[0_0_46%] min-w-0">
+                <div key={s.id} className="embla__slide flex-[0_0_88%] sm:flex-[0_0_62%] md:flex-[0_0_52%] lg:flex-[0_0_43%] min-w-0">
                   <Link
                     to={s.to}
                     draggable={false}
                     aria-label={`${s.title}: open the service page`}
-                    className={`group relative w-full aspect-[4/3] md:aspect-auto md:h-[400px] rounded-[1.75rem] md:rounded-[2rem] overflow-hidden p-5 sm:p-8 md:p-10 flex flex-col justify-between ${gradients[i % gradients.length]} text-white card-lift-dark`}
+                    className={`group relative w-full aspect-[4/3] md:aspect-auto md:h-[440px] lg:h-[460px] rounded-[1.5rem] md:rounded-[1.75rem] overflow-hidden p-5 sm:p-8 md:p-10 flex flex-col justify-between ${gradients[i % gradients.length]} text-white card-lift-dark`}
                   >
                     {/* Photo: blurs on hover */}
                     <img
                       src={image(800)}
                       srcSet={`${image(800)} 800w, ${image(1600)} 1600w`}
-                      sizes="(min-width: 1024px) 46vw, (min-width: 768px) 52vw, 86vw"
+                      sizes="(min-width: 1024px) 43vw, (min-width: 768px) 52vw, 88vw"
                       alt={`${s.title} in Trivandrum`}
                       loading="lazy"
                       draggable={false}
@@ -105,7 +116,7 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
                       <p className="mb-2 md:mb-3 truncate whitespace-nowrap text-[9px] md:text-[11px] font-semibold uppercase tracking-[0.22em] md:tracking-[0.32em] text-white/70">{s.label}</p>
 
                       <div className="flex items-end justify-between gap-3">
-                        <h3 className="text-[1.6rem] sm:text-3xl md:text-[2.5rem] font-medium text-white leading-[1.1] tracking-tight transition-all duration-300 md:group-hover:mb-1">
+                        <h3 className="text-xl sm:text-2xl md:text-[1.85rem] font-medium text-white leading-[1.1] tracking-tight transition-all duration-300 md:group-hover:mb-1">
                           {s.title}
                         </h3>
                         {/* phones: small arrow beside the title, as in the reference */}
@@ -126,16 +137,6 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
               );
             })}
           </div>
-        </div>
-
-        {/* Arrow controls (tablet and larger; on phones the row is swiped) */}
-        <div className="mt-8 hidden md:flex items-center justify-end gap-3">
-          <button type="button" aria-label="Previous services" onClick={() => emblaApi?.scrollPrev()} disabled={!canPrev} className={arrow}>
-            <ArrowLeft size={18} />
-          </button>
-          <button type="button" aria-label="Next services" onClick={() => emblaApi?.scrollNext()} disabled={!canNext} className={arrow}>
-            <ArrowRight size={18} />
-          </button>
         </div>
       </div>
     </section>

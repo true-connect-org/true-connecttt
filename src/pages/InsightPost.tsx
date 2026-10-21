@@ -47,6 +47,7 @@ const InsightPost = () => {
   return (
     <div className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-hidden">
       <PageBanner
+        compact
         eyebrow={post.category}
         title={post.title}
         sub={post.summary}
@@ -60,7 +61,7 @@ const InsightPost = () => {
       <article className="py-14 md:py-20 bg-white">
         <div className="container-tc">
           <div className="mx-auto max-w-[760px]">
-            <div className="prose prose-base md:prose-lg max-w-none prose-headings:text-[#0b1f3f] prose-headings:tracking-tight prose-h2:mt-12 prose-h2:mb-4 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-[#0b1f3f] prose-a:text-[#0b1f3f]">
+            <div className="prose prose-sm sm:prose-base max-w-none prose-headings:text-[#0b1f3f] prose-headings:tracking-tight prose-h2:mt-10 prose-h2:mb-3 prose-h2:text-xl md:prose-h2:text-2xl prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-[#0b1f3f] prose-a:text-[#0b1f3f]">
               <Component />
             </div>
 
@@ -86,17 +87,20 @@ const InsightPost = () => {
           <div className="container-tc">
             <div className="mx-auto mb-10 max-w-3xl text-center">
               <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">KEEP READING</span>
-              <h2 className="text-3xl md:text-4xl tracking-tight text-[#2d2a26]">More from Insights</h2>
+              <h2 className="text-2xl md:text-3xl tracking-tight text-[#0b1f3f]">More from Insights</h2>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
               {related.map((p) => (
-                <Link key={p.slug} to={`/insights/${p.slug}`} className="group card-lift flex flex-col overflow-hidden rounded-[1.75rem] border border-gray-100 bg-white shadow-sm">
+                <Link key={p.slug} to={`/insights/${p.slug}`} className="group card-lift flex flex-col overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white shadow-sm">
                   <PostCover brand={p.brand} category={p.category} />
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="text-base leading-snug text-[#0b1f3f]">{p.title}</h3>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0b1f3f]">
-                      Read article <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
+                    <h3 className="line-clamp-2 flex-1 text-base leading-snug text-[#0b1f3f]">{p.title}</h3>
+                    <div className="mt-5 flex items-center justify-between border-t border-gray-100 pt-4">
+                      <span className="text-sm font-semibold text-[#0b1f3f]">Read article</span>
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-[#0b1f3f] transition-all duration-300 group-hover:border-[#0b1f3f] group-hover:bg-[#0b1f3f] group-hover:text-white">
+                        <ArrowUpRight size={15} />
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}
@@ -107,8 +111,8 @@ const InsightPost = () => {
 
       <section className="py-14 md:py-20 bg-white">
         <div className="container-tc">
-          <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black p-8 text-center text-white sm:p-12 md:p-16">
-            <h2 className="mx-auto max-w-2xl text-2xl md:text-4xl leading-tight tracking-tight">{insights.postCta.text}</h2>
+          <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] p-8 text-center text-white sm:p-12 md:p-16">
+            <h2 className="mx-auto max-w-2xl text-2xl md:text-3xl leading-tight tracking-tight">{insights.postCta.text}</h2>
             <Link to={insights.postCta.to} className="mt-8 inline-flex items-center justify-center rounded-full bg-tc-yellow px-8 py-3.5 text-sm font-semibold text-tc-navy transition-colors hover:bg-white">
               Start a project
             </Link>

@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigationType } from "react-router-dom";
 import { Suspense, lazy, useEffect } from "react";
 import Index from "./pages/Index";
 const Services = lazy(() => import("./pages/Services"));
@@ -24,19 +24,71 @@ import { registerGsapPlugins, ScrollTrigger } from "./animations/gsap.config";
 
 registerGsapPlugins();
 
-/** Scrolls to the top (or to the #anchor) on navigation, then refreshes ScrollTrigger. */
+/**
+ * Scroll handling between pages:
+ * - Back/forward (POP): return to where the visitor was on that page.
+ * - New navigation: go to the #anchor if there is one, otherwise the top.
+ * Positions are remembered per history entry in sessionStorage.
+ */
+const SCROLL_KEY = "tc-scroll-positions";
+const readPositions = (): Record<string, number> => {
+  try {
+    return JSON.parse(sessionStorage.getItem(SCROLL_KEY) || "{}");
+  } catch {
+    return {};
+  }
+};
+
 function ScrollRestorer() {
-  const { pathname, hash } = useLocation();
+  const location = useLocation();
+  const navType = useNavigationType();
+  const { pathname, hash, key } = location;
+
+  // Take over from the browser so it doesn't jump before our page has loaded
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+  }, []);
+
+  // Remember this page's scroll position while the visitor is on it
+  useEffect(() => {
+    const save = () => {
+      const positions = readPositions();
+      positions[key] = window.scrollY;
+      try {
+        sessionStorage.setItem(SCROLL_KEY, JSON.stringify(positions));
+      } catch {
+        /* storage unavailable: back navigation will start at the top */
+      }
+    };
+    window.addEventListener("scroll", save, { passive: true });
+    return () => window.removeEventListener("scroll", save);
+  }, [key]);
 
   useEffect(() => {
-    const id = window.setTimeout(() => {
-      const el = hash ? document.getElementById(hash.slice(1)) : null;
-      if (el) scrollToTarget(el);
-      else scrollToTarget(0, true);
+    const saved = navType === "POP" ? readPositions()[key] : undefined;
+    let tries = 0;
+    let timer: number;
+
+    const restore = () => {
+      if (saved !== undefined) {
+        // Pages load lazily: wait until the page is tall enough to reach the saved position
+        const reachable = document.documentElement.scrollHeight - window.innerHeight >= saved - 2;
+        if (!reachable && tries++ < 30) {
+          timer = window.setTimeout(restore, 100);
+          return;
+        }
+        scrollToTarget(saved, true);
+      } else {
+        const el = hash ? document.getElementById(hash.slice(1)) : null;
+        if (el) scrollToTarget(el);
+        else scrollToTarget(0, true);
+      }
       ScrollTrigger.refresh();
-    }, 100);
-    return () => window.clearTimeout(id);
-  }, [pathname, hash]);
+    };
+
+    timer = window.setTimeout(restore, 60);
+    return () => window.clearTimeout(timer);
+  }, [pathname, hash, key, navType]);
 
   return null;
 }

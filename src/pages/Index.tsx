@@ -163,17 +163,17 @@ const Index = () => {
 
     // Phones and tablets: vertical, from the first step circle to the last
     mm.add("(max-width: 1023px)", () => {
-      const box = track.getBoundingClientRect();
-      const centers = stops.map((el) => {
+      // Measured on every refresh (fonts, images or resizing can move the steps), so the line always ends at "100"
+      const centre = (el: HTMLElement) => {
+        const box = track.getBoundingClientRect();
         const r = el.getBoundingClientRect();
         return r.top - box.top + r.height / 2;
-      });
-      const first = centers[0];
-      const last = centers[centers.length - 1];
-      gsap.set(".z-dot", { opacity: 1, left: 28, top: first });
-      gsap.set(".z-fill", { height: 0, top: first });
-      gsap.to(".z-dot", { top: last, ease: "none", scrollTrigger: { ...trigger, onUpdate: (self) => setActive(self.progress) } });
-      gsap.to(".z-fill", { height: last - first, ease: "none", scrollTrigger: trigger });
+      };
+      const first = () => centre(stops[0]);
+      const last = () => centre(stops[stops.length - 1]);
+      const t = { ...trigger, invalidateOnRefresh: true };
+      gsap.fromTo(".z-dot", { opacity: 1, left: 28, top: first }, { top: last, ease: "none", scrollTrigger: { ...t, onUpdate: (self) => setActive(self.progress) } });
+      gsap.fromTo(".z-fill", { top: first, height: 0 }, { top: first, height: () => last() - first(), ease: "none", scrollTrigger: t });
     });
 
     return () => {
@@ -220,7 +220,7 @@ const Index = () => {
             </div>
 
             {/* Ring: six services around the True Connect hub. Labels sit outside the ring so nothing overlaps. */}
-            <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black px-0 py-12 shadow-[0_30px_60px_-30px_rgba(11,31,63,0.7)] sm:px-6 sm:py-14 md:rounded-[2.5rem]">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] px-0 py-12 shadow-[0_30px_60px_-30px_rgba(11,31,63,0.7)] sm:px-6 sm:py-14 md:rounded-[2.5rem]">
             <div aria-hidden className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[#1a4480]/35 blur-3xl" />
             <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[#1a4480]/25 blur-3xl" />
             <div className="relative mx-auto aspect-square w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[360px]">
@@ -362,7 +362,7 @@ const Index = () => {
                   <div
                     key={item.title}
                     className={`${i % 2 === 0 ? "bento-left" : "bento-right"} group card-lift-dark relative isolate h-[340px] sm:h-[380px] md:h-[430px] rounded-[2rem] overflow-hidden text-white shadow-2xl border border-white/10 ${
-                      navyCards ? "bg-gradient-to-b from-[#0a1a35] via-[#030a16] to-black" : "bg-black"
+                      navyCards ? "bg-gradient-to-b from-[#0b1f3f] via-[#0b1f3f] to-[#153460]" : "bg-black"
                     }`}
                   >
                     {/* The rotating video fills the card, so the object stays in the centre. Decorative; loads when near the screen. */}
@@ -401,7 +401,7 @@ const Index = () => {
             <Link
               to={home.connectivityStrip.link.to}
               aria-label={`${home.connectivityStrip.link.label}: open the page`}
-              className="group relative block overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0a1a35] via-[#030a16] to-black p-6 text-white md:p-9"
+              className="group relative block overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] p-6 text-white md:p-9"
             >
               <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#1a4480]/30 blur-3xl" />
               <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
