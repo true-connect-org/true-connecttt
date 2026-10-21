@@ -25,7 +25,7 @@ export async function sendEnquiry(input: EnquiryInput): Promise<void> {
     .filter(([, v]) => v && v.trim())
     .map(([k, v]) => `${k}: ${v}`);
 
-  const body = [`[${input.formType}]`, input.message?.trim(), ...extraLines]
+  const body = [input.message?.trim() || "(no message)", ...extraLines]
     .filter(Boolean)
     .join("\n");
 
@@ -34,8 +34,9 @@ export async function sendEnquiry(input: EnquiryInput): Promise<void> {
     TEMPLATE_ID,
     {
       from_name: input.name,
+      name: input.name, // alias used in the template subject / From Name
       from_email: input.email?.trim() || "not provided",
-      company: input.company?.trim() || "—",
+      email: input.email?.trim() || "", // alias used for Reply-To
       mobile: input.phone,
       project_type: input.needs?.length ? input.needs.join(", ") : input.formType,
       budget_range: input.budget || "—",

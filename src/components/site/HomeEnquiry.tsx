@@ -12,6 +12,7 @@ const label = "block text-[11px] font-bold uppercase tracking-[0.18em] text-gray
 /** Home page contact section: brand-navy panel with details, and an enquiry form that sends via EmailJS. */
 const HomeEnquiry = () => {
   const [sending, setSending] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [doneName, setDoneName] = useState<string | null>(null);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -20,6 +21,7 @@ const HomeEnquiry = () => {
     const d = new FormData(form);
     if (d.get("website")) return; // honeypot
     setSending(true);
+    setFailed(false);
     try {
       await sendEnquiry({
         formType: "Contact",
@@ -33,6 +35,7 @@ const HomeEnquiry = () => {
       form.reset();
     } catch (err) {
       console.error("Enquiry failed", err);
+      setFailed(true);
       toast.error("Could not send your enquiry. Please try again or message us on WhatsApp.");
     } finally {
       setSending(false);
@@ -141,6 +144,12 @@ const HomeEnquiry = () => {
                       <textarea id="hq-message" name="message" rows={3} placeholder="Tell us about your business and goals" className={`${field} resize-none`} />
                     </div>
 
+                    {failed && (
+                      <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        Your enquiry could not be sent. Please try again, or{" "}
+                        <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className="font-semibold underline">message us on WhatsApp</a>.
+                      </p>
+                    )}
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 pt-1">
                       <button
                         type="submit"

@@ -19,6 +19,7 @@ const labelClass = "block text-[11px] font-bold uppercase tracking-[0.18em] text
 const ContactUs = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sending, setSending] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [doneName, setDoneName] = useState<string | null>(null);
 
   useSeo({
@@ -60,11 +61,13 @@ const ContactUs = () => {
     const d = new FormData(form);
     if (d.get("website")) return; // honeypot
     setSending(true);
+    setFailed(false);
     try {
       await sendEnquiry({
         formType: "Contact",
         name: String(d.get("name")),
         phone: String(d.get("phone")),
+        email: String(d.get("email") || ""),
         needs: d.get("service") ? [String(d.get("service"))] : [],
         message: String(d.get("message") || ""),
       });
@@ -72,6 +75,7 @@ const ContactUs = () => {
       form.reset();
     } catch (err) {
       console.error("Enquiry failed", err);
+      setFailed(true);
       toast.error("Could not send your enquiry. Please try again or message us on WhatsApp.");
     } finally {
       setSending(false);
@@ -155,6 +159,11 @@ const ContactUs = () => {
                     </div>
                   </div>
 
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="ct-email" className={labelClass}>Email</label>
+                    <input id="ct-email" type="email" name="email" autoComplete="email" placeholder="you@company.com" className={inputClass} />
+                  </div>
                   <div>
                     <label htmlFor="ct-service" className={labelClass}>I need help with</label>
                     <select id="ct-service" name="service" defaultValue="" className={`${inputClass} cursor-pointer text-gray-700`}>
@@ -164,12 +173,19 @@ const ContactUs = () => {
                       ))}
                     </select>
                   </div>
+                  </div>
 
                   <div>
                     <label htmlFor="ct-message" className={labelClass}>Message</label>
                     <textarea id="ct-message" name="message" rows={4} placeholder="Tell us about your business and what you want to achieve" className={`${inputClass} resize-none`} />
                   </div>
 
+                  {failed && (
+                    <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                      Your enquiry could not be sent. Please try again, or{" "}
+                      <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className="font-semibold underline">message us on WhatsApp</a>.
+                    </p>
+                  )}
                   <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:gap-5">
                     <button
                       type="submit"
