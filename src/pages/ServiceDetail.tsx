@@ -11,7 +11,7 @@ import { SITE_URL, services, whatsappHref } from "@/content/site";
 import { serviceVisuals } from "@/components/site/serviceVisuals";
 import NotFound from "./NotFound";
 
-const eyebrow = "text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400 mb-3 block";
+const eyebrow = "text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-500 mb-3 block";
 const h2 = "text-2xl md:text-4xl font-medium text-[#0b1f3f] tracking-tight";
 
 const ServiceDetail = () => {
@@ -70,7 +70,7 @@ const ServiceDetail = () => {
         crumbs={[{ label: "Home", to: "/" }, { label: "Services", to: "/services" }, { label: service.title }]}
         visual={
           <div className="w-full max-w-[420px] overflow-hidden rounded-[1.5rem] border border-white/15 shadow-2xl">
-            <img src={image(800)} srcSet={`${image(800)} 800w, ${image(1600)} 1600w`} sizes="420px" alt={`${service.title} by True Connect`} className="h-[260px] w-full object-cover" />
+            <img src={image(800)} srcSet={`${image(800)} 800w, ${image(1600)} 1600w`} sizes="420px" alt={serviceVisuals[service.id].alt} className="h-[260px] w-full object-cover" />
           </div>
         }
       >
@@ -196,7 +196,7 @@ const ServiceDetail = () => {
               const v = serviceVisuals[o.id];
               return (
                 <Link key={o.id} to={o.to} className="sd-scroll group card-lift-dark relative flex h-[220px] flex-col justify-end overflow-hidden rounded-[1.5rem] p-6 text-white">
-                  <img src={v.image(800)} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={v.image(800)} alt={v.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
                   <div className="relative flex items-end justify-between gap-3">
                     <div>

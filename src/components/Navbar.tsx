@@ -50,7 +50,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-3 md:top-6 left-0 w-full z-50 flex justify-center px-5 sm:px-8 lg:px-10 pointer-events-none transition-all duration-500 ease-in-out transform ${
+        className={`fixed top-5 md:top-6 left-0 w-full z-50 flex justify-center px-6 sm:px-8 lg:px-10 pointer-events-none transition-all duration-500 ease-in-out transform ${
           show ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
         }`}
       >
@@ -58,7 +58,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center group px-1 flex-shrink-0" aria-label="True Connect home">
             <img
               src={logo}
-              alt="True Connect"
+              alt="True Connect logo"
               width={120}
               height={32}
               className="h-6 sm:h-7 md:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
@@ -108,11 +108,14 @@ const Navbar = () => {
       </header>
 
       {isOpen && (
-        <div data-lenis-prevent className="fixed inset-0 bg-[#0b1f3f] z-[999] px-6 pt-24 pb-12 flex flex-col overflow-y-auto animate-in fade-in duration-300">
+        <div data-lenis-prevent className="fixed inset-0 bg-[#0b1f3f] z-[999] px-6 pt-28 pb-12 flex flex-col overflow-y-auto animate-in fade-in duration-300">
+          <Link to="/" onClick={() => setIsOpen(false)} className="absolute left-10 top-9 flex h-10 items-center" aria-label="True Connect home">
+            <img src={logo} alt="True Connect logo" width={120} height={32} className="h-8 w-auto object-contain" />
+          </Link>
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close menu"
-            className="absolute top-5 right-6 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/20"
+            className="absolute top-9 right-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/20"
           >
             <X className="w-5 h-5" />
           </button>
@@ -137,7 +140,7 @@ const Navbar = () => {
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#16305c] ring-1 ring-white/20"><Phone className="h-4 w-4" /></span>
                 <span className="text-base font-semibold">{business.phoneDisplay}</span>
               </a>
-              <a href={`mailto:${business.email}`} className="flex items-center gap-3 text-white/90 hover:text-[#E6E84A]">
+              <a href={business.emailHref} className="flex items-center gap-3 text-white/90 hover:text-[#E6E84A]">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#16305c] ring-1 ring-white/20"><Mail className="h-4 w-4" /></span>
                 <span className="break-all text-base font-semibold">{business.email}</span>
               </a>

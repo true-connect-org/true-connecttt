@@ -44,7 +44,7 @@ const HomeEnquiry = () => {
 
   const details = [
     { icon: Phone, label: "Call us", value: business.phoneDisplay, href: `tel:${business.phoneTel}` },
-    { icon: Mail, label: "Email", value: business.email, href: `mailto:${business.email}` },
+    { icon: Mail, label: "Email", value: business.email, href: business.emailHref },
     { icon: Clock, label: "Office hours", value: business.hoursDisplay },
   ];
 
@@ -158,7 +158,7 @@ const HomeEnquiry = () => {
                       >
                         {sending ? "Sending…" : contact.button} {!sending && <ArrowRight size={16} />}
                       </button>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-gray-500">
                         By sending, you agree to our <Link to="/privacy" className="underline">Privacy Policy</Link>.
                       </p>
                     </div>

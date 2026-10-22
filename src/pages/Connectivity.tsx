@@ -53,7 +53,7 @@ const Connectivity = () => {
         crumbs={[{ label: "Home", to: "/" }, { label: "Services", to: "/services" }, { label: "Enterprise Internet" }]}
         visual={
           <div className="w-full max-w-[400px] overflow-hidden rounded-[1.5rem] border border-white/15 shadow-2xl">
-            <img src={image} alt="Enterprise internet and leased lines by True Connect" className="h-[260px] w-full object-cover" />
+            <img src={image} alt={serviceVisuals["enterprise-internet"].alt} className="h-[260px] w-full object-cover" />
           </div>
         }
       />
@@ -73,7 +73,7 @@ const Connectivity = () => {
                   i === 0 ? "card-lift-dark bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] text-white" : "card-lift border border-gray-200 bg-white hover:border-[#0b1f3f]/30"
                 }`}
               >
-                <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${i === 0 ? "text-[#E6E84A]" : "text-gray-400"}`}>Best for {p.best}</p>
+                <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${i === 0 ? "text-[#E6E84A]" : "text-gray-500"}`}>Best for {p.best}</p>
                 <h3 className={`mt-3 text-2xl font-semibold tracking-tight ${i === 0 ? "text-white" : "text-[#0b1f3f]"}`}>{p.title}</h3>
                 <p className={`mt-3 flex-1 text-sm leading-relaxed md:text-base ${i === 0 ? "text-white/70" : "text-gray-500"}`}>{p.get}.</p>
                 <a

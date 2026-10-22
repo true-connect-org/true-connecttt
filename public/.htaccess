@@ -23,8 +23,9 @@ ErrorDocument 404 /404.html
   RewriteRule ^contact-us/?$          /contact       [L,R=301]
   RewriteRule ^internet-services/?$   /connectivity  [L,R=301]
   RewriteRule ^enterprise-services/?$ /services      [L,R=301]
-  RewriteRule ^partner-program/?$     /partners      [L,R=301]
-  RewriteRule ^apply-partner/?$       /partners      [L,R=301]
+  RewriteRule ^partner-program/?$     /contact       [L,R=301]
+  RewriteRule ^apply-partner/?$       /contact       [L,R=301]
+  RewriteRule ^partners/?$            /contact       [L,R=301]
   RewriteRule ^case-studies/?$        /              [L,R=301]
   RewriteRule ^careers/?$             /about         [L,R=301]
 
@@ -41,6 +42,11 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 # Browser caching: hashed assets for a year, HTML always revalidated
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+</IfModule>
+
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
@@ -50,6 +56,9 @@ ErrorDocument 404 /404.html
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
 
 # Security headers

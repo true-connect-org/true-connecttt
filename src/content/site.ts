@@ -21,7 +21,9 @@ export const business = {
   whatsappMessage: "Hi True Connect, I would like to know more about your services.",
   // Public email shown on the site and used in schema. Form enquiries are
   // delivered to this address through the EmailJS template (see src/lib/enquiry.ts).
-  email: "support@true-connect.in",
+  email: "info@true-connect.in",
+  /** Where the email links on the site actually send to (shown address stays info@true-connect.in). */
+  emailHref: "mailto:trueconnect.in@gmail.com?cc=support@true-connect.in",
   address: {
     line1: "True Connect Ltd, SBC 22, Basement Floor 2",
     line2: "Thejaswini Building, Technopark",
@@ -89,7 +91,6 @@ export const footer = {
   company: [
     { label: "About", to: "/about" },
     { label: "Insights", to: "/insights" },
-    { label: "Partner with us", to: "/partners" },
     { label: "Contact", to: "/contact" },
   ],
   bottom: "True Connect",
@@ -124,7 +125,7 @@ export const home = {
   servicesSection: {
     eyebrow: "Our services",
     headline: "From brand to bandwidth.",
-    sub: "Brand, marketing, software, automation and enterprise connectivity from one accountable partner.",
+    sub: "Everything you need to grow, delivered by one team.",
     button: { label: "View all services", to: "/services" },
   },
 
@@ -283,7 +284,7 @@ export const services: Service[] = [
     slug: "social-media-marketing",
     to: "/services/social-media-marketing",
     title: "Social Media Marketing",
-    seoTitle: "Social Media Marketing in Kerala | True Connect",
+    seoTitle: "Social Media Marketing Agency in Trivandrum, Kerala | True Connect",
     tagline: "Content and ads that bring enquiries.",
     label: "Audience growth and content",
     short: "Strategic content and targeted advertising that build visibility and generate qualified enquiries.",
@@ -317,7 +318,7 @@ export const services: Service[] = [
     slug: "web-and-app-development",
     to: "/services/web-and-app-development",
     title: "Web & App Development",
-    seoTitle: "Website & Mobile App Development in Kerala | True Connect",
+    seoTitle: "Web & App Development Company in Trivandrum | True Connect",
     tagline: "Fast websites and apps that convert.",
     label: "Websites and mobile apps",
     short: "High-performance websites and mobile applications engineered to convert visitors into customers.",
@@ -358,7 +359,7 @@ export const services: Service[] = [
     slug: "branding",
     to: "/services/branding",
     title: "Branding & Strategy",
-    seoTitle: "Branding & Rebranding in Kerala | True Connect",
+    seoTitle: "Branding Agency in Trivandrum, Kerala | True Connect",
     tagline: "One confident brand, everywhere.",
     label: "Identity and positioning",
     short: "A distinctive identity and a clear marketing strategy, so every touchpoint looks and sounds like one confident business.",
@@ -426,7 +427,7 @@ export const services: Service[] = [
     slug: "ai-automation",
     to: "/services/ai-automation",
     title: "AI & Automation",
-    seoTitle: "AI & Business Automation for Kerala Businesses | True Connect",
+    seoTitle: "AI & Business Automation Services in Kerala | True Connect",
     tagline: "Systems that run your business.",
     label: "Systems and workflows",
     short: "Intelligent systems that automate operations, so your business runs smoothly without constant oversight.",
@@ -469,7 +470,7 @@ export const services: Service[] = [
     slug: "enterprise-internet",
     to: "/connectivity",
     title: "Enterprise Internet",
-    seoTitle: "Leased Line & Business Broadband in Kerala | True Connect",
+    seoTitle: "Jio Leased Line & Business Broadband in Trivandrum | True Connect",
     tagline: "Jio leased lines, our own technicians.",
     label: "Leased lines and broadband",
     short: "Dedicated leased lines and business broadband from an authorized Reliance Jio channel partner, backed by our own technicians.",
@@ -637,7 +638,7 @@ export const about = {
   },
   strengths: {
     label: "Our strengths",
-    heading: "What sets True Connect apart",
+    heading: "Why True Connect.",
     intro: "What you get when marketing, technology and connectivity sit in one team.",
     items: [
       {
@@ -738,24 +739,6 @@ export const contact = {
     "https://www.google.com/maps?q=Thejaswini+Building+Technopark+Thiruvananthapuram&output=embed",
 };
 
-/* ───────────────────────── Partners ───────────────────────── */
-
-export const partners = {
-  headline: "Grow with True Connect.",
-  sub: "You know the businesses that need better marketing, websites, software or internet. Introduce them, and we handle everything else.",
-  whoFor: ["IT and networking companies", "System integrators", "Business consultants", "Freelancers and creators", "Anyone trusted by business owners"],
-  steps: [
-    { title: "Apply", text: "a two-minute form." },
-    { title: "Get approved", text: "we review fit and share the partner guide." },
-    { title: "Introduce", text: "refer a business with a real requirement." },
-    { title: "We deliver", text: "our team handles the pitch, proposal, delivery and support." },
-    { title: "Earn", text: "receive an agreed incentive when the project goes live." },
-  ],
-  get: ["Rewards for successful referrals", "A team that protects your client relationship", "Approved material to share", "A single point of contact"],
-  note: "Partner terms are shared privately with approved partners.",
-  button: "Apply to partner",
-};
-
 /* ───────────────────────── SEO ───────────────────────── */
 
 export interface PageSeo {
@@ -769,41 +752,37 @@ export interface PageSeo {
 export const seo: Record<string, PageSeo> = {
   home: {
     path: "/",
-    title: "Digital Marketing & Software Company in Kerala | True Connect",
-    description: "Social media marketing, websites and apps, branding, custom software, AI automation and enterprise internet for Kerala businesses. One Technopark team.",
+    title: "Digital Marketing Agency in Trivandrum, Kerala | True Connect",
+    description: "Digital marketing agency in Trivandrum, Kerala: social media marketing, web and app development, branding, custom software, AI automation and Jio leased lines.",
     shareTitle: "True Connect | Your Vision. Our Execution.",
     shareDescription: "Marketing, websites, software, AI automation and Jio-powered business internet, delivered by one accountable team at Technopark, Kerala.",
   },
   services: {
     path: "/services",
-    title: "Digital Marketing, Software & Internet Services in Kerala | True Connect",
-    description: "Social media marketing, web development, branding, custom software, AI automation and enterprise internet from one Kerala team.",
+    title: "Marketing, Web, Software & Internet Services | Trivandrum, Kerala",
+    description: "Social media marketing, website development, branding, CRM and ERP software, AI automation and leased lines for businesses in Trivandrum and across Kerala.",
   },
   insights: {
     path: "/insights",
-    title: "Marketing, Decoded | True Connect Insights",
-    description: "Breakdowns of the world's best marketing campaigns and how Kerala businesses can use the same ideas.",
+    title: "Marketing Insights & Brand Case Studies | True Connect Kerala",
+    description: "Breakdowns of the world's best marketing campaigns, from KFC to Amul, and practical lessons for growing businesses in Kerala.",
   },
   about: {
     path: "/about",
-    title: "About True Connect | Kerala's Growth Partner, Technopark",
-    description: "Founded in 2025 at Technopark, serving businesses across Kerala. Marketing, software, automation and enterprise internet from one accountable team at Technopark.",
+    title: "About True Connect | Digital Marketing Company, Technopark Trivandrum",
+    description: "True Connect is a digital marketing and technology company at Technopark, Trivandrum, helping Kerala businesses grow with marketing, software and enterprise internet.",
   },
   contact: {
     path: "/contact",
-    title: "Contact True Connect | Kerala",
-    description: "Call, WhatsApp or visit us at Technopark. Our team responds to every enquiry.",
+    title: "Contact True Connect | Digital Marketing Agency, Trivandrum",
+    description: "Talk to True Connect, Technopark Trivandrum. Call +91 88488 17833, WhatsApp or email info@true-connect.in for marketing, software or leased line enquiries.",
   },
   connectivity: {
     path: "/connectivity",
-    title: "Leased Line & Business Broadband in Kerala | True Connect",
-    description: "Dedicated leased lines and business broadband for offices across Kerala from an authorized Reliance Jio channel partner. Free consultation.",
+    title: "Jio Leased Line Provider in Trivandrum, Kerala | True Connect",
+    description: "Jio leased lines and business broadband in Trivandrum and across Kerala from an authorized Reliance Jio channel partner. 99% uptime SLA, free consultation.",
   },
-  partners: {
-    path: "/partners",
-    title: "Partner Program | True Connect",
-    description: "Refer businesses that need marketing, websites, software or internet and earn when projects go live.",
-  },
+
 };
 
 /** Routes that are pre-rendered and listed in sitemap.xml (insight posts are added by the build script). */
@@ -819,5 +798,4 @@ export const staticRoutes = [
   "/about",
   "/insights",
   "/contact",
-  "/partners",
 ];

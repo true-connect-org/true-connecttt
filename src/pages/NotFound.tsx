@@ -12,7 +12,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-6 pt-28">
       <div className="text-center max-w-md">
-        <p className="text-sm font-bold tracking-[0.25em] text-gray-400">404</p>
+        <p className="text-sm font-bold tracking-[0.25em] text-gray-500">404</p>
         <h1 className="mt-3 text-4xl font-medium tracking-tight text-[#0b1f3f]">This page doesn't exist.</h1>
         <p className="mt-4 text-gray-600">The link may be old or mistyped. Try one of these instead.</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">

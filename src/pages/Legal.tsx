@@ -27,7 +27,7 @@ const Legal = ({ kind }: { kind: Kind }) => {
             <h2>Who sees it</h2>
             <p>Our team, and the email service we use to deliver form messages to us. We share details with others only where the law requires it.</p>
             <h2>Your choices</h2>
-            <p>To see, correct or delete what we hold about you, email <a href={`mailto:${business.email}`}>{business.email}</a>.</p>
+            <p>To see, correct or delete what we hold about you, email <a href={business.emailHref}>{business.email}</a>.</p>
             <h2>Contact</h2>
             <p>{business.legalName}, {fullAddress}.</p>
           </>
@@ -42,7 +42,7 @@ const Legal = ({ kind }: { kind: Kind }) => {
             <h2>Ownership</h2>
             <p>Content on this site belongs to {business.name} unless stated otherwise. Please ask before reusing it.</p>
             <h2>Contact</h2>
-            <p>{business.legalName}, {fullAddress}. <a href={`mailto:${business.email}`}>{business.email}</a></p>
+            <p>{business.legalName}, {fullAddress}. <a href={business.emailHref}>{business.email}</a></p>
           </>
         )}
       </div>

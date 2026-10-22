@@ -127,7 +127,7 @@ const ContactUs = () => {
 
                 <div className="mt-8 space-y-1.5 border-t border-white/15 pt-6 text-sm text-white/75">
                   <a href={`tel:${business.phoneTel}`} className="block transition-colors hover:text-[#E6E84A]">{business.phoneDisplay}</a>
-                  <a href={`mailto:${business.email}`} className="block break-all transition-colors hover:text-[#E6E84A]">{business.email}</a>
+                  <a href={business.emailHref} className="block break-all transition-colors hover:text-[#E6E84A]">{business.email}</a>
                 </div>
               </div>
             </div>
@@ -196,7 +196,7 @@ const ContactUs = () => {
                     >
                       {sending ? "Sending…" : contact.button} {!sending && <Send size={15} />}
                     </button>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-500">
                       By sending, you agree to our <Link to="/privacy" className="underline">Privacy Policy</Link>.
                     </p>
                   </div>
@@ -212,7 +212,7 @@ const ContactUs = () => {
         <div className="container-tc contact-elem">
           <div className="mx-auto grid max-w-5xl grid-cols-1 overflow-hidden rounded-[1.75rem] border border-gray-100 bg-white shadow-[0_30px_60px_-30px_rgba(11,31,63,0.25)] md:rounded-[2rem] lg:grid-cols-5">
             <div className="flex flex-col justify-center p-7 sm:p-10 lg:col-span-2">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">Visit us</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">Visit us</p>
               <h2 className="mt-2 text-2xl font-medium tracking-tight text-[#0b1f3f] md:text-3xl">Our Trivandrum office</h2>
 
               <ul className="mt-6 space-y-4 text-sm">
@@ -226,7 +226,7 @@ const ContactUs = () => {
                 </li>
                 <li className="flex gap-3">
                   <Mail size={18} className="mt-0.5 shrink-0 text-[#0b1f3f]" />
-                  <a href={`mailto:${business.email}`} className="break-all font-semibold text-[#0b1f3f] hover:underline">{business.email}</a>
+                  <a href={business.emailHref} className="break-all font-semibold text-[#0b1f3f] hover:underline">{business.email}</a>
                 </li>
                 <li className="flex gap-3">
                   <Clock size={18} className="mt-0.5 shrink-0 text-[#0b1f3f]" />
@@ -258,7 +258,7 @@ const ContactUs = () => {
           {/* Registered office */}
           <div className="mx-auto mt-5 flex max-w-5xl flex-col gap-5 rounded-[1.5rem] border border-gray-100 bg-[#f6f7f9] p-6 sm:p-8 md:flex-row md:items-center md:justify-between md:rounded-[1.75rem]">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">Registered office</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">Registered office</p>
               <h3 className="mt-1.5 text-lg font-medium tracking-tight text-[#0b1f3f] md:text-xl">{registeredOffice.name}</h3>
               <div className="mt-3 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6">
                 <span className="flex gap-2 text-gray-600">

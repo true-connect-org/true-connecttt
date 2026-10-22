@@ -58,10 +58,10 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
     <section id={id} className={`py-16 md:py-24 overflow-hidden ${className}`}>
       <div className="container-tc">
         {/* Centered header, as in the original section */}
-        <div className="home-fade flex flex-col items-center text-center mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.3em] text-xs font-semibold text-gray-400 mb-5 block">{eyebrow ?? sec.eyebrow}</span>
-          <h2 className="text-balance text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight mb-5 max-w-4xl">{headline ?? sec.headline}</h2>
-          <p className="text-balance text-[13px] sm:text-base md:text-lg text-gray-500 max-w-2xl leading-relaxed">{sub ?? sec.sub}</p>
+        <div className="home-fade mb-8 flex flex-col items-start text-left md:mb-16 md:items-center md:text-center">
+          <span className="mb-3 block text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500 md:mb-5 md:text-xs">{eyebrow ?? sec.eyebrow}</span>
+          <h2 className="mb-3 whitespace-nowrap text-[clamp(1.2rem,6.4vw,1.75rem)] font-medium tracking-tight text-[#2d2a26] md:mb-5 md:whitespace-normal md:text-5xl md:max-w-4xl">{headline ?? sec.headline}</h2>
+          <p className="text-[clamp(11.5px,3.25vw,13px)] leading-relaxed text-gray-500 sm:max-w-md md:max-w-2xl md:text-balance md:text-lg">{sub ?? sec.sub}</p>
         </div>
       </div>
 
@@ -76,17 +76,16 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
       </div>
 
       {/* Row: first card lines up with the hero heading (hero card edge + hero text padding) and runs on to the screen edge */}
-      <div className="pl-[1.975rem] sm:pl-[3.125rem] md:pl-16 lg:pl-20 xl:pl-24">
+      <div className="pl-[1.975rem] sm:pl-12 md:pl-14 lg:pl-[4.5rem] xl:pl-[5.5rem]">
         <div className="embla overflow-visible" ref={emblaRef}>
           <div className="embla__container flex gap-3 md:gap-5 cursor-grab active:cursor-grabbing select-none">
             {homeServiceCards.map((s, i) => {
-              const { icon: Icon, image, natural } = serviceVisuals[s.id];
+              const { icon: Icon, image, natural, alt } = serviceVisuals[s.id];
               return (
                 <div key={s.id} className="embla__slide flex-[0_0_88%] sm:flex-[0_0_62%] md:flex-[0_0_52%] lg:flex-[0_0_43%] min-w-0">
                   <Link
                     to={s.to}
                     draggable={false}
-                    aria-label={`${s.title}: open the service page`}
                     className={`group relative w-full aspect-[4/3] md:aspect-auto md:h-[440px] lg:h-[460px] rounded-[1.5rem] md:rounded-[1.75rem] overflow-hidden p-5 sm:p-8 md:p-10 flex flex-col justify-between ${gradients[i % gradients.length]} text-white card-lift-dark`}
                   >
                     {/* Photo: blurs on hover */}
@@ -94,7 +93,7 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
                       src={image(800)}
                       srcSet={`${image(800)} 800w, ${image(1600)} 1600w`}
                       sizes="(min-width: 1024px) 43vw, (min-width: 768px) 52vw, 88vw"
-                      alt={`${s.title} in Trivandrum`}
+                      alt={alt}
                       loading="lazy"
                       draggable={false}
                       className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-[1.03] group-hover:blur-[2px] pointer-events-none ${natural ? "opacity-100" : "mix-blend-overlay opacity-60 group-hover:opacity-70"}`}

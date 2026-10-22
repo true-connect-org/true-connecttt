@@ -81,9 +81,9 @@ export const InsightsVisual = () => {
 /** Contact: quick ways to reach the team. */
 export const ContactVisual = () => {
   const rows = [
-    { Icon: Phone, label: "Call us", value: business.phoneDisplay, href: `tel:${business.phoneTel}`, external: false },
+    { Icon: Mail, label: "Email", value: business.email, href: business.emailHref, external: false },
     { Icon: FaWhatsapp, label: "WhatsApp", value: "Chat with our team", href: whatsappHref(), external: true },
-    { Icon: Mail, label: "Email", value: business.email, href: `mailto:${business.email}`, external: false },
+    { Icon: Phone, label: "Call us", value: business.phoneDisplay, href: `tel:${business.phoneTel}`, external: false },
   ];
   return (
     <div className={`w-full max-w-[380px] divide-y divide-white/10 ${glass}`}>

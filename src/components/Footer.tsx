@@ -6,7 +6,7 @@ import { business, footer, fullAddress } from "@/content/site";
 
 const Footer = () => {
   return (
-    <footer className="bg-white text-[#eae7e3] px-1.5 sm:px-2.5 md:px-4 pb-1.5 sm:pb-2.5 md:pb-4 pt-4 font-sans">
+    <footer className="bg-white text-[#eae7e3] px-1.5 sm:px-2 pb-1.5 sm:pb-2 pt-4 font-sans">
       {/* Navy card: same size and shape as the landing page hero card. Content lines up with the navbar. */}
       <div className="max-w-[1560px] mx-auto bg-[#0B1F3F] rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/10 shadow-2xl py-12 md:py-16">
       <div className="container-tc">
@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <Link to="/" className="inline-block mb-6" aria-label="True Connect home">
-                <img src={footerLogo} alt="True Connect" width={160} height={43} loading="lazy" className="h-10 w-auto object-contain" />
+                <img src={footerLogo} alt="True Connect logo" width={160} height={43} loading="lazy" className="h-10 w-auto object-contain" />
               </Link>
               <p className="text-white text-base font-semibold mb-2">{footer.tagline}</p>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-8">{footer.description}</p>
@@ -26,7 +26,7 @@ const Footer = () => {
 
           {/* Column 2: Company */}
           <nav aria-label="Company" className="lg:col-span-2 flex flex-col gap-4">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">COMPANY</h4>
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">COMPANY</h2>
             <ul className="space-y-3 text-sm font-medium text-gray-300">
               <li>
                 <Link to="/" className="hover:text-white transition-colors">Home</Link>
@@ -41,7 +41,7 @@ const Footer = () => {
 
           {/* Column 3: Services */}
           <nav aria-label="Services" className="lg:col-span-3 flex flex-col gap-4">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">SERVICES</h4>
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">SERVICES</h2>
             <ul className="space-y-3 text-sm font-medium text-gray-300">
               {footer.services.map((l) => (
                 <li key={l.label}>
@@ -54,7 +54,7 @@ const Footer = () => {
           {/* Column 4: Contact */}
           <div className="lg:col-span-3 flex flex-col justify-between gap-6">
             <div>
-              <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">CONTACT</h4>
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-1">CONTACT</h2>
               <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold mb-6">TRUE CONNECT TRIVANDRUM</p>
 
               <address className="not-italic space-y-4 text-xs text-gray-300 leading-relaxed">
@@ -68,7 +68,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-gray-400 flex-shrink-0" />
-                  <a href={`mailto:${business.email}`} className="hover:text-white transition-colors break-all">{business.email}</a>
+                  <a href={business.emailHref} className="hover:text-white transition-colors break-all">{business.email}</a>
                 </div>
               </address>
             </div>

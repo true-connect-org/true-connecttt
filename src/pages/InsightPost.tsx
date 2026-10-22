@@ -86,7 +86,7 @@ const InsightPost = () => {
         <section className="py-14 md:py-20 bg-[#f6f7f9]">
           <div className="container-tc">
             <div className="mx-auto mb-10 max-w-3xl text-center">
-              <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">KEEP READING</span>
+              <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">KEEP READING</span>
               <h2 className="text-2xl md:text-3xl tracking-tight text-[#0b1f3f]">More from Insights</h2>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">

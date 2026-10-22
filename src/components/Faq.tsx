@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Sparkles, Briefcase, Workflow, Megaphone, Clapperboard, TrendingUp, Wallet, Wifi, Rocket } from "lucide-react";
 import { home } from "@/content/site";
@@ -120,7 +120,22 @@ const Faq: React.FC = () => {
     };
   }, []);
 
+  // Hover opens a question only when the mouse really moves over it. While the page is scrolling,
+  // rows slide under a still mouse; opening them then changes the page height mid-scroll and makes
+  // scrolling feel stuck, so hovers during (and just after) a scroll are ignored.
+  const lastScroll = useRef(0);
+  useEffect(() => {
+    const onScroll = () => { lastScroll.current = performance.now(); };
+    window.addEventListener("wheel", onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onScroll);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   const handleHover = (index: number) => {
+    if (performance.now() - lastScroll.current < 400) return;
     if (activeIndex !== index) {
       setActiveIndex(index);
       playPianoNote(index);
@@ -186,7 +201,7 @@ const Faq: React.FC = () => {
             return (
               <div
                 key={item.id}
-                onMouseEnter={() => handleHover(index)}
+                onMouseMove={() => handleHover(index)}
                 className="border-b border-slate-200 transition-colors duration-200"
               >
                 {/* Collapsed State Header Row */}
@@ -194,7 +209,7 @@ const Faq: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => toggleItem(index)}
-                    onMouseEnter={() => handleHover(index)}
+                    onMouseMove={() => handleHover(index)}
                     className={`w-full py-4 md:py-5 flex items-center justify-between gap-4 text-left group px-3 md:px-5 rounded-xl transition-all duration-300 ${hoverBg}`}
                   >
                     {/* Left: Icon + Question Title */}

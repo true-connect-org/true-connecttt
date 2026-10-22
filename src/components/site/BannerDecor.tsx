@@ -1,6 +1,6 @@
 /**
  * Poster-style decoration for the navy page banners: faint constellation lines with white and
- * brand-yellow nodes, and the yellow "circuit" line with a glowing dot from True Connect's posters.
+ * brand-yellow nodes, as on True Connect's posters.
  * Each page gets its own arrangement so the banners never look the same. Purely decorative.
  */
 type Node = [number, number, boolean];
@@ -24,21 +24,6 @@ const Net = ({ net, className }: { net: typeof netA; className: string }) => (
   </svg>
 );
 
-/** Circuit line: a straight run that steps up (or down) with a glowing dot, as on the posters. */
-const Circuit = ({ className, square = false }: { className: string; square?: boolean }) => {
-  const dotX = square ? 78 : 38; // % along the line
-  return (
-    <div aria-hidden className={`pointer-events-none absolute ${className}`}>
-      <svg viewBox="0 0 600 80" preserveAspectRatio="none" className="h-full w-full">
-        <path d={square ? "M14 14 H260 C300 14 305 62 345 62 H600" : "M0 62 H360 C400 62 405 14 445 14 H600"} fill="none" stroke="#E6E84A" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-      </svg>
-      {square && <span className="absolute left-0 top-[10%] h-3 w-3 bg-[#E6E84A]" />}
-      {/* glowing dot (HTML, so it stays round however the line stretches) */}
-      <span className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#fffbc2] shadow-[0_0_12px_4px_rgba(230,232,74,0.7)]" style={{ left: `${dotX}%`, top: "77.5%" }} />
-    </div>
-  );
-};
-
 export type BannerVariant = "about" | "services" | "insights" | "contact";
 
 const BannerDecor = ({ variant = "services" }: { variant?: BannerVariant }) => {
@@ -47,33 +32,28 @@ const BannerDecor = ({ variant = "services" }: { variant?: BannerVariant }) => {
     case "about":
       return (
         <>
-          <Net net={netA} className="-right-6 top-20 h-[200px] w-[220px] opacity-90 sm:h-[260px] sm:w-[290px]" />
-          <Circuit className="left-0 bottom-8 hidden h-[44px] w-[30%] md:block" />
+          <Net net={netA} className="-left-6 top-20 h-[200px] w-[220px] opacity-90 sm:h-[260px] sm:w-[290px]" />
         </>
       );
-    // Insights: constellations on both sides, no circuit - calm and editorial
+    // Insights: one constellation bottom-right, no circuit - calm and editorial
     case "insights":
       return (
         <>
-          <Net net={netB} className="-left-8 top-24 h-[200px] w-[220px] opacity-80 sm:h-[250px] sm:w-[280px]" />
-          <Net net={netA} className="-right-8 bottom-0 hidden h-[230px] w-[260px] opacity-80 md:block" />
+          <Net net={netA} className="-right-6 -bottom-2 h-[190px] w-[210px] opacity-85 sm:h-[250px] sm:w-[280px]" />
         </>
       );
-    // Contact: circuit line rising from the left into the content, constellation bottom-right
+    // Contact: constellation bottom-left, short circuit line bottom-right
     case "contact":
       return (
         <>
-          <Circuit square className="left-0 bottom-8 hidden h-[44px] w-[34%] md:block" />
-          <Net net={netB} className="-right-6 -bottom-4 h-[190px] w-[210px] opacity-85 sm:h-[250px] sm:w-[280px]" />
+          <Net net={netB} className="-left-10 -bottom-12 h-[190px] w-[210px] opacity-85 sm:h-[250px] sm:w-[280px]" />
         </>
       );
     // Services (and service / article pages): constellation left, circuit top-right
     default:
       return (
         <>
-          <Net net={netA} className="-left-6 top-24 h-[180px] w-[200px] opacity-80 sm:top-20 sm:h-[240px] sm:w-[260px]" />
-          <Net net={netB} className="-right-8 bottom-2 hidden h-[220px] w-[240px] opacity-80 md:block lg:h-[260px] lg:w-[280px]" />
-          <Circuit square className="right-0 top-24 hidden h-[56px] w-[320px] md:block lg:w-[420px]" />
+          <Net net={netA} className="-right-6 top-20 h-[180px] w-[200px] opacity-80 sm:h-[240px] sm:w-[260px]" />
         </>
       );
   }

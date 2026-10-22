@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, ScrollTrigger } from "@/animations/gsap.config";
+import { gsap } from "@/animations/gsap.config";
 import heroImage from "@/assets/images/LandingPageTC.webp";
 import heroImageMobile from "@/assets/images/LandingPageTC-mobile.webp";
 import { home, services } from "@/content/site";
@@ -85,14 +85,14 @@ const WaveHero: React.FC = () => {
     <section
       ref={sectionRef}
       data-no-reveal
-      className="relative w-full min-h-[100svh] bg-white p-1.5 sm:p-2.5 md:p-4 flex items-center justify-center overflow-hidden font-satoshi"
+      className="relative w-full min-h-[100svh] bg-white p-1.5 sm:p-2 flex items-center justify-center overflow-hidden font-satoshi"
     >
       <div className="w-full max-w-[1560px] min-h-[calc(100svh-1.5rem)] rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden relative bg-gradient-to-br from-[#042d5b] via-[#0b1f3f] to-[#031126] border border-white/15 shadow-[0_25px_60px_rgba(4,45,91,0.35)] flex flex-col">
         <picture>
           <source media="(min-width: 768px)" srcSet={heroImage} />
           <img
             src={heroImageMobile}
-            alt="True Connect brand artwork: a blue 3D model representing connected growth"
+            alt="True Connect, digital marketing, software and enterprise internet company in Trivandrum, Kerala"
             width={1800}
             height={1200}
             {...({ fetchpriority: "high" } as Record<string, string>)}
@@ -141,7 +141,7 @@ const WaveHero: React.FC = () => {
           </div>
         </div>
         {/* Services strip: the six services, each opens its page */}
-        {/* Hidden on phones; shown from tablet width up */}z{" "}
+        {/* Hidden on phones; shown from tablet width up */}
         <nav
           aria-label="Our services"
           className="relative z-10 hidden border-t border-white/15 bg-black/25 backdrop-blur-sm sm:block"

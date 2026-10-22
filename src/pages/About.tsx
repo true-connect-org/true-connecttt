@@ -20,7 +20,7 @@ import { FaWhatsapp } from "react-icons/fa6";
 
 const strengthIcons = [Layers, BadgeCheck, Code2];
 
-const eyebrow = "text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block";
+const eyebrow = "text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-4 block";
 const h2 = "text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight";
 const wrap = "container-tc";
 
@@ -112,7 +112,7 @@ const AboutUs = () => {
         <div className={wrap}>
           <div className="animate-on-scroll max-w-3xl mx-auto text-center mb-10 md:mb-14">
             <span className={eyebrow}>{about.strengths.label.toUpperCase()}</span>
-            <h2 className={`${h2} mb-5`}>{about.strengths.heading}</h2>
+            <h2 className="mb-4 text-2xl md:text-4xl font-medium text-[#2d2a26] tracking-tight">{about.strengths.heading}</h2>
             <p className="text-gray-500 text-[13px] sm:text-base md:text-lg leading-relaxed">{about.strengths.intro}</p>
           </div>
 

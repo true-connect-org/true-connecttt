@@ -13,11 +13,15 @@ export function startSmoothScroll() {
   lenis = instance;
   instance.on("scroll", ScrollTrigger.update);
   const tick = (time: number) => instance.raf(time * 1000);
+  // Pages load lazily and images arrive late: keep Lenis's scroll limit in sync with the real page height
+  const ro = new ResizeObserver(() => instance.resize());
+  ro.observe(document.body);
   gsap.ticker.add(tick);
   gsap.ticker.lagSmoothing(0);
 
   return () => {
     gsap.ticker.remove(tick);
+    ro.disconnect();
     instance.destroy();
     lenis = null;
   };
@@ -25,6 +29,7 @@ export function startSmoothScroll() {
 
 /** Scroll to the top or to an element, using the smooth scroller when it is running. */
 export function scrollToTarget(target: number | HTMLElement, immediate = false) {
+  lenis?.resize();
   if (lenis) lenis.scrollTo(target as number | HTMLElement, { immediate, offset: typeof target === "number" ? 0 : -90 });
   else if (typeof target === "number") window.scrollTo(0, target);
   else target.scrollIntoView({ behavior: immediate ? "auto" : "smooth" });

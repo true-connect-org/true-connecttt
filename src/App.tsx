@@ -1,24 +1,15 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import Toaster from "@/components/site/Toaster";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigationType } from "react-router-dom";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Index from "./pages/Index";
-const Services = lazy(() => import("./pages/Services"));
-const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
-const Connectivity = lazy(() => import("./pages/Connectivity"));
-const About = lazy(() => import("./pages/About"));
-const Insights = lazy(() => import("./pages/Insights"));
-const InsightPost = lazy(() => import("./pages/InsightPost"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Partners = lazy(() => import("./pages/Partners"));
-const Legal = lazy(() => import("./pages/Legal"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+
+import { Services, ServiceDetail, Connectivity, About, Insights, InsightPost, Contact, Legal, NotFound } from "./routes";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/site/WhatsAppButton";
 import ScrollProgress from "./components/site/ScrollProgress";
 import ScrollReveal from "./components/site/ScrollReveal";
+import HeadingReveal from "./components/site/HeadingReveal";
 import { startSmoothScroll, scrollToTarget } from "./lib/smoothScroll";
 import { registerGsapPlugins, ScrollTrigger } from "./animations/gsap.config";
 
@@ -30,7 +21,7 @@ registerGsapPlugins();
  * - New navigation: go to the #anchor if there is one, otherwise the top.
  * Positions are remembered per history entry in sessionStorage.
  */
-const SCROLL_KEY = "tc-scroll-positions";
+const SCROLL_KEY = "tc-scroll-positions-v2";
 const readPositions = (): Record<string, number> => {
   try {
     return JSON.parse(sessionStorage.getItem(SCROLL_KEY) || "{}");
@@ -42,7 +33,10 @@ const readPositions = (): Record<string, number> => {
 function ScrollRestorer() {
   const location = useLocation();
   const navType = useNavigationType();
-  const { pathname, hash, key } = location;
+  const { pathname, hash } = location;
+  // Saved per page and per history entry. (Pages opened by typing the address all share the key "default",
+  // so the page path is part of the key; otherwise one page could restore another page's position.)
+  const key = `${pathname}|${location.key}`;
 
   // Take over from the browser so it doesn't jump before our page has loaded
   useEffect(() => {
@@ -102,8 +96,9 @@ const legacyRedirects: Record<string, string> = {
   "/contact-us": "/contact",
   "/internet-services": "/connectivity",
   "/enterprise-services": "/services",
-  "/partner-program": "/partners",
-  "/apply-partner": "/partners",
+  "/partner-program": "/contact",
+  "/apply-partner": "/contact",
+  "/partners": "/contact",
   "/case-studies": "/",
   "/careers": "/about",
 };
@@ -115,14 +110,14 @@ function SmoothScrollStarter() {
 }
 
 const App = () => (
-  <TooltipProvider>
+  <>
     <Toaster />
-    <Sonner />
     <BrowserRouter>
       <ScrollRestorer />
       <SmoothScrollStarter />
       <ScrollProgress />
       <ScrollReveal />
+      <HeadingReveal />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">
@@ -136,7 +131,6 @@ const App = () => (
             <Route path="/insights" element={<Insights />} />
             <Route path="/insights/:slug" element={<InsightPost />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/partners" element={<Partners />} />
             <Route path="/privacy" element={<Legal kind="privacy" />} />
             <Route path="/terms" element={<Legal kind="terms" />} />
             {Object.entries(legacyRedirects).map(([from, to]) => (
@@ -150,7 +144,7 @@ const App = () => (
         <WhatsAppButton />
       </div>
     </BrowserRouter>
-  </TooltipProvider>
+  </>
 );
 
 export default App;

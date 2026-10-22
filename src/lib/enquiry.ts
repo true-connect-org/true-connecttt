@@ -7,7 +7,7 @@ const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? "XR7hy2NvuKPVARIUd
 
 export interface EnquiryInput {
   /** Which form on the site the enquiry came from. Shown in the email subject area. */
-  formType: "Contact" | "Connectivity availability" | "Partner application";
+  formType: "Contact";
   name: string;
   phone: string;
   email?: string;

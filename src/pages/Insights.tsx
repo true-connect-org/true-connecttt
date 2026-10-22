@@ -46,13 +46,13 @@ const Insights = () => {
       <section className="py-14 md:py-20 bg-[#f6f7f9]">
         <div className="container-tc">
           {/* Category filters */}
-          <div className="flex flex-wrap justify-center gap-2.5 mb-10 md:mb-14" role="group" aria-label="Filter by category">
+          <div className="mx-auto mb-10 grid max-w-md grid-cols-2 gap-2 sm:gap-2.5 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center md:mb-14" role="group" aria-label="Filter by category">
             {insights.categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setCat(c)}
                 aria-pressed={cat === c}
-                className={`px-5 py-2.5 rounded-full border text-[13px] font-semibold transition-all duration-300 ${
+                className={`w-full whitespace-nowrap px-1.5 py-2.5 rounded-full border text-[clamp(10px,3.1vw,12px)] tracking-tight sm:tracking-normal sm:w-auto sm:px-5 sm:text-[13px] font-semibold text-center transition-all duration-300 ${
                   cat === c ? "bg-[#0b1f3f] text-white border-[#0b1f3f]" : "bg-white border-gray-200 text-gray-700 hover:border-[#0b1f3f] hover:-translate-y-0.5"
                 }`}
               >
@@ -79,7 +79,7 @@ const Insights = () => {
               >
                 <PostCover brand={featured.brand} category={featured.category} large />
                 <div className="flex flex-col justify-center p-7 md:p-10">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-400">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">
                     Latest · {formatDate(featured.date)}{featured.readTime ? ` · ${featured.readTime}` : ""}
                   </span>
                   <h2 className="mt-3 text-2xl leading-snug tracking-tight text-[#0b1f3f] md:text-[1.6rem]">{featured.title}</h2>
@@ -96,7 +96,7 @@ const Insights = () => {
                     <Link key={p.slug} to={`/insights/${p.slug}`} className="group card-lift flex flex-col overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white shadow-sm">
                       <PostCover brand={p.brand} category={p.category} />
                       <div className="flex flex-1 flex-col p-6">
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
                           {formatDate(p.date)}{p.readTime ? ` · ${p.readTime}` : ""}
                         </span>
                         <h3 className="mt-2 line-clamp-2 text-lg leading-snug text-[#0b1f3f]">{p.title}</h3>

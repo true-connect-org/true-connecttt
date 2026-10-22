@@ -37,7 +37,7 @@ const PageBanner = ({ title, accent, sub, children, visual, compact = false, var
   }, [title]);
 
   return (
-    <section ref={ref} className="bg-white p-1.5 sm:p-2.5 md:p-4 pt-1.5 md:pt-4">
+    <section ref={ref} className="bg-white p-1.5 sm:p-2">
       <div className="relative max-w-[1560px] mx-auto overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/15 bg-[#06132e]">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(30,80,170,0.55),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(30,80,170,0.35),transparent_50%)]" />
         <BannerDecor variant={variant} />

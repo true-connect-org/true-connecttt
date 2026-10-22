@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  BadgeCheck,
+  MapPin,
   SatelliteDish,
   Building2,
   ArrowUpRight,
@@ -8,7 +10,6 @@ import {
   Search,
   MessagesSquare,
   Scale,
-  Eye,
 } from "lucide-react";
 import { gsap } from "@/animations/gsap.config";
 import WaveHero from "@/components/WaveHero";
@@ -79,8 +80,6 @@ const AutoVideo = ({ src }: { src: string }) => {
   );
 };
 
-const eyebrow = "text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block";
-const h2 = "text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight";
 // Same width and side padding as the navbar, so every section lines up with it
 const wrap = "container-tc";
 
@@ -198,25 +197,31 @@ const Index = () => {
           <div className={`${wrap} home-fade`}>
             <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="max-w-lg text-left">
-              <div className="mb-5 flex items-center gap-3">
-                <span aria-hidden className="h-px w-8 bg-[#0b1f3f]/40" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">{home.intro.label}</span>
+              <div className="mb-4 flex items-center gap-3">
+                <span aria-hidden className="h-px w-8 bg-[#E6E84A]" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-gray-500">{home.intro.label}</span>
               </div>
-              <h2 className="text-balance text-[1.75rem] font-medium leading-[1.15] tracking-tight text-[#0b1f3f] sm:text-4xl lg:text-[2.25rem]">{home.intro.heading}</h2>
-              <p className="mt-5 text-pretty text-[13px] leading-relaxed text-gray-500 sm:text-base">{home.intro.body}</p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-[#0b1f3f] px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#E6E84A] hover:text-[#0b1f3f]">
-                  Explore our services <ArrowUpRight size={15} />
-                </Link>
-                <Link to="/contact" className="inline-flex items-center rounded-full border border-gray-300 px-6 py-3 text-sm font-semibold text-[#0b1f3f] transition-colors duration-300 hover:border-[#0b1f3f]">
-                  Start a project
-                </Link>
-              </div>
-              <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-gray-500">
-                <span>Authorized Reliance Jio channel partner</span>
-                <span aria-hidden className="hidden h-1 w-1 rounded-full bg-gray-300 sm:block" />
-                <span className="w-full sm:w-auto">Technopark, Kerala</span>
-              </p>
+              <h2 className="text-balance text-[1.6rem] font-semibold leading-[1.18] tracking-tight text-[#0b1f3f] sm:text-4xl lg:text-[2.25rem]">{home.intro.heading}</h2>
+              <p className="mt-4 text-pretty text-[14px] leading-relaxed text-gray-500 sm:mt-5 sm:text-base">{home.intro.body}</p>
+
+              <Link
+                to="/services"
+                className="group mx-auto mt-7 flex w-fit items-center gap-2 rounded-full bg-[#0b1f3f] lg:mx-0 px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-[#E6E84A] hover:text-[#0b1f3f]"
+              >
+                Explore our services <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+
+              {/* Proof points */}
+              <ul className="mt-7 grid grid-cols-2 gap-3 border-t border-gray-100 pt-6 text-[12px] leading-snug text-gray-500 sm:text-[13px]">
+                <li className="flex items-start gap-2.5">
+                  <BadgeCheck size={18} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[#0b1f3f]" />
+                  <span><span className="block font-semibold text-[#0b1f3f]">Authorized</span>Reliance Jio partner</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <MapPin size={18} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[#0b1f3f]" />
+                  <span><span className="block font-semibold text-[#0b1f3f]">Technopark</span>Trivandrum, Kerala</span>
+                </li>
+              </ul>
             </div>
 
             {/* Ring: six services around the True Connect hub. Labels sit outside the ring so nothing overlaps. */}
@@ -252,7 +257,7 @@ const Index = () => {
               {/* hub: the True Connect mark, with a yellow point running round its border */}
               <div className="absolute left-1/2 top-1/2 z-10 h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 md:h-20 md:w-20 lg:h-[5.5rem] lg:w-[5.5rem]">
                 <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#0b1f3f] shadow-[0_0_0_5px_rgba(255,255,255,0.12),0_0_0_6px_rgba(255,255,255,0.22),0_0_40px_rgba(26,68,128,0.6)]">
-                  <img src={hubLogo} alt="True Connect" className="h-full w-full scale-[1.12] object-cover" />
+                  <img src={hubLogo} alt="True Connect logo" className="h-full w-full scale-[1.12] object-cover" />
                 </div>
                 <div aria-hidden className="pointer-events-none absolute -inset-[7px] animate-spin rounded-full [animation-duration:3.5s] motion-reduce:animate-none">
                   <span

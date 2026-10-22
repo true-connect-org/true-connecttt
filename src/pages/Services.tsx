@@ -88,8 +88,8 @@ const Services = () => {
       <section className="mb-10 md:mb-12">
         <div className="container-tc mb-10">
           <div className="svc-scroll-in flex items-center justify-between border-b border-gray-200 pb-3">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">OUR SERVICES · {String(services.length).padStart(2, "0")}</span>
-            <span className="text-[11px] font-semibold text-gray-400 hidden sm:inline">Click any service to read more</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">OUR SERVICES · {String(services.length).padStart(2, "0")}</span>
+            <span className="text-[11px] font-semibold text-gray-500 hidden sm:inline">Click any service to read more</span>
           </div>
         </div>
 
@@ -110,8 +110,8 @@ const Services = () => {
                       src={image}
                       srcSet={imageSet}
                       sizes="(min-width: 1024px) 55vw, 100vw"
-                      alt={`${service.title} in Trivandrum`}
-                      loading="lazy"
+                      alt={serviceVisuals[service.id].alt}
+                      loading={index === 0 ? "eager" : "lazy"}
                       className="w-full h-[220px] sm:h-[300px] md:h-[420px] object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
@@ -125,7 +125,7 @@ const Services = () => {
                     <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#0b1f3f] text-white flex items-center justify-center shadow-md">
                       <Icon size={14} className="sm:w-[16px] sm:h-[16px]" strokeWidth={2} />
                     </div>
-                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">
                       SERVICE {num}
                     </span>
                   </div>
@@ -144,8 +144,8 @@ const Services = () => {
                     ))}
                   </ul>
 
-                  <Link to={service.to} className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0b1f3f] hover:text-[#122a52] transition-colors group/btn" aria-label={`Learn more about ${service.title}`}>
-                    Learn more
+                  <Link to={service.to} className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0b1f3f] hover:text-[#122a52] transition-colors group/btn" >
+                    Learn more<span className="sr-only"> about {service.title}</span>
                     <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0b1f3f] group-hover/btn:bg-[#122a52] text-white flex items-center justify-center transition-all group-hover/btn:scale-110 shadow-sm">
                       <ArrowRight size={13} />
                     </div>
@@ -202,7 +202,7 @@ const Services = () => {
       <section className="bg-[#f6f7f9] py-14 md:py-20 mb-0">
        <div className="container-tc">
         <div className="svc-scroll-in max-w-3xl mx-auto text-center mb-10 md:mb-16">
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4 block">HOW WE WORK</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-4 block">HOW WE WORK</span>
           <h2 className="text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight mb-6">{home.process.heading}</h2>
         </div>
 
@@ -235,7 +235,7 @@ const Services = () => {
       <section className="border-t border-gray-100">
         <div className="container-tc py-12 md:py-16 text-center">
           <div className="svc-scroll-in max-w-3xl mx-auto">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6 block">YOUR PROJECT STARTS HERE</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-6 block">YOUR PROJECT STARTS HERE</span>
             <h2 className="text-3xl md:text-5xl font-medium text-[#2d2a26] tracking-tight mb-6">{home.cta.heading}</h2>
             <p className="text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed mb-10">{home.cta.body}</p>
             <div className="flex flex-wrap items-center justify-center gap-4">
