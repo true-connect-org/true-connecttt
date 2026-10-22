@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "@/animations/gsap.config";
 import { ArrowUpRight, ArrowRight, Check, MessageSquare, ClipboardList, Hammer, Rocket, TrendingUp } from "lucide-react";
@@ -33,7 +33,7 @@ const Services = () => {
     ],
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPrerender) return;
 
     const ctx = gsap.context(() => {

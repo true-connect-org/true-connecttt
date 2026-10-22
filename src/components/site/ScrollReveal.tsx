@@ -39,6 +39,8 @@ const ScrollReveal = () => {
         // only the outermost matched block animates
         const parentTarget = el.parentElement?.closest(".reveal");
         if (parentTarget) return;
+        // Already on screen when the page appears: leave it visible (hiding it now would flash)
+        if (el.getBoundingClientRect().top < window.innerHeight) return;
         const index = Array.prototype.indexOf.call(el.parentElement?.children ?? [], el);
         el.style.setProperty("--reveal-delay", `${Math.min(index, 5) * 70}ms`);
         el.classList.add("reveal");

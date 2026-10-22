@@ -1,9 +1,11 @@
 import Toaster from "@/components/site/Toaster";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigationType } from "react-router-dom";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 import Index from "./pages/Index";
 
-import { Services, ServiceDetail, Connectivity, About, Insights, InsightPost, Contact, Legal, NotFound } from "./routes";
+import { Services, ServiceDetail, Connectivity, About, Insights, InsightPost, Contact, Legal, NotFound, preloadAllRoutes } from "./routes";
+import { gsap } from "./animations/gsap.config";
+import { isPrerender } from "@/lib/env";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/site/WhatsAppButton";
@@ -58,11 +60,23 @@ function ScrollRestorer() {
     return () => window.removeEventListener("scroll", save);
   }, [key]);
 
+  // New page (link click): jump to the top (or #anchor) before the page paints, so there is no flash of the old position
+  useLayoutEffect(() => {
+    if (navType === "POP") return;
+    const el = hash ? document.getElementById(hash.slice(1)) : null;
+    if (el) scrollToTarget(el);
+    else scrollToTarget(0, true);
+  }, [pathname, hash, key, navType]);
+
+  // Back / forward / refresh: return to where the visitor was on that page
   useEffect(() => {
-    const saved = navType === "POP" ? readPositions()[key] : undefined;
+    if (navType !== "POP") {
+      const t = window.setTimeout(() => ScrollTrigger.refresh(), 120);
+      return () => window.clearTimeout(t);
+    }
+    const saved = readPositions()[key];
     let tries = 0;
     let timer: number;
-
     const restore = () => {
       if (saved !== undefined) {
         // Pages load lazily: wait until the page is tall enough to reach the saved position
@@ -79,11 +93,46 @@ function ScrollRestorer() {
       }
       ScrollTrigger.refresh();
     };
-
     timer = window.setTimeout(restore, 60);
     return () => window.clearTimeout(timer);
   }, [pathname, hash, key, navType]);
 
+  return null;
+}
+
+/**
+ * Page transition: on every page change the new page fades and rises in (0.5s). Skipped on the very
+ * first load (so the pre-rendered page shows instantly) and for reduced-motion visitors.
+ */
+function PageTransition({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  const ref = useRef<HTMLDivElement>(null);
+  const first = useRef(true);
+
+  useLayoutEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    if (isPrerender || !ref.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const tween = gsap.fromTo(ref.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", clearProps: "opacity,transform" });
+    return () => {
+      tween.kill();
+    };
+  }, [pathname]);
+
+  return <div ref={ref}>{children}</div>;
+}
+
+/** Loads the other pages' code in the background after the first page has loaded. */
+function PreloadPages() {
+  useEffect(() => {
+    if (isPrerender) return;
+    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    const run = () => preloadAllRoutes();
+    if (w.requestIdleCallback) w.requestIdleCallback(run);
+    else window.setTimeout(run, 1500);
+  }, []);
   return null;
 }
 
@@ -115,6 +164,7 @@ const App = () => (
     <BrowserRouter>
       <ScrollRestorer />
       <SmoothScrollStarter />
+      <PreloadPages />
       <ScrollProgress />
       <ScrollReveal />
       <HeadingReveal />
@@ -122,6 +172,7 @@ const App = () => (
         <Navbar />
         <main className="flex-grow">
           <Suspense fallback={<div className="min-h-[60vh]" />}>
+          <PageTransition>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
@@ -138,6 +189,7 @@ const App = () => (
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </PageTransition>
           </Suspense>
         </main>
         <Footer />

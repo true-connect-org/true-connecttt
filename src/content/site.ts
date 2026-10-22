@@ -753,7 +753,7 @@ export const seo: Record<string, PageSeo> = {
   home: {
     path: "/",
     title: "Digital Marketing Agency in Trivandrum, Kerala | True Connect",
-    description: "Digital marketing agency in Trivandrum, Kerala: social media marketing, web and app development, branding, custom software, AI automation and Jio leased lines.",
+    description: "Trivandrum's digital marketing agency for growing Kerala businesses: social media, websites, apps, branding, AI automation and Jio leased lines. Talk to us.",
     shareTitle: "True Connect | Your Vision. Our Execution.",
     shareDescription: "Marketing, websites, software, AI automation and Jio-powered business internet, delivered by one accountable team at Technopark, Kerala.",
   },

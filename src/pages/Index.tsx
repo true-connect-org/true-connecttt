@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   BadgeCheck,
@@ -92,7 +92,7 @@ const Index = () => {
     jsonLd: [localBusinessSchema, faqSchema(home.faq.items)],
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPrerender) return;
 
     const ctx = gsap.context(() => {

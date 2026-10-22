@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, useLayoutEffect } from "react";
 import { gsap } from "@/animations/gsap.config";
 import { isPrerender } from "@/lib/env";
 import BannerDecor, { type BannerVariant } from "@/components/site/BannerDecor";
@@ -28,7 +28,7 @@ interface PageBannerProps {
 const PageBanner = ({ title, accent, sub, children, visual, compact = false, variant }: PageBannerProps) => {
   const ref = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPrerender || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(".pb-el", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.1, clearProps: "transform" });

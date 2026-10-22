@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { gsap } from "@/animations/gsap.config";
 import { ArrowUpRight, Check } from "lucide-react";
@@ -43,7 +43,7 @@ const ServiceDetail = () => {
       : undefined,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPrerender || !service) return;
     const ctx = gsap.context(() => {
             gsap.utils.toArray<HTMLElement>(".sd-scroll").forEach((el) => {

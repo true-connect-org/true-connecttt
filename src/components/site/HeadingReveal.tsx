@@ -25,6 +25,8 @@ const HeadingReveal = () => {
       document.querySelectorAll<HTMLElement>("main h2:not([data-no-split]):not(:has(a, button))").forEach((h) => {
         if (done.has(h) || !h.textContent?.trim()) return;
         done.add(h);
+        // Headings already on screen stay as they are (hiding them now would flash)
+        if (h.getBoundingClientRect().top < window.innerHeight) return;
         const split = SplitText.create(h, { type: "lines", mask: "lines", linesClass: "tc-line" });
         splits.push(split);
         gsap.set(split.lines, { yPercent: 105 });

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { Send, CheckCircle2, ArrowUpRight, Phone, MapPin, Mail, Clock } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
@@ -33,7 +33,7 @@ const ContactUs = () => {
     ],
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPrerender) return;
 
     const ctx = gsap.context(() => {

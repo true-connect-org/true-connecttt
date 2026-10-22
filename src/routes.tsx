@@ -40,3 +40,8 @@ export function preloadRoute(pathname: string): Promise<unknown> {
   if (p === "/privacy" || p === "/terms") return Legal.preload();
   return NotFound.preload();
 }
+
+/** Loads every page's code in the background once the first page is ready, so later page switches are instant. */
+export function preloadAllRoutes() {
+  [Services, ServiceDetail, Connectivity, About, Insights, InsightPost, Contact, Legal, NotFound].forEach((r) => r.preload().catch(() => undefined));
+}

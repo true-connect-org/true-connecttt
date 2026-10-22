@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "@/animations/gsap.config";
 import heroImage from "@/assets/images/LandingPageTC.webp";
@@ -22,7 +22,7 @@ const WaveHero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPrerender || reduceMotion) return;
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
