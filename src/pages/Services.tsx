@@ -161,18 +161,18 @@ const Services = () => {
 
       {/* ─── 4. PACKAGES — NAVY BANNER ─── */}
       <section id="packages" className="svc-scroll-in scroll-mt-24 container-tc mb-10 md:mb-14">
-        <div className="max-w-[1400px] mx-auto bg-[#0b1f3f] rounded-[1.75rem] md:rounded-[2.5rem] p-6 sm:p-10 md:p-16 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto bg-[#0b1f3f] rounded-[1.75rem] md:rounded-[2.5rem] p-5 sm:p-10 md:p-16 relative overflow-hidden">
           <div className="absolute top-[-30%] right-[-10%] w-[50%] h-[80%] bg-white/5 blur-[120px] rounded-full pointer-events-none" />
           <div className="relative z-10">
             <span className="text-white/50 text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] mb-4 block">PACKAGES</span>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.15] mb-8 md:mb-10">{packages.heading}</h2>
+            <h2 className="text-[1.35rem] sm:text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.15] mb-6 md:mb-10">{packages.heading}</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-10">
               {packages.items.map((p) => (
-                <div key={p.name} className="bg-white/[0.06] border border-white/15 hover:border-white/40 rounded-[1.5rem] p-6 md:p-8 transition-colors">
-                  <h3 className="text-xl md:text-2xl font-semibold text-white mb-1">{p.name}</h3>
-                  <p className="text-white/55 text-xs font-semibold uppercase tracking-[0.15em] mb-5">{p.for}</p>
-                  <p className="text-white/75 text-sm leading-relaxed">{p.includes}</p>
+                <div key={p.name} className="bg-white/[0.06] border border-white/15 hover:border-white/40 rounded-[1.25rem] sm:rounded-[1.5rem] p-4 sm:p-6 md:p-8 transition-colors">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-1">{p.name}</h3>
+                  <p className="text-white/55 text-[10.5px] sm:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-[0.15em] mb-3 sm:mb-5">{p.for}</p>
+                  <p className="text-white/75 text-[13px] sm:text-sm leading-relaxed">{p.includes}</p>
                   {packages.startingPrice && <p className="mt-5 text-sm text-white/80">Starting from ₹{packages.startingPrice}</p>}
                 </div>
               ))}

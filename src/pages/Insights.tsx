@@ -78,11 +78,11 @@ const Insights = () => {
                 className="group card-lift mb-6 grid grid-cols-1 overflow-hidden rounded-[1.75rem] border border-gray-100 bg-white shadow-sm md:mb-8 lg:grid-cols-2"
               >
                 <PostCover brand={featured.brand} category={featured.category} large />
-                <div className="flex flex-col justify-center p-7 md:p-10">
+                <div className="flex flex-col justify-center p-5 sm:p-7 md:p-10">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gray-500">
                     Latest · {formatDate(featured.date)}{featured.readTime ? ` · ${featured.readTime}` : ""}
                   </span>
-                  <h2 className="mt-3 text-2xl leading-snug tracking-tight text-[#0b1f3f] md:text-[1.6rem]">{featured.title}</h2>
+                  <h2 className="mt-3 text-xl leading-snug tracking-tight text-[#0b1f3f] sm:text-2xl md:text-[1.6rem]">{featured.title}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-gray-500 md:text-base">{featured.summary}</p>
                   <span className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-[#0b1f3f] px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 group-hover:bg-tc-yellow group-hover:text-tc-navy">
                     Read article <ArrowUpRight size={15} />
@@ -95,13 +95,13 @@ const Insights = () => {
                   {rest.map((p) => (
                     <Link key={p.slug} to={`/insights/${p.slug}`} className="group card-lift flex flex-col overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white shadow-sm">
                       <PostCover brand={p.brand} category={p.category} />
-                      <div className="flex flex-1 flex-col p-6">
+                      <div className="flex flex-1 flex-col p-4 sm:p-6">
                         <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
                           {formatDate(p.date)}{p.readTime ? ` · ${p.readTime}` : ""}
                         </span>
-                        <h3 className="mt-2 line-clamp-2 text-lg leading-snug text-[#0b1f3f]">{p.title}</h3>
-                        <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-gray-500">{p.summary}</p>
-                        <div className="mt-5 flex items-center justify-between border-t border-gray-100 pt-4">
+                        <h3 className="mt-2 line-clamp-2 text-base leading-snug text-[#0b1f3f] sm:text-lg">{p.title}</h3>
+                        <p className="mt-1.5 line-clamp-2 flex-1 text-[13px] leading-relaxed text-gray-500 sm:text-sm">{p.summary}</p>
+                        <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 sm:mt-5 sm:pt-4">
                           <span className="text-sm font-semibold text-[#0b1f3f]">Read article</span>
                           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-[#0b1f3f] transition-all duration-300 group-hover:border-[#0b1f3f] group-hover:bg-[#0b1f3f] group-hover:text-white">
                             <ArrowUpRight size={15} />

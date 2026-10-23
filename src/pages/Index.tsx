@@ -406,15 +406,15 @@ const Index = () => {
             <Link
               to={home.connectivityStrip.link.to}
               aria-label={`${home.connectivityStrip.link.label}: open the page`}
-              className="group relative block overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] p-6 text-white md:p-9"
+              className="group relative block overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-gradient-to-br from-[#0b1f3f] via-[#0b1f3f] to-[#153460] p-5 text-white sm:p-6 md:p-9"
             >
               <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#1a4480]/30 blur-3xl" />
               <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
                 <div className="text-center lg:col-span-7 lg:text-left">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55">Enterprise internet</p>
-                  <h3 className="mt-4 text-[1.4rem] font-extrabold leading-[1.1] tracking-tight sm:text-3xl md:text-[2.6rem]">True Connect Internet</h3>
-                  <p className="mx-auto mt-4 max-w-xl text-[13px] leading-relaxed text-white/70 sm:text-base lg:mx-0 lg:max-w-2xl">{home.connectivityStrip.text}</p>
-                  <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#0b1f3f] transition-colors duration-300 group-hover:bg-[#E6E84A]">
+                  <h3 className="mt-3 text-[clamp(1.15rem,5.6vw,1.4rem)] font-extrabold leading-[1.1] tracking-tight sm:text-3xl md:text-[2.6rem]">True Connect Internet</h3>
+                  <p className="mx-auto mt-3 max-w-xl text-[12.5px] leading-relaxed text-white/70 sm:mt-4 sm:text-base lg:mx-0 lg:max-w-2xl">{home.connectivityStrip.text}</p>
+                  <span className="mt-5 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold sm:px-6 sm:py-3 sm:text-sm text-[#0b1f3f] transition-colors duration-300 group-hover:bg-[#E6E84A]">
                     {home.connectivityStrip.link.label}
                     <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </span>
@@ -422,7 +422,7 @@ const Index = () => {
 
                 <div className="text-center lg:col-span-5">
                   {/* Dedicated line: office to Jio network, with a signal running along it */}
-                  <div className="relative mb-6 flex items-center justify-between">
+                  <div className="relative mb-5 flex items-center justify-between sm:mb-6">
 <span className="group/sat relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-all duration-300 hover:scale-110 hover:border-[#E6E84A]/60 hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.35)]">
                       <span className="absolute inset-0 rounded-full border border-white/40 opacity-0 group-hover/sat:animate-ping group-hover/sat:opacity-100" />
                       <SatelliteDish size={21} strokeWidth={1.6} className="transition-all duration-500 group-hover/sat:-rotate-12 group-hover/sat:text-[#E6E84A]" />
@@ -435,17 +435,17 @@ const Index = () => {
                       <Building2 size={21} strokeWidth={1.8} className="transition-transform duration-500 group-hover/ent:-translate-y-0.5 group-hover/ent:scale-110" />
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                      <p className="text-3xl font-extrabold leading-none">99%</p>
+                  <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-4 sm:p-5">
+                      <p className="text-[clamp(1.35rem,7vw,1.875rem)] font-extrabold leading-none">99%</p>
                       <p className="mt-2 text-xs text-white/60">Uptime SLA</p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                      <p className="whitespace-nowrap text-3xl font-extrabold leading-none">60 min</p>
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-4 sm:p-5">
+                      <p className="whitespace-nowrap text-[clamp(1.35rem,7vw,1.875rem)] font-extrabold leading-none">60 min</p>
                       <p className="mt-2 text-xs text-white/60">Site visit</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-xs text-white/50">Authorized Reliance Jio channel partner</p>
+                  <p className="mt-4 text-[11px] text-white/50 sm:text-xs">Authorized Reliance Jio channel partner</p>
                 </div>
               </div>
             </Link>
