@@ -44,7 +44,7 @@ const Connectivity = () => {
   ].filter(Boolean) as { Icon: typeof ShieldCheck; value: string; label: string }[];
 
   return (
-    <div className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-hidden">
+    <div className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-clip">
       {/* 1. BANNER with the Enterprise Internet image */}
       <PageBanner
         eyebrow="Enterprise Internet"

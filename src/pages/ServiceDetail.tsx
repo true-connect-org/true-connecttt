@@ -62,7 +62,7 @@ const ServiceDetail = () => {
   const others = services.filter((s) => s.id !== service.id);
 
   return (
-    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-hidden">
+    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-clip">
       {/* 1. BANNER: same navy hero as the other pages, with the service illustration */}
       <PageBanner
         title={service.title}

@@ -70,7 +70,7 @@ const Services = () => {
   const { packages } = servicesPage;
 
   return (
-    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-hidden">
+    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-clip">
       {/* ─── 1. HERO BANNER ─── */}
       <PageBanner
         variant="services"
@@ -109,7 +109,7 @@ const Services = () => {
                     <img
                       src={image}
                       srcSet={imageSet}
-                      sizes="(min-width: 1024px) 55vw, 100vw"
+                      sizes="(min-width: 1024px) 55vw, (min-width: 768px) 100vw, 260px"
                       alt={serviceVisuals[service.id].alt}
                       loading={index === 0 ? "eager" : "lazy"}
                       className="w-full h-[220px] sm:h-[300px] md:h-[420px] object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"

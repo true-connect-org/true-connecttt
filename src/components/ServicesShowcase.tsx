@@ -92,7 +92,7 @@ const ServicesShowcase = ({ eyebrow, headline, sub, id = "services", className =
                     <img
                       src={image(800)}
                       srcSet={`${image(800)} 800w, ${image(1600)} 1600w`}
-                      sizes="(min-width: 1024px) 43vw, (min-width: 768px) 52vw, 88vw"
+                      sizes="(min-width: 1024px) 43vw, (min-width: 768px) 52vw, 260px"
                       alt={alt}
                       loading="lazy"
                       draggable={false}

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { gsap, ScrollTrigger } from "@/animations/gsap.config";
+import { gsap, ScrollTrigger, safeRefresh } from "@/animations/gsap.config";
 import { SplitText } from "gsap/SplitText";
 import { isPrerender } from "@/lib/env";
 
@@ -43,7 +43,7 @@ const HeadingReveal = () => {
 
     // Wait for fonts so lines split at the right places, then pick up lazily loaded page content
     let t: number | undefined;
-    document.fonts?.ready.then(() => { run(); ScrollTrigger.refresh(); });
+    document.fonts?.ready.then(() => { run(); safeRefresh(); });
     const mo = new MutationObserver(() => { window.clearTimeout(t); t = window.setTimeout(run, 120); });
     const main = document.querySelector("main");
     if (main) mo.observe(main, { childList: true, subtree: true });

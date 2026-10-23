@@ -13,7 +13,7 @@ import ScrollProgress from "./components/site/ScrollProgress";
 import ScrollReveal from "./components/site/ScrollReveal";
 import HeadingReveal from "./components/site/HeadingReveal";
 import { startSmoothScroll, scrollToTarget } from "./lib/smoothScroll";
-import { registerGsapPlugins, ScrollTrigger } from "./animations/gsap.config";
+import { registerGsapPlugins, safeRefresh } from "./animations/gsap.config";
 
 registerGsapPlugins();
 
@@ -71,8 +71,8 @@ function ScrollRestorer() {
   // Back / forward / refresh: return to where the visitor was on that page
   useEffect(() => {
     if (navType !== "POP") {
-      const t = window.setTimeout(() => ScrollTrigger.refresh(), 120);
-      return () => window.clearTimeout(t);
+      safeRefresh(120);
+      return;
     }
     const saved = readPositions()[key];
     let tries = 0;
@@ -91,7 +91,7 @@ function ScrollRestorer() {
         if (el) scrollToTarget(el);
         else scrollToTarget(0, true);
       }
-      ScrollTrigger.refresh();
+      safeRefresh(0);
     };
     timer = window.setTimeout(restore, 60);
     return () => window.clearTimeout(timer);

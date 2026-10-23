@@ -8,6 +8,8 @@ export function startSmoothScroll() {
   if (lenis || typeof window === "undefined") return () => {};
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
   if (navigator.userAgent.includes("TCPrerender")) return () => {};
+  // Phones and tablets keep their own native scrolling (smooth already, and never fights a swipe)
+  if (window.matchMedia("(pointer: coarse)").matches) return () => {};
 
   const instance = new Lenis({ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true });
   lenis = instance;

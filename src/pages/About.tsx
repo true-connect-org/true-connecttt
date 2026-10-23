@@ -50,7 +50,7 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-hidden">
+    <div ref={containerRef} className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-clip">
       {/* 1. HERO BANNER */}
       <PageBanner
         variant="about"

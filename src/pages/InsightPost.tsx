@@ -45,7 +45,7 @@ const InsightPost = () => {
   const related = posts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
-    <div className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-hidden">
+    <div className="bg-white min-h-screen text-[#2d2a26] font-sans overflow-x-clip">
       <PageBanner
         compact
         eyebrow={post.category}

@@ -32,7 +32,7 @@ const Insights = () => {
   const [featured, ...rest] = shown;
 
   return (
-    <div className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-hidden">
+    <div className="bg-white min-h-screen text-[#2d2a26] font-sans pb-0 overflow-x-clip">
       <PageBanner
         variant="insights"
         visual={<InsightsVisual />}

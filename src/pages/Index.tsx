@@ -185,7 +185,7 @@ const Index = () => {
   const navyCards = why.cardStyle === "navy";
 
   return (
-    <div className="bg-white min-h-screen text-tc-navy font-sans overflow-x-hidden" ref={containerRef}>
+    <div className="bg-white min-h-screen text-tc-navy font-sans overflow-x-clip" ref={containerRef}>
       {/* 1. HERO */}
       <div className="w-full relative z-0">
         <WaveHero />
